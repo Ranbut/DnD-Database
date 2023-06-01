@@ -4,4 +4,4 @@ export default function Home() {
         Hey it's working!!!
     </h1>
     );
-  }
+};
