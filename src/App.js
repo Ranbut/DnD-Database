@@ -4,14 +4,19 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Home from './pages/Main';
+import { Home, SignIn, SignUp } from './pages/index';
+import { UserProvider } from './contexts/UserContext';
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+    <UserProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+        </Routes>
+      </Router>
+    </UserProvider>
   );
-}
+};
