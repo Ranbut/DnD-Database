@@ -4,9 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Home from './pages/Main';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
+import {Home, SignIn, SignUp} from './pages/index';
 
 export default function App() {
   return (
