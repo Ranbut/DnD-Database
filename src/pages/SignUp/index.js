@@ -1,6 +1,28 @@
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { signUp } from "../../services/userApi";
+
 export default function SignUp() {
-    function handleSubmit(e) {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const navigate = useNavigate();
+
+    async function handleSubmit(e) {
         e.preventDefault();
+        if (password !== confirmPassword) {
+            alert('As senhas devem ser iguais!');
+          } else {
+            try {
+              await signUp(username, email, password);
+              alert('Inscrito com sucesso! Por favor, faça login.');
+              navigate('/sign-in');
+            } catch (error) {
+              alert('Não foi possível fazer o cadastro!');
+            }
+          }
     };
 
     return (
@@ -21,6 +43,7 @@ export default function SignUp() {
                             type="text"
                             id="username"
                             className="block w-full px-4 py-2 mt-2 text-red-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                            value={username} onChange={e => setUsername(e.target.value)}
                             required
                         />
                     </div>
@@ -35,6 +58,7 @@ export default function SignUp() {
                             type="email"
                             id="email"
                             className="block w-full px-4 py-2 mt-2 text-red-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                            value={email} onChange={e => setEmail(e.target.value)}
                             required
                         />
                     </div>
@@ -49,6 +73,22 @@ export default function SignUp() {
                             type="password"
                             id="password"
                             className="block w-full px-4 py-2 mt-2 text-red-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                            value={password} onChange={e => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <label
+                            htmlFor="password"
+                            className="block text-sm font-semibold text-gray-800"
+                        >
+                            Confirm Password
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            className="block w-full px-4 py-2 mt-2 text-red-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                            value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
                             required
                         />
                     </div>
