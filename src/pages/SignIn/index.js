@@ -1,6 +1,27 @@
+import { useContext, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { signIn } from "../../services/authApi";
+import UserContext from "../../contexts/UserContext";
+
 export default function SignIn() {
-  function handleSubmit(e) {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { setUserData } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
     e.preventDefault();
+    try {
+      const userData = await signIn(email, password);
+      setUserData(userData);
+      alert('Login realizado com sucesso!');
+      navigate('/');
+    } catch (err) {
+      alert('Não foi possível fazer o login!');
+    }
   };
 
   return (
@@ -21,6 +42,7 @@ export default function SignIn() {
               type="email"
               id="email"
               className="block w-full px-4 py-2 mt-2 text-red-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              value={email} onChange={e => setEmail(e.target.value)}
               required
             />
           </div>
@@ -35,6 +57,7 @@ export default function SignIn() {
               type="password"
               id="password"
               className="block w-full px-4 py-2 mt-2 text-red-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              value={password} onChange={e => setPassword(e.target.value)}
               required
             />
           </div>
