@@ -4,7 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import { Home, SignIn, SignUp, Monsters } from './pages/index';
+import { Home, SignIn, SignUp, Monsters, Monster } from './pages/index';
 import { UserProvider } from './contexts/UserContext';
 
 export default function App() {
@@ -16,6 +16,7 @@ export default function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/monsters" element={<Monsters />} />
+          <Route path="/monster" element={<Monster />} />
         </Routes>
       </Router>
     </UserProvider>

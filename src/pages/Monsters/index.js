@@ -43,7 +43,7 @@ export default function Monsters() {
                         <h2 className="mt-4 mb-4 text-red-600 text-2xl font-bold">{letter}</h2>
                         <div className="grid grid-cols-2 gap-4">
                             {monsters.map((monster, index) => (
-                                <Link key={index} to={`monster?index=${monster.index}`} className="p-4 bg-gray-200 rounded-md">
+                                <Link key={index} to={`/monster?index=${monster.index}`} className="p-4 bg-gray-200 rounded-md">
                                     <p className="text-gray-800">{monster.name}</p>
                                 </Link>
                             ))}
