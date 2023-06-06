@@ -5,7 +5,7 @@ import { getSpellByIndex } from "../../services/DnD Api/spellsApi";
 import SpellDetails from "../../components/SpellDetails";
 
 export default function Spell() {
-    const [magic, setMonster] = useState(null);
+    const [spell, setSpell] = useState(null);
 
     const location = useLocation();
 
@@ -15,7 +15,7 @@ export default function Spell() {
             const paramIndex = queryParams.get('index');
             
             const spellSelected = await getSpellByIndex(paramIndex);
-            setMonster(spellSelected);
+            setSpell(spellSelected);
         }
         fetchData();
     }, []);
@@ -23,7 +23,7 @@ export default function Spell() {
     return (
         <>
             <Header />
-            {magic ? (<SpellDetails monster={magic}/>) : (<></>)}
+            {spell ? (<SpellDetails spell={spell}/>) : (<></>)}
         </>
     );
 };
