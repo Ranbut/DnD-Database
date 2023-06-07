@@ -14,3 +14,8 @@ export async function getEquipmentByIndex(index) {
   const response = await api.get(`https://www.dnd5eapi.co/api/equipment/${index}`);
   return response.data;
 }
+
+export async function getMagicItemByIndex(index) {
+  const response = await api.get(`https://www.dnd5eapi.co/api/magic-items/${index}`);
+  return response.data;
+}
