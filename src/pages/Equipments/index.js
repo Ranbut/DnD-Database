@@ -78,7 +78,11 @@ export default function Equipments() {
                         <h2 className="mt-4 mb-4 text-red-600 text-2xl font-bold">{letter}</h2>
                         <div className="grid grid-cols-2 gap-4">
                             {equipment.map((equipment, index) => (
-                                <Link key={index} to={`/equipment?index=${equipment.index}`} className="p-4 bg-gray-200 rounded-md">
+                                <Link key={index} to={
+                                    equipment.url.includes("magic-items")
+                                      ? `/magic-item?index=${equipment.index}`
+                                      : `/equipment?index=${equipment.index}`
+                                  } className="p-4 bg-gray-200 rounded-md">
                                     <p className="text-gray-800">{equipment.name}</p>
                                 </Link>
                             ))}
