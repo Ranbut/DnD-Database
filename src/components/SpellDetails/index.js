@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 export default function SpellDetails({ spell }) {
 
-    console.log(spell);
-
     return (
         <MainContainer>
             <MainDetailContainer>

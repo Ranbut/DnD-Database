@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation  } from 'react-router-dom';
 import { useState } from 'react';
 import defaultUser from '../../assets/images/userDefault.png';
 import useToken from '../../hooks/useToken';
@@ -9,6 +9,10 @@ export default function Header() {
   const token = useToken();
   const user = useUser();
   const [showOptions, setShowOptions] = useState(false);
+
+  const location = useLocation();
+
+  console.log(location);
 
   function handleProfileClick () {
     setShowOptions(!showOptions);
@@ -31,10 +35,10 @@ export default function Header() {
         <div className="space-x-4">
           {!token ? (
             <>
-              <Link to="/sign-in">
+              <Link to={`/sign-in?return=${location.pathname.substring(1)}${location.search}`}>
                 <HeaderButtons>SignIn</HeaderButtons>
               </Link>
-              <Link to="/sign-up">
+              <Link to={`/sign-up?return=${location.pathname.substring(1)}${location.search}`}>
                 <HeaderButtons>SignUp</HeaderButtons>
               </Link>
             </>

@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useContext, useState } from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
 import { signUp } from "../../services/userApi";
+import UserContext from "../../contexts/UserContext";
+import { signIn } from "../../services/authApi";
 
 export default function SignUp() {
     const [username, setUsername] = useState('');
@@ -9,6 +11,9 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const { setUserData } = useContext(UserContext);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -17,8 +22,13 @@ export default function SignUp() {
           } else {
             try {
               await signUp(username, email, password);
-              alert('Inscrito com sucesso! Por favor, faça login.');
-              navigate('/sign-in');
+              const queryParams = new URLSearchParams(location.search);
+              const paramReturn = queryParams.get('return');
+
+              alert('Inscrito com sucesso!');
+              const userData = await signIn(email, password);
+              setUserData(userData);
+              navigate(`/${paramReturn}`);
             } catch (error) {
               alert('Não foi possível fazer o cadastro!');
             }
