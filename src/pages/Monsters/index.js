@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import Header from "../../components/Header";
-import { getMonsters } from "../../services/DnD Api/monstersApi";
+import { getMonsters } from "../../services/DnDAPI/monstersApi";
 
 export default function Monsters() {
     const [monstersList, setMonstersList] = useState([]);
