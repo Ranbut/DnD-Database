@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import Header from "../../components/Header";
-import { getSpellByIndex } from "../../services/DnD Api/spellsApi";
+import { getSpellByIndex } from "../../services/DnDAPI/spellsApi";
 import SpellDetails from "../../components/SpellDetails";
 
 export default function Spell() {
