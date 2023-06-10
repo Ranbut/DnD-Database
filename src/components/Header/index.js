@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link, useLocation  } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import defaultUser from '../../assets/images/userDefault.png';
 import useToken from '../../hooks/useToken';
@@ -14,24 +14,26 @@ export default function Header() {
 
   console.log(location);
 
-  function handleProfileClick () {
+  function handleProfileClick() {
     setShowOptions(!showOptions);
   };
 
-  function handleLogout () {
+  function handleLogout() {
     localStorage.removeItem('userData');
     alert('Logout successful');
     window.location.reload();
   };
 
-  function handleConfigure () {
+  function handleConfigure() {
     // Future logic here
   };
 
   return (
     <header className="bg-blackpearl py-4 border-b-4 border-red-700">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-red-500">D&D Database</h1>
+        <Link to='/'>
+          <h1 className="text-2xl font-bold text-red-500">D&D Database</h1>
+        </Link>
         <div className="space-x-4">
           {!token ? (
             <>
