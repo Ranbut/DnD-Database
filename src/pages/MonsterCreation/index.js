@@ -1,5 +1,4 @@
-import styled from "styled-components"
-import React, { useState } from "react";
+import React from "react";
 import Header from "../../components/Header";
 import MonsterForm from "../../components/MonsterForm";
 
@@ -12,7 +11,3 @@ export default function Monsters() {
         </>
     );
 };
-
-const Styled = styled.div`
-
-`;
