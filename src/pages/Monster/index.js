@@ -18,7 +18,7 @@ export default function Monster() {
             setMonster(monsterSelected);
         }
         fetchData();
-    }, []);
+    }, [location.search]);
 
     return (
         <>

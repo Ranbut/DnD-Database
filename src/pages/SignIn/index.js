@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation  } from 'react-router-dom';
 import { signIn } from "../../services/authApi";
 import UserContext from "../../contexts/UserContext";
 
@@ -11,14 +11,18 @@ export default function SignIn() {
   const { setUserData } = useContext(UserContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
+      const queryParams = new URLSearchParams(location.search);
+      const paramReturn = queryParams.get('return');
+
       const userData = await signIn(email, password);
       setUserData(userData);
       alert('Login realizado com sucesso!');
-      navigate('/');
+      navigate(`/${paramReturn}`);
     } catch (err) {
       alert('Não foi possível fazer o login!');
     }

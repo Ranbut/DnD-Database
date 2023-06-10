@@ -18,7 +18,7 @@ export default function Equipment() {
             setEquipment(equipmentSelected);
         }
         fetchData();
-    }, []);
+    }, [location.search]);
 
     return (
         <>

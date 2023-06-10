@@ -8,5 +8,6 @@ import Spell from './Spell';
 import Equipments from './Equipments';
 import Equipment from './Equipment';
 import MagicItem from './MagicItem';
+import NotFound from './NotFound';
 
-export { Home, SignIn, SignUp, Monsters, Monster, Spells, Spell, Equipments, Equipment, MagicItem }
+export { Home, SignIn, SignUp, Monsters, Monster, Spells, Spell, Equipments, Equipment, MagicItem, NotFound }

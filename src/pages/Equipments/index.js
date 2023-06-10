@@ -25,9 +25,7 @@ export default function Equipments() {
             setEquipmentsCategoriesList(equipments);
         }
         fetchData();
-    }, []);
-
-    console.log(categorizedEquipments);
+    }, [location.search]);
 
     useEffect(() => {
         const categorized = categorizeEquipments(equipmentsCategoriesList);

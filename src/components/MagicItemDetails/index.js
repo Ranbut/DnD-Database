@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 export default function MagicItemDetails({ magicItem }) {
 
-
     const isTableRow = (text) => text.startsWith("|") && text.endsWith("|");
 
-    const renderTable = () => {
+    function renderTable () {
       const tableRows = magicItem.desc.filter(isTableRow);
       if (tableRows.length === 0) {
         return null;
@@ -39,7 +38,7 @@ export default function MagicItemDetails({ magicItem }) {
       );
     };
   
-    const renderDescription = () => {
+    function renderDescription () {
         const descriptionTexts = magicItem.desc.filter((text) => !isTableRow(text));
   
       return descriptionTexts.map((desc, index) => (

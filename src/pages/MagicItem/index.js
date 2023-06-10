@@ -13,14 +13,12 @@ export default function MagicItem() {
         async function fetchData() {
             const queryParams = new URLSearchParams(location.search);
             const paramIndex = queryParams.get('index');
-            
-            console.log(paramIndex)
 
             const magicItemSelected = await getMagicItemByIndex(paramIndex);
             setMagicItem(magicItemSelected);
         }
         fetchData();
-    }, []);
+    }, [location.search]);
 
     return (
         <>
