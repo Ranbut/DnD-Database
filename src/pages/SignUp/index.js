@@ -18,19 +18,19 @@ export default function SignUp() {
     async function handleSubmit(e) {
         e.preventDefault();
         if (password !== confirmPassword) {
-            alert('As senhas devem ser iguais!');
+            alert('Passwords must match!');
           } else {
             try {
               await signUp(username, email, password);
               const queryParams = new URLSearchParams(location.search);
               const paramReturn = queryParams.get('return');
 
-              alert('Inscrito com sucesso!');
+              alert('Registration successful!');
               const userData = await signIn(email, password);
               setUserData(userData);
               navigate(`/${paramReturn}`);
             } catch (error) {
-              alert('Não foi possível fazer o cadastro!');
+              alert('Unable to register!');
             }
           }
     };

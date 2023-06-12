@@ -46,9 +46,9 @@ export default function CharacterForm({ token }) {
         console.log(characterData);
         try {
             await createCharacter(characterData, token);
-            alert('Personagem criado com sucesso!');
+            alert('Character created successfully!');
           } catch (error) {
-            alert('Não foi possível criar o personagem!');
+            alert('Unable to create character!');
           }
     };
 
