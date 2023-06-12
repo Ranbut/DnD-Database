@@ -21,10 +21,10 @@ export default function SignIn() {
 
       const userData = await signIn(email, password);
       setUserData(userData);
-      alert('Login realizado com sucesso!');
+      alert('Login successful!');
       navigate(`/${paramReturn}`);
     } catch (err) {
-      alert('Não foi possível fazer o login!');
+      alert('Unable to login!');
     }
   };
 

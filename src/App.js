@@ -4,7 +4,13 @@ import {
   Route,
 } from 'react-router-dom';
 
-import { Home, SignIn, SignUp, Monsters, Monster, Spells, Spell, Equipments, Equipment, MagicItem, CharacterCreation, MonsterCreation, NotFound } from './pages/index';
+import { Home, SignIn, SignUp, UserConfig,
+   Monsters, Monster, 
+   Spells, Spell, 
+   Equipments, Equipment, MagicItem, 
+   CharacterCreation, MonsterCreation, 
+   NotFound } from './pages/index';
+   
 import { UserProvider } from './contexts/UserContext';
 
 export default function App() {
@@ -15,6 +21,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/user-config" element={<UserConfig />} />
           <Route path="/monsters" element={<Monsters />} />
           <Route path="/monster" element={<Monster />} />
           <Route path="/spells" element={<Spells />} />

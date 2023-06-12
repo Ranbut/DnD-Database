@@ -1,6 +1,7 @@
 import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import UserConfig from './UserConfig';
 import Monsters from './Monsters';
 import Monster from './Monster';
 import Spells from './Spells';
@@ -12,4 +13,9 @@ import NotFound from './NotFound';
 import CharacterCreation from './CharacterCreation';
 import MonsterCreation from './MonsterCreation';
 
-export { Home, SignIn, SignUp, Monsters, Monster, Spells, Spell, Equipments, Equipment, MagicItem, NotFound, CharacterCreation, MonsterCreation }
+export { Home, SignIn, SignUp, UserConfig,
+     Monsters, Monster, 
+     Spells, Spell, 
+     Equipments, Equipment, MagicItem, 
+     NotFound, 
+     CharacterCreation, MonsterCreation }

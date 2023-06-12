@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import defaultUser from '../../assets/images/userDefault.png';
 import useToken from '../../hooks/useToken';
@@ -10,6 +10,7 @@ export default function Header() {
   const user = useUser();
   const [showOptions, setShowOptions] = useState(false);
 
+  const navigate = useNavigate();
   const location = useLocation();
 
   function handleProfileClick() {
@@ -23,7 +24,7 @@ export default function Header() {
   };
 
   function handleConfigure() {
-    // Future logic here
+    navigate("/user-config");
   };
 
   return (
@@ -51,7 +52,7 @@ export default function Header() {
               >
                 <img
                   className="w-10 h-10 rounded-full mx-auto bg-white cursor-pointer"
-                  src={defaultUser}
+                  src={user.avatar}
                   alt={user.username}
                   width="250"
                   height="250"
