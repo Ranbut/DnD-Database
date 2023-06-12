@@ -8,88 +8,44 @@ export default function MonsterForm() {
         size: "",
         type: "",
         alignment: "",
-        armor_class: [
-            {
+        armor_class: {
                 type: "",
-                value: 0
+                value: 1
             }
-        ],
-        hit_points: 0,
+        ,
+        hit_points: 1,
         hit_dice: "",
         hit_points_roll: "",
-        speed: {
-            walk: "",
-            fly: "",
-            swim: ""
-        },
+        speed: "",
         strength: 1,
         dexterity: 1,
         constitution: 1,
         intelligence: 1,
         wisdom: 1,
         charisma: 1,
-        proficiencies: [
-            {
-                value: 0,
-                proficiency: {
-                    index: "",
-                    name: "",
-                    url: ""
-                }
-            }
-        ],
-        damage_vulnerabilities: [],
-        damage_resistances: [],
-        damage_immunities: [],
-        condition_immunities: [],
+        proficiencies: "",
+        damage_vulnerabilities: "",
+        damage_resistances: "",
+        damage_immunities: "",
+        condition_immunities: "",
         senses: {
             blindsight: "",
             darkvision: "",
-            passive_perception: 0
+            passive_perception: 1
         },
         languages: "",
         challenge_rating: 0,
         xp: 0,
-        special_abilities: [
-            {
-                name: "",
-                desc: "",
-                usage: {
-                    type: "",
-                    times: 0,
-                    rest_types: []
-                }
-            }
-        ],
+        special_abilities: [],
         actions: [],
         legendary_actions: [],
         image: "",
-        url: ""
     });
 
     const handleAddLegendaryAction = () => {
         const newAction = {
             name: "",
-            desc: "",
-            dc: {
-                dc_type: {
-                    index: "",
-                    name: "",
-                    url: ""
-                },
-                dc_value: 0,
-                success_type: ""
-            },
-            damage: [
-                {
-                    damage_type: {
-                        index: "",
-                        name: "",
-                        url: ""
-                    },
-                    damage_dice: ""
-                }
-            ]
+            desc: ""
         };
         setMonsterData(prevData => ({
             ...prevData,
@@ -108,6 +64,37 @@ export default function MonsterForm() {
         }));
     };
 
+    const handleAddSpecialAbility = () => {
+        const newAbility = {
+          name: "",
+          desc: ""
+        };
+        setMonsterData(prevData => ({
+          ...prevData,
+          special_abilities: [...prevData.special_abilities, newAbility]
+        }));
+      };
+    
+    const handleSpecialAbilityChange = (event, index, field) => {
+        const { value } = event.target;
+        setMonsterData(prevData => ({
+          ...prevData,
+          special_abilities: prevData.special_abilities.map((ability, i) => {
+            if (i === index) {
+              return { ...ability, [field]: value };
+            }
+            return ability;
+          })
+        }));
+    };
+    
+    const handleRemoveSpecialAbility = (index) => {
+        setMonsterData(prevData => ({
+          ...prevData,
+          special_abilities: prevData.special_abilities.filter((_, i) => i !== index)
+        }));
+    };
+    
     const handleActionChange = (event, index, field) => {
         const { value } = event.target;
         setMonsterData(prevData => ({
@@ -150,11 +137,137 @@ export default function MonsterForm() {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setMonsterData(prevData => ({ ...prevData, [name]: value }));
+      
+        const nameParts = name.split(".");
+      
+        if (nameParts.length === 2) {
+          const [nestedProp, nestedField] = nameParts;
+          setMonsterData((prevData) => ({
+            ...prevData,
+            [nestedProp]: { ...prevData[nestedProp], [nestedField]: value },
+          }));
+        } else {
+          if (name === "challenge_rating") {
+            setMonsterData((prevData) => ({
+              ...prevData,
+              [name]: parseFloat(value),
+            }));
+          } else {
+            setMonsterData((prevData) => ({ ...prevData, [name]: value }));
+          }
+        }
+      };      
+
+    const getXP = () => {
+        switch (monsterData.challenge_rating){
+            case 0:
+                monsterData.xp = 10;
+                break;
+            case 0.125:
+                monsterData.xp = 25;
+                break;
+            case 0.25:
+                monsterData.xp = 50;
+                break;
+            case 0.5:
+                monsterData.xp = 100;
+                break;
+            case 1:
+                monsterData.xp = 200;
+            break;
+            case 2:
+                monsterData.xp = 450;
+            break;
+            case 3:
+                monsterData.xp = 700;
+            break;
+            case 4:
+                monsterData.xp = 1100;
+            break;
+            case 5:
+                monsterData.xp = 1800;
+            break;
+            case 6:
+                monsterData.xp = 2300;
+            break;
+            case 7:
+                monsterData.xp = 2900;
+            break;
+            case 8:
+                monsterData.xp = 3900;
+            break;
+            case 9:
+                monsterData.xp = 5000;
+            break;
+            case 10:
+                monsterData.xp = 5900;
+            break;
+            case 11:
+                monsterData.xp = 7200;
+            break;
+            case 12:
+                monsterData.xp = 8400;
+            break;
+            case 13:
+                monsterData.xp = 10000;
+            break;
+            case 14:
+                monsterData.xp = 11500;
+            break;
+            case 15:
+                monsterData.xp = 13000;
+            break;
+            case 16:
+                monsterData.xp = 15000;
+            break;
+            case 17:
+                monsterData.xp = 18000;
+            break;
+            case 18:
+                monsterData.xp = 20000;
+            break;
+            case 19:
+                monsterData.xp = 22000;
+            break;
+            case 20:
+                monsterData.xp = 22000;
+            break;
+            case 21:
+                monsterData.xp = 33000;
+            break;
+            case 22:
+                monsterData.xp = 41000;
+            break;
+            case 23:
+                monsterData.xp = 50000;
+            break;
+            case 24:
+                monsterData.xp = 62000;
+            break;
+            case 25:
+                monsterData.xp = 75000;
+            break;
+            case 26:
+                monsterData.xp = 90000;
+            break;
+            case 27:
+                monsterData.xp = 105000;
+            break;
+            case 28:
+                monsterData.xp = 120000;
+            break;
+            case 29:
+                monsterData.xp = 135000;
+            break;
+            case 30:
+                monsterData.xp = 155000;
+            break;
+        }
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        getXP();
         console.log(monsterData);
     };
 
@@ -165,7 +278,7 @@ export default function MonsterForm() {
                 <BlockContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Monster Name:
+                            Monster Name <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -178,7 +291,7 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel> 
-                            Monster Type:
+                            Monster Type <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <select
@@ -186,7 +299,6 @@ export default function MonsterForm() {
                                 value={monsterData.type}
                                 onChange={handleInputChange}
                             >
-                                <option value="">—</option>
                                 <option value="aberration">Aberration</option>
                                 <option value="beast">Beast</option>
                                 <option value="celestial">Celestial</option>
@@ -206,14 +318,13 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Alignment:
+                            Alignment <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <select name="alignment"
                                 value={monsterData.alignment}
                                 onChange={handleInputChange}
                             >
-                                <option value="">—</option>
                                 <option value="Any Alignment">Any Alignment</option>
                                 <option value="Any Chaotic Alignment">Any Chaotic Alignment</option>
                                 <option value="Any Evil Alignment">Any Evil Alignment</option>
@@ -245,33 +356,31 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Size:
+                            Size <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <select name="size"
                                 value={monsterData.size}
                                 onChange={handleInputChange}
                             >
-                                <option value="">—</option>
-                                <option value="Gargantuan">Gargantuan</option>
-                                <option value="Huge">Huge</option>
-                                <option value="Large">Large</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Small">Small</option>
                                 <option value="Tiny">Tiny</option>
+                                <option value="Small">Small</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Large">Large</option>
+                                <option value="Huge">Huge</option>
+                                <option value="Gargantuan">Gargantuan</option>
                             </select>
                         </ItemInput>
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Challenge Rating:
+                            Challenge Rating <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <select name="challenge_rating"
                                 value={monsterData.challenge_rating}
                                 onChange={handleInputChange}
                             >
-                                <option value="">—</option>
                                 <option value="0">0</option>
                                 <option value="0.125">1/8</option>
                                 <option value="0.25">1/4</option>
@@ -314,13 +423,13 @@ export default function MonsterForm() {
                 <BlockContainer>
                 <ItemContainer>
                         <ItemLabel>
-                            Armor Class:
+                            Armor Class <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
                                 type="number"
-                                name="armor_class[0].value"
-                                value={monsterData.armor_class[0].value}
+                                name="armor_class.value"
+                                value={monsterData.armor_class.value}
                                 max="100000"
                                 min="1"
                                 onChange={handleInputChange}
@@ -329,20 +438,20 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Armor Class Type:
+                            Armor Class Type <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
-                                type="number"
-                                name="armor_class[0].type"
-                                value={monsterData.armor_class[0].type}
+                                type="text"
+                                name="armor_class.type"
+                                value={monsterData.armor_class.type}
                                 onChange={handleInputChange}
                             />
                         </ItemInput>
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Average Hit Points:
+                            Average Hit Points <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -357,7 +466,7 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Hit Points Die Count:
+                            Hit Points Die Count <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -372,14 +481,13 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Hit Points Die Value:
+                            Hit Points Die Value <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <select name="challenge_rating"
                                 value={monsterData.challenge_rating}
                                 onChange={handleInputChange}
                             >
-                                <option value="">—</option>
                                 <option value="d4">d4</option>
                                 <option value="d6">d6</option>
                                 <option value="d8">d8</option>
@@ -391,7 +499,7 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Hit Points Modifier:
+                            Hit Points Modifier <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -405,11 +513,42 @@ export default function MonsterForm() {
                         </ItemInput>
                     </ItemContainer>
                 </BlockContainer>
+                <BlockLabel>Speed and Senses:</BlockLabel>
+                <BlockContainer>
+                <ItemContainer>
+                        <ItemLabel>
+                            Speed <Optional>*</Optional>
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="speed"
+                                value={monsterData.speed}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Passive Perception <Optional>*</Optional>
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="number"
+                                name="senses.passive_perception"
+                                value={monsterData.senses.passive_perception}
+                                max="100000"
+                                min="1"
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                </BlockContainer>
                 <BlockLabel>Abilities:</BlockLabel>
                 <BlockContainer>
                 <ItemContainer>
                         <ItemLabel>
-                            Strength (STR) Score:
+                            Strength Score <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -424,7 +563,7 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Dexterity (DEX) Score:
+                            Dexterity Score <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -439,7 +578,7 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Constitution (CON) Score:
+                            Constitution Score <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -454,7 +593,7 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Intelligence (INT) Score:
+                            Intelligence Score <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -469,7 +608,7 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Wisdom (WIS) Score:
+                            Wisdom Score <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -484,7 +623,7 @@ export default function MonsterForm() {
                     </ItemContainer>
                     <ItemContainer>
                         <ItemLabel>
-                            Charisma (CHA) Score:
+                            Charisma Score <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
                             <input
@@ -498,8 +637,70 @@ export default function MonsterForm() {
                         </ItemInput>
                     </ItemContainer>
                 </BlockContainer>
-                <BlockLabel>Damage Response:</BlockLabel>
-                <BlockLabel>Moveset:</BlockLabel>
+                <BlockLabel>Damage and Condition Behavior:</BlockLabel>
+                <BlockContainer>
+                <ItemContainer>
+                        <ItemLabel>
+                        Damage Vulnerabilities
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                            type="text"
+                            name="damage_vulnerabilities"
+                            value={monsterData.damage_vulnerabilities}
+                            max="30"
+                            min="1"
+                            onChange={handleInputChange}
+                        />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                        Damage Resistances
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                            type="text"
+                            name="damage_resistances"
+                            value={monsterData.damage_resistances}
+                            max="30"
+                            min="1"
+                            onChange={handleInputChange}
+                        />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                        Damage Immunities
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                            type="text"
+                            name="damage_immunities"
+                            value={monsterData.damage_immunities}
+                            max="30"
+                            min="1"
+                            onChange={handleInputChange}
+                        />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                        Condition Immunities
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                            type="text"
+                            name="condition_immunities"
+                            value={monsterData.condition_immunities}
+                            max="30"
+                            min="1"
+                            onChange={handleInputChange}
+                        />
+                        </ItemInput>
+                    </ItemContainer>
+                </BlockContainer>
+                <BlockLabel>Actions:</BlockLabel>
                 <BlockContainer>
                 {monsterData.actions.map((action, index) => (
                     <ItemContainer key={index}>
@@ -528,6 +729,7 @@ export default function MonsterForm() {
                 ))}
                 </BlockContainer>
                 <AddButton onClick={handleAddAction}>Add Action</AddButton>
+                <BlockLabel>Legendary Action:</BlockLabel>
                 <BlockContainer>
                 {monsterData.legendary_actions.map((action, index) => (
                     <ItemContainer key={index}>
@@ -556,8 +758,45 @@ export default function MonsterForm() {
                 ))}
                 </BlockContainer>
                 <AddButton onClick={handleAddLegendaryAction}>Add Legendary Action</AddButton>
+                <BlockLabel>Special Abilities:</BlockLabel>
+                <BlockContainer>
+                    {monsterData.special_abilities.map((ability, index) => (
+                    <div key={index}>
+                        <ItemContainer>
+                        <ItemLabel>
+                            Ability Name:
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                            type="text"
+                            value={ability.name}
+                            onChange={(event) => handleSpecialAbilityChange(event, index, "name")}
+                            />
+                        </ItemInput>
+                        </ItemContainer>
+                        <ItemContainer>
+                        <ItemLabel>
+                            Ability Description:
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                            type="text"
+                            value={ability.desc}
+                            onChange={(event) => handleSpecialAbilityChange(event, index, "desc")}
+                            />
+                        </ItemInput>
+                        </ItemContainer>
+                        <button onClick={() => handleRemoveSpecialAbility(index)}>
+                        Remove Ability
+                        </button>
+                    </div>
+                    ))}
+                    <button onClick={handleAddSpecialAbility}>
+                    Add Special Ability 
+                    </button>
+                </BlockContainer>
+                <button type="submit">Create Monster</button>
             </MainFormContainer>
-            <button type="submit">Create Monster</button>
         </MainContainer>
     );
 };
@@ -614,4 +853,8 @@ const AddButton = styled.button`
 
 const RemoveButton = styled.button`
 
+`;
+
+const Optional = styled.span`
+    color: red;
 `;
