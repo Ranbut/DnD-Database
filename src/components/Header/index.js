@@ -12,8 +12,6 @@ export default function Header() {
 
   const location = useLocation();
 
-  console.log(location);
-
   function handleProfileClick() {
     setShowOptions(!showOptions);
   };
