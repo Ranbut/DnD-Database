@@ -262,6 +262,9 @@ export default function MonsterForm() {
             case 30:
                 monsterData.xp = 155000;
             break;
+            default:
+                monsterData.xp = 10;
+            break;
         }
     };
 
