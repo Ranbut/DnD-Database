@@ -16,7 +16,7 @@ export default function CharacterCreation() {
     return (
         <>
             <Header />
-            <CharacterForm />
+            <CharacterForm token={token}/>
         </>
     );
 };

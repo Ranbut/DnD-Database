@@ -1,15 +1,16 @@
 import styled from "styled-components"
 import React, { useState } from 'react';
+import { createCharacter } from "../../services/charactersApi";
 
-export default function CharacterForm() {
+export default function CharacterForm({ token }) {
     const [characterData, setCharacterData] = useState({
         name: "",
-        portrait: null,
+        portrait: '',
         level: 1,
         race: "HUMAN",
         class: "FIGHTER",
         aligment: "NEUTRAL",
-        background: null,
+        background: '',
         strenght: 10,
         dexterity: 10,
         constitution: 10,
@@ -17,21 +18,21 @@ export default function CharacterForm() {
         wisdom: 10,
         charisma: 10,
         languages: "Common",
-        personality_traits: null,
-        ideals: null,
-        bonds: null,
-        flaws: null,
-        hair: null,
-        skin: null,
-        eyes: null,
-        height: null,
-        weight: null,
-        age: null,
-        organizations: null,
-        allies: null,
-        enemies: null,
-        backstory: null,
-        other_notes: null,
+        personality_traits: '',
+        ideals: '',
+        bonds: '',
+        flaws: '',
+        hair: '',
+        skin: '',
+        eyes: '',
+        height: '',
+        weight: 80,
+        age: 20,
+        organizations: '',
+        allies: '',
+        enemies: '',
+        backstory: '',
+        other_notes: '',
     });
 
     const handleInputChange = (event) => {
@@ -40,9 +41,15 @@ export default function CharacterForm() {
         setCharacterData((prevData) => ({ ...prevData, [name]: value }));
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(characterData);
+        try {
+            await createCharacter(characterData, token);
+            alert('Personagem criado com sucesso!');
+          } catch (error) {
+            alert('Não foi possível criar o personagem!');
+          }
     };
 
     return (
@@ -145,6 +152,19 @@ export default function CharacterForm() {
                             </select>
                         </ItemInput>
                     </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Background
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="background"
+                                value={characterData.background}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
                 </BlockContainer>
                 <BlockLabel>Abilities:</BlockLabel>
                 <BlockContainer>
@@ -234,6 +254,213 @@ export default function CharacterForm() {
                                 value={characterData.charisma}
                                 max="30"
                                 min="1"
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                </BlockContainer>
+                <BlockLabel>Personality Information:</BlockLabel>
+                <BlockContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Traits
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="personality_traits"
+                                value={characterData.personality_traits}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Ideals
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="ideals"
+                                value={characterData.ideals}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Bonds
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="bonds"
+                                value={characterData.bonds}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Flaws
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="flaws"
+                                value={characterData.flaws}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                </BlockContainer>
+                <BlockLabel>Appearance Information:</BlockLabel>
+                <BlockContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Hair
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="hair"
+                                value={characterData.hair}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Ideals
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="skin"
+                                value={characterData.skin}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Eyes
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="eyes"
+                                value={characterData.eyes}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Height
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="height"
+                                value={characterData.height}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Weight
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="number"
+                                name="weight"
+                                min="0"
+                                value={characterData.weight}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Age
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="number"
+                                name="age"
+                                max="1200"
+                                min="8"
+                                value={characterData.age}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                </BlockContainer>
+                <BlockLabel>Additional Information:</BlockLabel>
+                <BlockContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Organizations
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="organizations"
+                                value={characterData.organizations}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Allies
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="allies"
+                                value={characterData.allies}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Enemies
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="enemies"
+                                value={characterData.enemies}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Backstory
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="backstory"
+                                value={characterData.backstory}
+                                onChange={handleInputChange}
+                            />
+                        </ItemInput>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <ItemLabel>
+                            Other Notes
+                        </ItemLabel>
+                        <ItemInput>
+                            <input
+                                type="text"
+                                name="other_notes"
+                                value={characterData.other_notes}
                                 onChange={handleInputChange}
                             />
                         </ItemInput>
