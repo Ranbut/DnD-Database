@@ -272,6 +272,7 @@ export default function MonsterForm() {
         event.preventDefault();
         getXP();
         console.log(monsterData);
+        alert('Monster created successfully!');
     };
 
     return (

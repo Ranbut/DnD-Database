@@ -112,8 +112,8 @@ export default function CharacterForm({ token }) {
                             Alignment <Optional>*</Optional>
                         </ItemLabel>
                         <ItemInput>
-                            <select name="alignment"
-                                value={characterData.alignment}
+                            <select name="aligment"
+                                value={characterData.aligment}
                                 onChange={handleInputChange}
                             >
                                 <option value="CHAOTIC_EVIL">Chaotic Evil</option>
