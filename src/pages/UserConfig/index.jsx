@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import useToken from "../../hooks/useToken";
-import useUser from "../../hooks/useUser";
-import { updateAvatar } from "../../services/userApi";
-import Header from "../../components/Header";
-import UserContext from "../../contexts/UserContext";
+import useToken from "../../hooks/useToken.jsx";
+import useUser from "../../hooks/useUser.jsx";
+import { updateAvatar } from "../../services/userApi.jsx";
+import Header from "../../components/Header/index.jsx";
+import UserContext from "../../contexts/UserContext.jsx";
 
 export default function SignUp() {
     const [avatar, setAvatar] = useState('');

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import Header from "../../components/Header";
-import { getSpells } from "../../services/DnDAPI/spellsApi";
+import Header from "../../components/Header/index.jsx";
+import { getSpells } from "../../services/DnDAPI/spellsApi.jsx";
 
 export default function Spells() {
     const [spellsList, setSpellsList] = useState([]);

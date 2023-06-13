@@ -9,7 +9,7 @@ import { Home, SignIn, SignUp, UserConfig,
    Spells, Spell, 
    Equipments, Equipment, MagicItem, 
    CharacterCreation, MonsterCreation, 
-   NotFound } from './pages/index';
+   NotFound } from './pages/index.jsx';
    
 import { UserProvider } from './contexts/UserContext';
 
