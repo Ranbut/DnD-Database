@@ -4,6 +4,7 @@ import { useState } from 'react';
 import defaultUser from '../../assets/images/userDefault.png';
 import useToken from '../../hooks/useToken';
 import useUser from '../../hooks/useUser';
+import SearchBar from '../SearchBar';
 
 export default function Header() {
   const token = useToken();
@@ -33,6 +34,7 @@ export default function Header() {
         <Link to='/'>
           <h1 className="text-2xl font-bold text-red-500">D&D Database</h1>
         </Link>
+        <SearchBar />
         <div className="space-x-4">
           {!token ? (
             <>
