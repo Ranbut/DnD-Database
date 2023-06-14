@@ -10,12 +10,14 @@ import { Home, SignIn, SignUp, UserConfig,
    Equipments, Equipment, MagicItem, 
    CharacterCreation, MonsterCreation, 
    NotFound } from './pages/index.jsx';
-   
+
 import { UserProvider } from './contexts/UserContext';
+import { GlobalStyle } from './globalStyle.jsx'
 
 export default function App() {
   return (
     <UserProvider>
+      <GlobalStyle />
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
