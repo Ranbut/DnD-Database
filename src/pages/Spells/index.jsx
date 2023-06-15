@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import Header from "../../components/Header/index.jsx";
+import styled from "styled-components";
 import { getSpells } from "../../services/DnDAPI/spellsApi.jsx";
 
 export default function Spells() {
@@ -36,21 +37,56 @@ export default function Spells() {
 
     return (
         <>
-            <Header />
-            <div className="flex flex-col space-y-4">
-                {Object.entries(categorizedSpells).map(([letter, spells]) => (
-                    <div className="ml-4" key={letter}>
-                        <h2 className="mt-4 mb-4 text-red-600 text-2xl font-bold">{letter}</h2>
-                        <div className="grid grid-cols-2 gap-4">
-                            {spells.map((spell, index) => (
-                                <Link key={index} to={`/spell?index=${spell.index}`} className="p-4 bg-gray-200 rounded-md">
-                                    <p className="text-gray-800">{spell.name}</p>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                ))}
-            </div>
+          <Header />
+          <Container>
+            {Object.entries(categorizedSpells).map(([letter, spells]) => (
+              <CategoryContainer key={letter}>
+                <MainHeading>{letter}</MainHeading>
+                <SpellGrid>
+                  {spells.map((spell, index) => (
+                    <SpellLink key={index} to={`/spell?index=${spell.index}`}>
+                      <SpellName>{spell.name}</SpellName>
+                    </SpellLink>
+                  ))}
+                </SpellGrid>
+              </CategoryContainer>
+            ))}
+          </Container>
         </>
-    );
+      );
+      
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const CategoryContainer = styled.div`
+  margin-left: 16px;
+`;
+
+const MainHeading = styled.h2`
+  margin-top: 16px;
+  margin-bottom: 16px;
+  color: red;
+  font-size: 2xl;
+  font-weight: bold;
+`;
+
+const SpellGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+`;
+
+const SpellLink = styled(Link)`
+  padding: 16px;
+  background-color: #ccc;
+  border-radius: 4px;
+`;
+
+const SpellName = styled.p`
+  color: #333;
+`;

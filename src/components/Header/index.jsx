@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import defaultUser from '../../assets/images/userDefault.png';
+import Logo from "../../assets/images/dnd.svg"
 import useToken from '../../hooks/useToken';
 import useUser from '../../hooks/useUser';
 import SearchBar from '../SearchBar';
@@ -29,29 +29,31 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-blackpearl py-4 border-b-4 border-red-700">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to='/'>
-          <h1 className="text-2xl font-bold text-red-500">D&D Database</h1>
-        </Link>
+    <HeaderWrapper>
+      <Container>
+        <TitleLink to="/">
+        <LogoImage alt="logo" src={Logo} />
+          <Title>D&D Database</Title>
+        </TitleLink>
         <SearchBar />
         <div className="space-x-4">
           {!token ? (
             <>
-              <Link to={`/sign-in?return=${location.pathname.substring(1)}${location.search}`}>
+              <Link
+                to={`/sign-in?return=${location.pathname.substring(1)}${location.search}`}
+              >
                 <HeaderButtons>SignIn</HeaderButtons>
               </Link>
-              <Link to={`/sign-up?return=${location.pathname.substring(1)}${location.search}`}>
+              <Link
+                to={`/sign-up?return=${location.pathname.substring(1)}${location.search}`}
+              >
                 <HeaderButtons>SignUp</HeaderButtons>
               </Link>
             </>
           ) : (
             <div className="flex space-x-6">
               <p className="text-white">{user.username}</p>
-              <div
-                className="relative inline-block"
-                onClick={handleProfileClick}
-              >
+              <div className="relative inline-block" onClick={handleProfileClick}>
                 <img
                   className="w-10 h-10 rounded-full mx-auto bg-white cursor-pointer"
                   src={user.avatar}
@@ -69,8 +71,8 @@ export default function Header() {
             </div>
           )}
         </div>
-      </div>
-    </header>
+      </Container>
+    </HeaderWrapper>
   );
 }
 
@@ -100,4 +102,35 @@ const ProfileOptions = styled.div`
     background-color: transparent;
     cursor: pointer;
   }
+`;
+
+const HeaderWrapper = styled.header`
+  background-color: #2b2c3d;
+  padding: 1rem;
+  border-bottom: 4px solid #f56565;
+`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+`;
+
+const LogoImage = styled.img`
+  width: 40px;
+  height: 40px;
+  margin-left: 40px;
+`;
+
+const TitleLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const Title = styled.h1`
+  font-size: 2xl;
+  font-weight: bold;
+  color: #f56565;
+  margin-left: 0.5rem;
 `;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
 import Header from "../../components/Header";
+import styled from "styled-components";
 import { getEquipmentsByCategory, getEquipmentsCategories } from "../../services/DnDAPI/equipmentApi";
 
 export default function Equipments() {
@@ -51,43 +52,90 @@ export default function Equipments() {
 
         return categorizedEquipments;
     }
-
     return (
         <>
-            <Header />
-            {!selectedCategory ? 
-            (<div className="flex flex-col space-y-4">
+          <Header />
+          <Container>
+            {!selectedCategory ? (
+              <>
                 {Object.entries(categorizedEquipmentsCategories).map(([letter, equipmentCategory]) => (
-                    <div className="ml-4" key={letter}>
-                        <h2 className="mt-4 mb-4 text-red-600 text-2xl font-bold">{letter}</h2>
-                        <div className="grid grid-cols-2 gap-4">
-                            {equipmentCategory.map((category, index) => (
-                                <Link key={index} onClick={() => {setSelectedCategory(category.index); fetchDataByCategory(category.index);}} to={`/equipments?index=${category.index}`} className="p-4 bg-gray-200 rounded-md">
-                                    <p className="text-gray-800">{category.name}</p>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
+                  <CategoryContainer key={letter}>
+                    <MainHeading>{letter}</MainHeading>
+                    <EquipmentGrid>
+                      {equipmentCategory.map((category, index) => (
+                        <EquipmentLink
+                          key={index}
+                          onClick={() => {
+                            setSelectedCategory(category.index);
+                            fetchDataByCategory(category.index);
+                          }}
+                          to={`/equipments?index=${category.index}`}
+                        >
+                          <EquipmentName>{category.name}</EquipmentName>
+                        </EquipmentLink>
+                      ))}
+                    </EquipmentGrid>
+                  </CategoryContainer>
                 ))}
-            </div>) : 
-            (<div className="flex flex-col space-y-4">
+              </>
+            ) : (
+              <>
                 {Object.entries(categorizedEquipments).map(([letter, equipment]) => (
-                    <div className="ml-4" key={letter}>
-                        <h2 className="mt-4 mb-4 text-red-600 text-2xl font-bold">{letter}</h2>
-                        <div className="grid grid-cols-2 gap-4">
-                            {equipment.map((equipment, index) => (
-                                <Link key={index} to={
-                                    equipment.url.includes("magic-items")
-                                      ? `/magic-item?index=${equipment.index}`
-                                      : `/equipment?index=${equipment.index}`
-                                  } className="p-4 bg-gray-200 rounded-md">
-                                    <p className="text-gray-800">{equipment.name}</p>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
+                  <CategoryContainer key={letter}>
+                    <MainHeading>{letter}</MainHeading>
+                    <EquipmentGrid>
+                      {equipment.map((equipment, index) => (
+                        <EquipmentLink
+                          key={index}
+                          to={
+                            equipment.url.includes("magic-items")
+                              ? `/magic-item?index=${equipment.index}`
+                              : `/equipment?index=${equipment.index}`
+                          }
+                        >
+                          <EquipmentName>{equipment.name}</EquipmentName>
+                        </EquipmentLink>
+                      ))}
+                    </EquipmentGrid>
+                  </CategoryContainer>
                 ))}
-            </div>)}
+              </>
+            )}
+          </Container>
         </>
-    );
+      );      
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const CategoryContainer = styled.div`
+  margin-left: 16px;
+`;
+
+const MainHeading = styled.h2`
+  margin-top: 16px;
+  margin-bottom: 16px;
+  color: red;
+  font-size: 2xl;
+  font-weight: bold;
+`;
+
+const EquipmentGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+`;
+
+const EquipmentLink = styled(Link)`
+  padding: 16px;
+  background-color: #ccc;
+  border-radius: 4px;
+`;
+
+const EquipmentName = styled.p`
+  color: #333;
+`;
