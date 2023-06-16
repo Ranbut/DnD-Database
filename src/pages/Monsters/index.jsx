@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from "../../components/Header";
 import styled from "styled-components";
 import { getMonsters } from "../../services/DnDAPI/monstersApi";
+import Logo from "../../assets/images/dnd.svg"
 
 export default function Monsters() {
   const [monstersList, setMonstersList] = useState([]);
@@ -48,7 +49,8 @@ export default function Monsters() {
     <>
       <Header />
       <Container>
-        <Sidebar>
+        <SidebarContainer background={Logo}>
+        <div>
           <SidebarList>
             <SidebarListItem
               onClick={handleAllClick}
@@ -66,9 +68,10 @@ export default function Monsters() {
               </SidebarListItem>
             ))}
           </SidebarList>
-        </Sidebar>
+        </div>
+        </SidebarContainer>
         <Content>
-          <div className="mt-4 ml-4">
+          <MonstersContainer>
             {selectedLetter === "" ? (
               <>
                 <MainHeading>All Monsters</MainHeading>
@@ -98,7 +101,7 @@ export default function Monsters() {
                 </MonsterGrid>
               </>
             )}
-          </div>
+          </MonstersContainer>
         </Content>
       </Container>
     </>
@@ -109,9 +112,29 @@ const Container = styled.div`
   display: flex;
 `;
 
-const Sidebar = styled.div`
-  width: 25%;
-  background-color: slategray;
+const SidebarContainer = styled.div`
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 2px solid red;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background-image: url(${props => props.background});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: fit-content; /* Set the height to fit its content */
+`;
+
+
+const MonstersContainer = styled.div`
+  padding: 1px 3%;
+  margin-left: 10px;
 `;
 
 const SidebarList = styled.ul`
@@ -134,7 +157,9 @@ const Content = styled.div`
 `;
 
 const MainHeading = styled.h2`
-  margin-bottom: 4px;
+  margin-top: 10px;
+  margin-left: 45%;
+  margin-bottom: 10px;
   color: red;
   font-size: 2xl;
   font-weight: bold;
@@ -150,6 +175,12 @@ const MonsterLink = styled(Link)`
   padding: 16px;
   background-color: #ccc;
   border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+  
+  &:hover {
+    background-color: #8f8f8f;
+  }
 `;
 
 const MonsterName = styled.p`
