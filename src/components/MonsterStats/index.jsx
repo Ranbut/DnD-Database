@@ -348,17 +348,29 @@ const GlobalStyle = createGlobalStyle`
 
 const MainContainer = styled.div`
     display: flex;
+    @media (max-width: 580px) {
+    display: block;
+  }
 `;
 
 const MonsterImage = styled.img`
+    border: 5px solid;
+    border-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(200, 0, 0, 0.8) 100%); /* Modify the gradient colors as desired */
+    border-image-slice: 1;
+    background-color: transparent;
+    border-radius: 0.25rem;
     margin-top: 20px;
     margin-left: 20px;
     width: 250px;
     height: 250px;
+    @media (max-width: 580px) {
+    margin-left: 18%;
+  }
 `;
 
 const MainDetailContainer = styled.div`
-    width: calc(100% - 370px);
+    width: 100%;
+    padding-right: 25px;
     font-family: 'Scala Sans', sans-serif;
     font-size: 15px;
     margin-top: 20px;
