@@ -64,6 +64,7 @@ export default function SpellDetails({ spell }) {
             }}
           />
         ))}
+        {spell.material ? (<Description><strong>Material Needed.</strong> {spell.material}</Description>): (<></>)}
         {spell.higher_level.length > 0 ? (
           <Description>
             <strong>At Higher Levels.</strong>
