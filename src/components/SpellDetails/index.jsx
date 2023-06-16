@@ -92,6 +92,9 @@ const MainDetailContainer = styled.div`
   margin-top: 20px;
   margin-left: 20px;
   flex: 1;
+  @media (max-width: 768px) {
+    margin-left: 10px;
+  }
 `;
 
 const BlockContainer = styled.div``;
