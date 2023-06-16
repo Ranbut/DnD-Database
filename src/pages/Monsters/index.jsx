@@ -128,7 +128,7 @@ const SidebarContainer = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  height: fit-content; /* Set the height to fit its content */
+  height: fit-content;
 `;
 
 
@@ -177,7 +177,7 @@ const MonsterLink = styled(Link)`
   border-radius: 4px;
   text-decoration: none;
   transition: background-color 0.2s ease-in-out;
-  
+
   &:hover {
     background-color: #8f8f8f;
   }
