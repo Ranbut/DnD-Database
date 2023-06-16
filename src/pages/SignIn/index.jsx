@@ -1,22 +1,34 @@
-import { useContext, useState } from "react";
-import { useNavigate, useLocation  } from 'react-router-dom';
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { signIn } from "../../services/authApi";
 import UserContext from "../../contexts/UserContext";
 import styled from "styled-components";
-
+import Background from "../../assets/images/background/background-1.jpg"
+import Logo from "../../assets/images/dnd.svg"
+import { ThreeDots } from 'react-loader-spinner';
 
 export default function SignIn() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const { setUserData } = useContext(UserContext);
 
   const navigate = useNavigate();
   const location = useLocation();
 
+  useEffect(() => {
+    document.title = 'Sign in - D&D Database';
+
+    return () => {
+      document.title = 'D&D Database';
+    };
+  }, []);
+
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     try {
       const queryParams = new URLSearchParams(location.search);
       const paramReturn = queryParams.get('return');
@@ -25,42 +37,66 @@ export default function SignIn() {
       setUserData(userData);
       alert('Login successful!');
       navigate(`/${paramReturn}`);
-    } catch (err) {
+    } catch (error) {
+      setLoading(false);
       alert('Unable to login!');
     }
   };
 
   return (
-    <Wrapper>
+    <Wrapper background={Background}>
       <Container>
+        <Link to={'/'}>
+          <LogoImage alt="logo" src={Logo} />
+          <LogoText>D&D Database</LogoText>
+        </Link>
         <Heading>Sign in</Heading>
         <Form onSubmit={handleSubmit}>
           <FormField>
-            <FormLabel htmlFor="email">Email</FormLabel>
+            <FormLabel htmlFor="email">Email <Required>*</Required></FormLabel>
             <FormInput
+              disabled={loading}
               type="email"
               id="email"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </FormField>
           <FormField>
-            <FormLabel htmlFor="password">Password</FormLabel>
+            <FormLabel htmlFor="password">Password <Required>*</Required></FormLabel>
             <FormInput
+              disabled={loading}
               type="password"
               id="password"
               value={password}
+              name="password"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </FormField>
-          <SubmitButton type="submit">Sign in</SubmitButton>
+          <SubmitButton disabled={loading} type="submit">
+            {loading ? (
+                <ThreeDots
+                  color="#ffffff"
+                  height= "13"
+                  width= "51"
+                  radius= "9"
+                  ariaLabel="three-dots-loading"
+                  visible={loading}
+                />
+            ) : (
+              'Sign in'
+            )}
+          </SubmitButton>
         </Form>
-        <p>
-          Don't have an account?{' '}
-          <SignUpLink href="/sign-up">Sign up</SignUpLink>
-        </p>
+        <SignUpContainer>
+            <SignUpText>
+              Don't have an account?{' '}
+              <SignUpLink href="/sign-up">Sign up</SignUpLink>
+            </SignUpText>
+            </SignUpContainer>
       </Container>
     </Wrapper>
   );
@@ -73,23 +109,46 @@ const Wrapper = styled.div`
   justify-content: center;
   min-height: 100vh;
   overflow: hidden;
+  background-image: url(${props => props.background});
+  background-size: cover;
+  background-position: center;
 `;
 
 const Container = styled.div`
-  width: 100%;
-  padding: 24px;
-  margin: auto;
-  background-color: #fff;
+  width: 35%;
+  padding: 26px;
+  margin: auto 115vh;
+  background: rgb(0,0,0);
+  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(50,13,13,0.8) 100%);
   border-radius: 4px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   max-width: 800px;
 `;
 
-const Heading = styled.h1`
+const LogoImage = styled.img`
+  width: 40px;
+  height: 40px;
+  margin-left: 48%;
+`;
+
+const LogoText = styled.h1`
   font-size: 3xl;
   font-weight: 600;
   text-align: center;
   color: #f56565;
+  text-decoration: none;
+`;
+
+const Heading = styled.h1`
+  margin-top: 20px;
+  font-size: 3xl;
+  font-weight: 600;
+  text-align: center;
+  color: #f56565;
+`;
+
+const Required = styled.span`
+  color: #ff0000;
 `;
 
 const Form = styled.form`
@@ -103,7 +162,7 @@ const FormField = styled.div`
 const FormLabel = styled.label`
   font-size: 14px;
   font-weight: 600;
-  color: #4b5563;
+  color: #ffffff;
 `;
 
 const FormInput = styled.input`
@@ -134,13 +193,29 @@ const SubmitButton = styled.button`
   transition: background-color 0.2s ease-in-out;
   outline: none;
   cursor: pointer;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
   &:hover {
     background-color: #e53e3e;
   }
 `;
 
+const SignUpContainer = styled.div`
+
+`;
+
+const SignUpText = styled.p`
+  margin-top: 20px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+`;
+
 const SignUpLink = styled.a`
+  margin-top: 3px;
+  margin-left: 6px;
   font-size: 12px;
   font-weight: 300;
   color: #4b5563;
