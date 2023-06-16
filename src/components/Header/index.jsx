@@ -28,66 +28,75 @@ export default function Header() {
     navigate("/user-config");
   };
 
+  function handleHomebrew() {
+
+  };
+
   return (
     <HeaderWrapper>
       <Container>
         <TitleLink to="/">
-        <LogoImage alt="logo" src={Logo} />
+          <LogoImage alt="logo" src={Logo} />
           <Title>D&D Database</Title>
         </TitleLink>
         <SearchBar />
-        <div className="space-x-4">
+        <HeaderButtonsWrapper>
           {!token ? (
             <>
               <Link
                 to={`/sign-in?return=${location.pathname.substring(1)}${location.search}`}
               >
-                <HeaderButtons>SignIn</HeaderButtons>
+                <HeaderButton>SignIn</HeaderButton>
               </Link>
               <Link
                 to={`/sign-up?return=${location.pathname.substring(1)}${location.search}`}
               >
-                <HeaderButtons>SignUp</HeaderButtons>
+                <HeaderButton>SignUp</HeaderButton>
               </Link>
             </>
           ) : (
-            <div className="flex space-x-6">
-              <p className="text-white">{user.username}</p>
-              <div className="relative inline-block" onClick={handleProfileClick}>
-                <img
-                  className="w-10 h-10 rounded-full mx-auto bg-white cursor-pointer"
+            <UserOptionsWrapper onClick={handleProfileClick}>
+              <ProfileWrapper>
+                <UserAvatar
                   src={user.avatar}
                   alt={user.username}
-                  width="250"
-                  height="250"
-                ></img>
+                />
                 {showOptions && (
                   <ProfileOptions>
+                    <button onClick={handleHomebrew}>My Homebrew</button>
+                    <button onClick={handleConfigure}>Configurations</button>
                     <button onClick={handleLogout}>Logout</button>
-                    <button onClick={handleConfigure}>Configure</button>
                   </ProfileOptions>
                 )}
-              </div>
-            </div>
+              </ProfileWrapper>
+              <UserName>{user.username}</UserName>
+            </UserOptionsWrapper>
           )}
-        </div>
+        </HeaderButtonsWrapper>
       </Container>
     </HeaderWrapper>
   );
 }
 
-const HeaderButtons = styled.button`
+const HeaderButton = styled.button`
+  margin-left: 20px;
   border: 2px solid red;
   color: white;
   background-color: transparent;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
+  cursor: pointer;
+  transition: border 0.1s;
+
+  &:hover {
+    border: 2px solid #374045;
+  }
 `;
 
 const ProfileOptions = styled.div`
   position: absolute;
   top: 110%;
-  right: 0;
+  left: 70;
   background-color: white;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
@@ -105,9 +114,9 @@ const ProfileOptions = styled.div`
 `;
 
 const HeaderWrapper = styled.header`
-  background-color: #2b2c3d;
+  background-color: #12181c;
   padding: 1rem;
-  border-bottom: 4px solid #f56565;
+  border-bottom: 4px solid #e40712;
 `;
 
 const Container = styled.div`
@@ -131,6 +140,35 @@ const TitleLink = styled(Link)`
 const Title = styled.h1`
   font-size: 2xl;
   font-weight: bold;
-  color: #f56565;
+  color: #e40712;
   margin-left: 0.5rem;
+`;
+
+const HeaderButtonsWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const UserOptionsWrapper = styled.div`
+  margin-right: 30px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const UserName = styled.p`
+  margin-left: 5px;
+  color: white;
+`;
+
+const ProfileWrapper = styled.div`
+  position: relative;
+`;
+
+const UserAvatar = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
 `;
