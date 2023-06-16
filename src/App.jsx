@@ -8,11 +8,12 @@ import { Home, SignIn, SignUp, UserConfig,
    Monsters, Monster, 
    Spells, Spell, 
    Equipments, Equipment, MagicItem, 
-   CharacterCreation, MonsterCreation, 
+   CharacterCreation, SpellCreation, MonsterCreation, 
    NotFound } from './pages/index.jsx';
 
 import { UserProvider } from './contexts/UserContext';
 import { GlobalStyle } from './globalStyle.jsx'
+import Homebrew from './pages/Homebrew/index.jsx';
 
 export default function App() {
   return (
@@ -31,7 +32,9 @@ export default function App() {
           <Route path="/equipments" element={<Equipments />} />
           <Route path="/equipment" element={<Equipment />} />
           <Route path="/magic-item" element={<MagicItem />} />
+          <Route path="/homebrew" element={<Homebrew />} />
           <Route path="/homebrew/create-character" element={<CharacterCreation />} />
+          <Route path="/homebrew/create-spell" element={<SpellCreation />} />
           <Route path="/homebrew/create-monster" element={<MonsterCreation />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

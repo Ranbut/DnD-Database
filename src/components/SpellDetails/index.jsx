@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export default function SpellDetails({ spell }) {
+
+  console.log(spell);
+
   return (
     <MainContainer>
       <MainDetailContainer>
@@ -10,7 +13,7 @@ export default function SpellDetails({ spell }) {
           <InformationContainer>
             <Characteristic>
               <CharacteristicLabel>Level</CharacteristicLabel>
-              <CharacteristicValue>{spell.level}</CharacteristicValue>
+              <CharacteristicValue>{spell.level === 0 ? "Cantrip" : spell.level}</CharacteristicValue>
             </Characteristic>
             <Characteristic>
               <CharacteristicLabel>Casting Time</CharacteristicLabel>

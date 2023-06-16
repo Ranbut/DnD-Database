@@ -11,6 +11,7 @@ import Equipment from './Equipment/index.jsx';
 import MagicItem from './MagicItem/index.jsx';
 import NotFound from './NotFound/index.jsx';
 import CharacterCreation from './CharacterCreation/index.jsx';
+import SpellCreation from './SpellCreation/index.jsx';
 import MonsterCreation from './MonsterCreation/index.jsx';
 
 export { Home, SignIn, SignUp, UserConfig,
@@ -18,4 +19,4 @@ export { Home, SignIn, SignUp, UserConfig,
      Spells, Spell, 
      Equipments, Equipment, MagicItem, 
      NotFound, 
-     CharacterCreation, MonsterCreation }
+     CharacterCreation, SpellCreation, MonsterCreation }
