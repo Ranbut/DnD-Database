@@ -126,7 +126,7 @@ export default function SignUp() {
         <SignInContainer>
           <SignInText>
             Already have an account?{' '}
-            <SignInLink href="/sign-in">Sign in</SignInLink>
+            <SignInLink to="/sign-in">Sign in</SignInLink>
           </SignInText>
         </SignInContainer>
       </Container>
@@ -249,7 +249,7 @@ const SignInText = styled.p`
   justify-content: center;
 `;
 
-const SignInLink = styled.a`
+const SignInLink = styled(Link)`
   margin-top: 3px;
   margin-left: 6px;
   font-size: 12px;

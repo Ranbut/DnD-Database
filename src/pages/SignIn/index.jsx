@@ -94,7 +94,7 @@ export default function SignIn() {
         <SignUpContainer>
             <SignUpText>
               Don't have an account?{' '}
-              <SignUpLink href="/sign-up">Sign up</SignUpLink>
+              <SignUpLink to="/sign-up">Sign up</SignUpLink>
             </SignUpText>
             </SignUpContainer>
       </Container>
@@ -217,7 +217,7 @@ const SignUpText = styled.p`
   justify-content: center;
 `;
 
-const SignUpLink = styled.a`
+const SignUpLink = styled(Link)`
   margin-top: 3px;
   margin-left: 6px;
   font-size: 12px;
