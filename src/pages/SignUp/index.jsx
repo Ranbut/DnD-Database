@@ -149,12 +149,13 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width: 35%;
   padding: 26px;
-  margin: auto 60vh;
+  margin: auto 60%;
   background: rgb(0,0,0);
   background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(50,13,13,0.8) 100%);
   border-radius: 4px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   max-width: 800px;
+  min-width: 400px;
   @media (max-width: 1024px) {
       margin: auto;
   }
