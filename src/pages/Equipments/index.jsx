@@ -58,11 +58,9 @@ export default function Equipments() {
           <Container>
             {!selectedCategory ? (
               <>
-                {Object.entries(categorizedEquipmentsCategories).map(([letter, equipmentCategory]) => (
-                  <CategoryContainer key={letter}>
-                    <MainHeading>{letter}</MainHeading>
+                    <MainHeading>All Categories</MainHeading>
                     <EquipmentGrid>
-                      {equipmentCategory.map((category, index) => (
+                      {equipmentsCategoriesList.map((category, index) => (
                         <EquipmentLink
                           key={index}
                           onClick={() => {
@@ -75,8 +73,6 @@ export default function Equipments() {
                         </EquipmentLink>
                       ))}
                     </EquipmentGrid>
-                  </CategoryContainer>
-                ))}
               </>
             ) : (
               <>
@@ -110,6 +106,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 1px 3%;
 `;
 
 const CategoryContainer = styled.div`
@@ -117,8 +114,9 @@ const CategoryContainer = styled.div`
 `;
 
 const MainHeading = styled.h2`
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: 10px;
+  margin-left: 46%;
+  margin-bottom: 10px;
   color: red;
   font-size: 2xl;
   font-weight: bold;
@@ -134,6 +132,12 @@ const EquipmentLink = styled(Link)`
   padding: 16px;
   background-color: #ccc;
   border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #8f8f8f;
+  }
 `;
 
 const EquipmentName = styled.p`
