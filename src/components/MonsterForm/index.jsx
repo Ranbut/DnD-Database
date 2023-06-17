@@ -1,9 +1,14 @@
-import styled from "styled-components"
+import {
+    MainContainer, MonsterImage, MonsterHeading, Label, Container, ItemContainer,
+    ItemLabel, ItemInputText, ItemInputNumber, ItemCheckBox, ItemSelect, ItemTextArea,
+    CreateButton, Required
+} from "./style"
 import { createMonster } from "../../services/monstersApi";
 import { useState } from "react";
 import Actions from "./Actions";
 import DamageReponse from "./DamageReponse";
 import SpecialAbilities from "./SpecialAbilities";
+import { Senses } from "./Senses";
 
 export default function MonsterForm({ token }) {
     const [name, setName] = useState('');
@@ -33,70 +38,75 @@ export default function MonsterForm({ token }) {
     const [conditionImmunities, setConditionImmunities] = useState([]);
     const [specialAbilities, setSpecialAbilities] = useState([]);
     const [languages, setLanguages] = useState([]);
+    const [senses, setSenses] = useState(null);
+
+    const handleSensesChange = (newSenses) => {
+        setSenses(newSenses);
+    };
 
     const handleLanguagesChange = (newLanguage) => {
         setLanguages([...languages, newLanguage]);
-      };
-    
-      const handleLanguagesDelete = (newLanguage) => {
+    };
+
+    const handleLanguagesDelete = (newLanguage) => {
         setLanguages(newLanguage);
-      };
+    };
 
     const handleSpecialAbilitiesChange = (newSpecialAbilities) => {
         setSpecialAbilities([...specialAbilities, newSpecialAbilities]);
-      };
-    
-      const handleSpecialAbilitiesDelete = (newSpecialAbilities) => {
+    };
+
+    const handleSpecialAbilitiesDelete = (newSpecialAbilities) => {
         setSpecialAbilities(newSpecialAbilities);
-      };
+    };
 
     const handleActionsChange = (newAction) => {
         setActions([...actions, newAction]);
-      };
-    
-      const handleActionsDelete = (newAction) => {
+    };
+
+    const handleActionsDelete = (newAction) => {
         setActions(newAction);
-      };
+    };
 
-      const handleLegendaryActionsChange = (newAction) => {
+    const handleLegendaryActionsChange = (newAction) => {
         setLegendaryActions([...legendaryActions, newAction]);
-      };
+    };
 
-      const handleLegendaryActionsDelete = (newAction) => {
+    const handleLegendaryActionsDelete = (newAction) => {
         setLegendaryActions(newAction);
-      };
+    };
 
-      const handleDamageVulnerabilitiesChange = (newDamage) => {
+    const handleDamageVulnerabilitiesChange = (newDamage) => {
         setDamageVulnerabilities([...damageVulnerabilities, newDamage]);
-      };
-    
-      const handleDamageVulnerabilitiesDelete = (newDamage) => {
+    };
+
+    const handleDamageVulnerabilitiesDelete = (newDamage) => {
         setDamageVulnerabilities(newDamage);
-      };
+    };
 
-      const handleDamageResistancesChange = (newDamage) => {
+    const handleDamageResistancesChange = (newDamage) => {
         setDamageResistances([...damageResistances, newDamage]);
-      };
-    
-      const handleDamageResistancesDelete = (newDamage) => {
+    };
+
+    const handleDamageResistancesDelete = (newDamage) => {
         setDamageResistances(newDamage);
-      };
+    };
 
-      const handleDamageImmunitiesChange = (newDamage) => {
+    const handleDamageImmunitiesChange = (newDamage) => {
         setDamageImmunities([...damageImmunities, newDamage]);
-      };
-    
-      const handleDamageImmunitiesDelete = (newDamage) => {
-        setDamageImmunities(newDamage);
-      };
+    };
 
-      const handleConditionImmunitiesChange = (newDamage) => {
+    const handleDamageImmunitiesDelete = (newDamage) => {
+        setDamageImmunities(newDamage);
+    };
+
+    const handleConditionImmunitiesChange = (newDamage) => {
         setConditionImmunities([...conditionImmunities, newDamage]);
-      };
-    
-      const handleConditionImmunitiesDelete = (newDamage) => {
+    };
+
+    const handleConditionImmunitiesDelete = (newDamage) => {
         setConditionImmunities(newDamage);
-      };
+    };
 
     const getXP = () => {
         switch (challengeRating) {
@@ -234,13 +244,14 @@ export default function MonsterForm({ token }) {
             condition_immunities: conditionImmunities,
             special_abilities: specialAbilities,
             languages: languages.join(", "),
-            senses: {
-                passive_perception: passivePerception
+            senses: senses || { passive_perception: passivePerception },
+            speed: {
+                walk: "40 ft."
             },
             xp: getXP(),
         }
         console.log(monsterData);
-        //await createMonster(monsterData, token);
+        await createMonster(monsterData, token);
         try {
             alert('Monster created successfully!');
         } catch (error) {
@@ -250,7 +261,7 @@ export default function MonsterForm({ token }) {
 
     return (
         <MainContainer>
-            <SpellHeading>{image ? (<MonsterImage src={image}></MonsterImage>) : (<></>)}{name}</SpellHeading>
+            <MonsterHeading>{image ? (<MonsterImage src={image}></MonsterImage>) : (<></>)}{name}</MonsterHeading>
             <Label>Basic Information</Label>
             <Container>
                 <ItemContainer>
@@ -415,109 +426,11 @@ export default function MonsterForm({ token }) {
                 <ItemLabel>Languages</ItemLabel>
                 <DamageReponse damages={languages} onDamagesChange={handleLanguagesChange} onDamagesDelete={handleLanguagesDelete} />
             </Container>
+            <Label>Senses Information</Label>
+            <Container>
+                <Senses passivePerception={passivePerception} onSensesChange={handleSensesChange} />
+            </Container>
             <CreateButton onClick={handleSubmit}>Save Monster</CreateButton>
         </MainContainer>
     );
 };
-
-const MainContainer = styled.div`
-    padding: 3% 3%;
-    font-family: Roboto, Helvetica,sans-serif;
-`;
-
-const MonsterImage = styled.img`
-    width: 100px;
-`;
-
-const SpellHeading = styled.div`
-    font-size: 36px;
-    border-color: #704cd9;
-    border-bottom: 3px solid #704cd9;
-    border-bottom-color: #704cd9;
-    padding-bottom: 8px;
-    padding-top: 16px;
-`;
-
-const Label = styled.div`
-    margin-top: 20px;
-    font-size: 30px;
-    font-weight: normal;
-    color: #242527;
-    line-height: 1.3;
-    font-weight: bold;
-`;
-
-const Container = styled.div`
-
-`;
-
-const ItemContainer = styled.div`
-    margin-top: 20px;
-    flex-basis: 630px;
-`;
-
-const ItemLabel = styled.div`
-    margin-top: 10px;
-    color: #242527;
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: bold;
-    display: inline-block;
-`;
-
-const ItemInputText = styled.input`
-    display: block;
-    height: 50px;
-    width: 60%;
-    padding: 10px;
-    border: 1px solid #d8dde3;
-    background-color: #fff;
-    box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
-    border-radius: 0;
-    font-size: 15px;
-`;
-
-const ItemInputNumber = styled.input`
-    display: block;
-    height: 50px;
-    width: 10%;
-    padding: 10px;
-    border: 1px solid #d8dde3;
-    background-color: #fff;
-    box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
-    border-radius: 0;
-    font-size: 15px;
-`;
-
-const ItemCheckBox = styled.input.attrs({ type: "checkbox" })`
-    display: block;
-`;
-
-const ItemSelect = styled.select`
-    display: block;
-    height: 50px;
-    width: 20%;
-    padding: 10px;
-    border: 1px solid #d8dde3;
-    background-color: #fff;
-    box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
-    border-radius: 0;
-    font-size: 15px;
-`;
-
-const ItemTextArea = styled.textarea`
-    display: block;
-    padding: 10px;
-    border: 1px solid #d8dde3;
-    background-color: #fff;
-    box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
-    border-radius: 0;
-    font-size: 15px;
-`;
-
-const CreateButton = styled.button`
-`;
-
-const Required = styled.span`
-    color: red;
-`;
