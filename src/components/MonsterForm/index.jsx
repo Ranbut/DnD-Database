@@ -9,6 +9,7 @@ import Actions from "./Actions";
 import DamageReponse from "./DamageReponse";
 import SpecialAbilities from "./SpecialAbilities";
 import { Senses } from "./Senses";
+import { Speed } from "./Speed";
 
 export default function MonsterForm({ token }) {
     const [name, setName] = useState('');
@@ -39,9 +40,14 @@ export default function MonsterForm({ token }) {
     const [specialAbilities, setSpecialAbilities] = useState([]);
     const [languages, setLanguages] = useState([]);
     const [senses, setSenses] = useState(null);
+    const [speed, setSpeed] = useState({ walk: "10 ft." });
 
     const handleSensesChange = (newSenses) => {
-        setSenses(newSenses);
+        setSpeed(newSenses);
+    };
+
+    const handleSpeedChange = (newSpeed) => {
+        setSenses(newSpeed);
     };
 
     const handleLanguagesChange = (newLanguage) => {
@@ -245,9 +251,7 @@ export default function MonsterForm({ token }) {
             special_abilities: specialAbilities,
             languages: languages.join(", "),
             senses: senses || { passive_perception: passivePerception },
-            speed: {
-                walk: "40 ft."
-            },
+            speed: speed,
             xp: getXP(),
         }
         console.log(monsterData);
@@ -429,6 +433,10 @@ export default function MonsterForm({ token }) {
             <Label>Senses Information</Label>
             <Container>
                 <Senses passivePerception={passivePerception} onSensesChange={handleSensesChange} />
+            </Container>
+            <Label>Speed Information</Label>
+            <Container>
+                <Speed onSpeedChange={handleSensesChange} />
             </Container>
             <CreateButton onClick={handleSubmit}>Save Monster</CreateButton>
         </MainContainer>
