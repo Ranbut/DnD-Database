@@ -10,6 +10,7 @@ import DamageReponse from "./DamageReponse";
 import SpecialAbilities from "./SpecialAbilities";
 import { Senses } from "./Senses";
 import { Speed } from "./Speed";
+import { Proficiencies } from "./Proficiencies";
 
 export default function MonsterForm({ token }) {
     const [name, setName] = useState('');
@@ -41,6 +42,11 @@ export default function MonsterForm({ token }) {
     const [languages, setLanguages] = useState([]);
     const [senses, setSenses] = useState(null);
     const [speed, setSpeed] = useState({ walk: "10 ft." });
+    const [proficiencies, setProficiencies] = useState([]);
+
+    const handleProficienciesChange = (newProficiencies) => {
+        setProficiencies(newProficiencies);
+    };
 
     const handleSensesChange = (newSenses) => {
         setSpeed(newSenses);
@@ -245,6 +251,7 @@ export default function MonsterForm({ token }) {
             actions: actions,
             legendary_actions: legendaryActions,
             damage_vulnerabilities: damageVulnerabilities,
+            proficiencies: proficiencies,
             damage_resistances: damageResistances,
             damage_immunities: damageImmunities,
             condition_immunities: conditionImmunities,
