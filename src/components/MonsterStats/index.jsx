@@ -4,8 +4,23 @@ import ScalaSansRegular from "../../assets/fonts/ScalaSans/ScalaSans-Regular.ttf
 import TopTexture from "../../assets/images/stat-block-top-texture.png"
 import PaperTexture from "../../assets/images/paper-texture.png"
 import HeaderBar from "../../assets/images/stat-block-header-bar.svg"
+import { addBookmark, getBookmarkByIndex, removeBookmark } from "../../services/bookmarksApi"
+import useToken from "../../hooks/useToken";
+import { useEffect, useState } from "react";
+import { BsFillBookmarkPlusFill, BsFillBookmarkDashFill } from "react-icons/bs"
 
 export default function MonsterStats({ monster }) {
+    const [bookmarked, setBookmarked] = useState(false);
+    const token = useToken();
+
+    useEffect(() => {
+        async function fetchData() {
+            const bookmark = await getBookmarkByIndex(monster.index, token);
+            setBookmarked(bookmark);
+            console.log(bookmarked);
+        }
+        fetchData();
+    }, []);
 
     function renderMonsterMeta({ size, type, alignment }) {
         const textType = type.charAt(0).toUpperCase() + type.slice(1);
@@ -122,10 +137,10 @@ export default function MonsterStats({ monster }) {
     function renderMonsterConditionImmunities({ condition_immunities }) {
         if (condition_immunities.length === 1) {
             return ' ' + condition_immunities[0].name;
-          } else if (condition_immunities.length > 1) {
+        } else if (condition_immunities.length > 1) {
             const names = condition_immunities.map((obj) => obj.name);
             return ' ' + names.join(', ');
-          }
+        }
     }
 
     function renderMonsterSenses({ senses }) {
@@ -138,17 +153,37 @@ export default function MonsterStats({ monster }) {
             .join(", ");
     }
 
+    async function handleBookmark() {
+        try {
+            if (!bookmarked) {
+                const body = {
+                    index: monster.index,
+                    name: monster.name,
+                    type: "MONSTER"
+                };
+                await addBookmark(body, token);
+                setBookmarked(true);
+            }
+            else {
+                await removeBookmark(monster.index, token);
+                setBookmarked(false);
+            }
+        } catch (error) {
+            alert('Error on bookmark!');
+        }
+    }
+
     return (
         <MainContainer>
-            {monster.image ? (<MonsterImage src={`https://www.dnd5eapi.co${monster.image}`} title={monster.name} alt={monster.name}/>) : (<></>)}
+            {monster.image ? (<MonsterImage src={`https://www.dnd5eapi.co${monster.image}`} title={monster.name} alt={monster.name} />) : (<></>)}
             <MainDetailContainer>
                 <GlobalStyle />
                 <BlockContainer topTexture={TopTexture} paperTexture={PaperTexture}>
                     <div>
                         <StyledName>
                             {monster.name}
+                            {!bookmarked ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) : (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>)}
                         </StyledName>
-
                         <StyledMeta>{renderMonsterMeta(monster)}</StyledMeta>
                     </div>
                     <div>
@@ -361,6 +396,15 @@ const MonsterImage = styled.img`
     margin-left: 20px;
     width: 250px;
     height: 250px;
+    @media (max-width: 580px) {
+    margin-left: 18%;
+  }
+`;
+
+const ButtontBookmark = styled.button`
+    background-color: transparent;
+    margin-top: 20px;
+    margin-left: 20px;
     @media (max-width: 580px) {
     margin-left: 18%;
   }
