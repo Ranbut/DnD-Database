@@ -11,6 +11,7 @@ import Equipment from './Equipment/index.jsx';
 import MagicItem from './MagicItem/index.jsx';
 import Homebrew from './Homebrew/index.jsx';
 import History from './History/index.jsx';
+import Bookmarks from './Bookmarks/index.jsx';
 import NotFound from './NotFound/index.jsx';
 import CharacterCreation from './CharacterCreation/index.jsx';
 import SpellCreation from './SpellCreation/index.jsx';
@@ -20,6 +21,6 @@ export { Home, SignIn, SignUp, UserConfig,
      Monsters, Monster, 
      Spells, Spell, 
      Equipments, Equipment, MagicItem,
-     Homebrew, History,
+     Homebrew, History, Bookmarks,
      NotFound, 
      CharacterCreation, SpellCreation, MonsterCreation }

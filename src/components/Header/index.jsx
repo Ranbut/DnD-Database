@@ -28,12 +28,16 @@ export default function Header() {
     navigate("/user-config");
   };
 
+  function handleBookmarks() {
+    navigate("/bookmarks");
+  };
+
   function handleHistory() {
     navigate("/history");
   };
 
   function handleHomebrew() {
-
+    navigate("/homebrew");
   };
 
   return (
@@ -68,6 +72,7 @@ export default function Header() {
                 {showOptions && (
                   <ProfileOptions>
                     <button onClick={handleHomebrew}>My Homebrew</button>
+                    <button onClick={handleBookmarks}>My Bookmarks</button>
                     <button onClick={handleHistory}>History</button>
                     <button onClick={handleConfigure}>Configurations</button>
                     <button onClick={handleLogout}>Logout</button>

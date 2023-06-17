@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import Header from "../../components/Header";
 import useToken from "../../hooks/useToken";
-import { getAllHistory } from "../../services/historyApi";
+import { getAllBookmarks } from "../../services/bookmarksApi";
 import styled from "styled-components";
 import Logo from "../../assets/images/dnd.svg"
 import { GiSpikedDragonHead, GiMagicAxe, GiAxeSword, GiMagicPalm } from 'react-icons/gi';
 
-export default function History() {
-    const [historyList, setHistoryList] = useState([]);
+export default function Bookmarks() {
+    const [bookmarkList, setBookmarkList] = useState([]);
     const token = useToken();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!token) navigate("/sign-in?return=history");
+        if(!token) navigate("/sign-in?return=bookmarks");
         async function fetchData() {
-            const history = await getAllHistory(token);
-            setHistoryList(history);
+            const bookmark = await getAllBookmarks(token);
+            setBookmarkList(bookmark);
         }
         fetchData();
     }, []);
@@ -26,7 +26,7 @@ export default function History() {
         return dateObj.toLocaleString();
     }
 
-    console.log(historyList);
+    console.log(bookmarkList);
 
     return (
         <>
@@ -44,23 +44,23 @@ export default function History() {
                     </div>
                 </SidebarContainer>
                 <Content>
-                    <HistoryContainer>
-                        <MainHeading>History - Showing All</MainHeading>
-                        <HistoryGrid>
-                            {historyList.map((history, index) => (
-                                <HistoryLink
+                    <BookmarkContainer>
+                        <MainHeading>Bookmarks - Showing All</MainHeading>
+                        <BookmarkGrid>
+                            {bookmarkList.map((bookmark, index) => (
+                                <BookmarkLink
                                     key={index}
-                                    to={history.type === "MONSTER" ? `/monster?index=${history.index}` :
-                                     history.type === "SPELL" ? `/spell?index=${history.index}` :
-                                     history.type === "EQUIPMENT" ? `/equipment?index=${history.index}` :
-                                     history.type === "MAGIC_ITEM" ? `/magic-item?index=${history.index}` : ''
+                                    to={bookmark.type === "MONSTER" ? `/monster?index=${bookmark.index}` :
+                                     bookmark.type === "SPELL" ? `/spell?index=${bookmark.index}` :
+                                     bookmark.type === "EQUIPMENT" ? `/equipment?index=${bookmark.index}` :
+                                     bookmark.type === "MAGIC_ITEM" ? `/magic-item?index=${bookmark.index}` : ''
                                     }
                                 >
-                                    <HistoryName>{history.name} <HistoryDate>{renderDate(history.createdAt)}</HistoryDate></HistoryName>
-                                </HistoryLink>
+                                    <BookmarkName>{bookmark.name} <BookmarkDate>{renderDate(bookmark.createdAt)}</BookmarkDate></BookmarkName>
+                                </BookmarkLink>
                             ))}
-                        </HistoryGrid>
-                    </HistoryContainer>
+                        </BookmarkGrid>
+                    </BookmarkContainer>
                 </Content>
             </Container>
         </>
@@ -91,7 +91,7 @@ const SidebarContainer = styled.div`
     `;
 
 
-const HistoryContainer = styled.div`
+const BookmarkContainer = styled.div`
       padding: 1px 3%;
       margin-left: 10px;
     `;
@@ -124,13 +124,13 @@ const MainHeading = styled.h2`
   font-weight: bold;
 `;
 
-const HistoryGrid = styled.div`
+const BookmarkGrid = styled.div`
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
     `;
 
-const HistoryLink = styled(Link)`
+const BookmarkLink = styled(Link)`
       padding: 16px;
       background-color: #ccc;
       border-radius: 4px;
@@ -142,10 +142,10 @@ const HistoryLink = styled(Link)`
       }
     `;
 
-const HistoryName = styled.p`
+const BookmarkName = styled.p`
       color: #333;
     `;
 
-const HistoryDate = styled.span`
+const BookmarkDate = styled.span`
     margin-left: 30%;
     `;
