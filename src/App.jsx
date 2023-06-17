@@ -9,11 +9,11 @@ import { Home, SignIn, SignUp, UserConfig,
    Spells, Spell, 
    Equipments, Equipment, MagicItem, 
    CharacterCreation, SpellCreation, MonsterCreation, 
+   Homebrew, History,
    NotFound } from './pages/index.jsx';
 
 import { UserProvider } from './contexts/UserContext';
 import { GlobalStyle } from './globalStyle.jsx'
-import Homebrew from './pages/Homebrew/index.jsx';
 
 export default function App() {
   return (
@@ -32,6 +32,7 @@ export default function App() {
           <Route path="/equipments" element={<Equipments />} />
           <Route path="/equipment" element={<Equipment />} />
           <Route path="/magic-item" element={<MagicItem />} />
+          <Route path="/history" element={<History />} />
           <Route path="/homebrew" element={<Homebrew />} />
           <Route path="/homebrew/create-character" element={<CharacterCreation />} />
           <Route path="/homebrew/create-spell" element={<SpellCreation />} />

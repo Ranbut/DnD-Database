@@ -3,10 +3,13 @@ import { useLocation } from 'react-router-dom';
 import Header from "../../components/Header";
 import { getMagicItemByIndex } from "../../services/DnDAPI/equipmentApi";
 import MagicItemDetails from "../../components/MagicItemDetails";
+import { addHistory } from "../../services/historyApi";
+import useToken from "../../hooks/useToken";
 
 export default function MagicItem() {
     const [magicItem, setMagicItem] = useState(null);
 
+    const token = useToken();
     const location = useLocation();
 
     useEffect(() => {
@@ -16,9 +19,17 @@ export default function MagicItem() {
 
             const magicItemSelected = await getMagicItemByIndex(paramIndex);
             setMagicItem(magicItemSelected);
+            if (token) {
+                const body = { 
+                    index: magicItemSelected.index,
+                    name: magicItemSelected.name,
+                    type: "MAGIC_ITEM"
+                };
+                await addHistory(body ,token);
+            }
         }
         fetchData();
-    }, [location.search]);
+    }, [location.search, token]);
 
     return (
         <>

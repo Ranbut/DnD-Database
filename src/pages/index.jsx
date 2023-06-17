@@ -9,6 +9,8 @@ import Spell from './Spell/index.jsx';
 import Equipments from './Equipments/index.jsx';
 import Equipment from './Equipment/index.jsx';
 import MagicItem from './MagicItem/index.jsx';
+import Homebrew from './Homebrew/index.jsx';
+import History from './History/index.jsx';
 import NotFound from './NotFound/index.jsx';
 import CharacterCreation from './CharacterCreation/index.jsx';
 import SpellCreation from './SpellCreation/index.jsx';
@@ -17,6 +19,7 @@ import MonsterCreation from './MonsterCreation/index.jsx';
 export { Home, SignIn, SignUp, UserConfig,
      Monsters, Monster, 
      Spells, Spell, 
-     Equipments, Equipment, MagicItem, 
+     Equipments, Equipment, MagicItem,
+     Homebrew, History,
      NotFound, 
      CharacterCreation, SpellCreation, MonsterCreation }
