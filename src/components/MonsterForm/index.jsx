@@ -1,848 +1,474 @@
 import styled from "styled-components"
-import React, { useState } from 'react';
+import { createMonster } from "../../services/monstersApi";
+import { useState } from "react";
+import Actions from "./Actions";
+import DamageReponse from "./DamageReponse";
+import SpecialAbilities from "./SpecialAbilities";
 
-export default function MonsterForm() {
-    const [monsterData, setMonsterData] = useState({
-        index: "",
-        name: "",
-        size: "",
-        type: "",
-        alignment: "",
-        armor_class: {
-                type: "",
-                value: 1
-            }
-        ,
-        hit_points: 1,
-        hit_dice: "",
-        hit_points_roll: "",
-        speed: "",
-        strength: 1,
-        dexterity: 1,
-        constitution: 1,
-        intelligence: 1,
-        wisdom: 1,
-        charisma: 1,
-        proficiencies: "",
-        damage_vulnerabilities: "",
-        damage_resistances: "",
-        damage_immunities: "",
-        condition_immunities: "",
-        senses: {
-            blindsight: "",
-            darkvision: "",
-            passive_perception: 1
-        },
-        languages: "",
-        challenge_rating: 0,
-        xp: 0,
-        special_abilities: [],
-        actions: [],
-        legendary_actions: [],
-        image: "",
-    });
+export default function MonsterForm({ token }) {
+    const [name, setName] = useState('');
+    const [image, setImage] = useState('');
+    const [alignment, setAlignment] = useState('');
+    const [type, setType] = useState('');
+    const [size, setSize] = useState('');
+    const [challengeRating, setChallengeRating] = useState(0);
+    const [strength, setStrength] = useState(10);
+    const [dexterity, setDexterity] = useState(10);
+    const [constitution, setConstitution] = useState(10);
+    const [intelligence, setIntelligence] = useState(10);
+    const [wisdom, setWisdom] = useState(10);
+    const [charisma, setCharisma] = useState(10);
+    const [avarageHitPoints, setAvarageHitPoints] = useState(10);
+    const [hitPointsDiceCount, setHitPointsDiceCount] = useState(1);
+    const [hitPoinstDiceValue, setHitPoinstDiceValue] = useState('d4');
+    const [hitPointsModifier, setHitPointsModifier] = useState(10);
+    const [armorClass, setArmorClass] = useState(10);
+    const [armorClassType, setArmorClassType] = useState('');
+    const [passivePerception, setPassivePerception] = useState(10);
+    const [actions, setActions] = useState([]);
+    const [legendaryActions, setLegendaryActions] = useState([]);
+    const [damageVulnerabilities, setDamageVulnerabilities] = useState([]);
+    const [damageResistances, setDamageResistances] = useState([]);
+    const [damageImmunities, setDamageImmunities] = useState([]);
+    const [conditionImmunities, setConditionImmunities] = useState([]);
+    const [specialAbilities, setSpecialAbilities] = useState([]);
+    const [languages, setLanguages] = useState([]);
 
-    const handleAddLegendaryAction = () => {
-        const newAction = {
-            name: "",
-            desc: ""
-        };
-        setMonsterData(prevData => ({
-            ...prevData,
-            legendary_actions: [...prevData.legendary_actions, newAction]
-        }));
-    };
-
-    const handleAddAction = () => {
-        const newAction = {
-            name: "",
-            desc: ""
-        };
-        setMonsterData(prevData => ({
-            ...prevData,
-            actions: [...prevData.actions, newAction]
-        }));
-    };
-
-    const handleAddSpecialAbility = () => {
-        const newAbility = {
-          name: "",
-          desc: ""
-        };
-        setMonsterData(prevData => ({
-          ...prevData,
-          special_abilities: [...prevData.special_abilities, newAbility]
-        }));
+    const handleLanguagesChange = (newLanguage) => {
+        setLanguages([...languages, newLanguage]);
       };
     
-    const handleSpecialAbilityChange = (event, index, field) => {
-        const { value } = event.target;
-        setMonsterData(prevData => ({
-          ...prevData,
-          special_abilities: prevData.special_abilities.map((ability, i) => {
-            if (i === index) {
-              return { ...ability, [field]: value };
-            }
-            return ability;
-          })
-        }));
-    };
+      const handleLanguagesDelete = (newLanguage) => {
+        setLanguages(newLanguage);
+      };
+
+    const handleSpecialAbilitiesChange = (newSpecialAbilities) => {
+        setSpecialAbilities([...specialAbilities, newSpecialAbilities]);
+      };
     
-    const handleRemoveSpecialAbility = (index) => {
-        setMonsterData(prevData => ({
-          ...prevData,
-          special_abilities: prevData.special_abilities.filter((_, i) => i !== index)
-        }));
-    };
+      const handleSpecialAbilitiesDelete = (newSpecialAbilities) => {
+        setSpecialAbilities(newSpecialAbilities);
+      };
+
+    const handleActionsChange = (newAction) => {
+        setActions([...actions, newAction]);
+      };
     
-    const handleActionChange = (event, index, field) => {
-        const { value } = event.target;
-        setMonsterData(prevData => ({
-            ...prevData,
-            actions: prevData.actions.map((action, i) => {
-                if (i === index) {
-                    return { ...action, [field]: value };
-                }
-                return action;
-            })
-        }));
-    };
+      const handleActionsDelete = (newAction) => {
+        setActions(newAction);
+      };
 
-    const handleRemoveAction = (index) => {
-        setMonsterData(prevData => ({
-            ...prevData,
-            actions: prevData.actions.filter((_, i) => i !== index)
-        }));
-    };
+      const handleLegendaryActionsChange = (newAction) => {
+        setLegendaryActions([...legendaryActions, newAction]);
+      };
 
-    const handleLegendaryActionChange = (event, index, field) => {
-        const { value } = event.target;
-        setMonsterData(prevData => ({
-            ...prevData,
-            legendary_actions: prevData.legendary_actions.map((action, i) => {
-                if (i === index) {
-                    return { ...action, [field]: value };
-                }
-                return action;
-            })
-        }));
-    };
+      const handleLegendaryActionsDelete = (newAction) => {
+        setLegendaryActions(newAction);
+      };
 
-    const handleRemoveLegendaryAction = (index) => {
-        setMonsterData(prevData => ({
-            ...prevData,
-            legendary_actions: prevData.legendary_actions.filter((_, i) => i !== index)
-        }));
-    };
+      const handleDamageVulnerabilitiesChange = (newDamage) => {
+        setDamageVulnerabilities([...damageVulnerabilities, newDamage]);
+      };
+    
+      const handleDamageVulnerabilitiesDelete = (newDamage) => {
+        setDamageVulnerabilities(newDamage);
+      };
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-      
-        const nameParts = name.split(".");
-      
-        if (nameParts.length === 2) {
-          const [nestedProp, nestedField] = nameParts;
-          setMonsterData((prevData) => ({
-            ...prevData,
-            [nestedProp]: { ...prevData[nestedProp], [nestedField]: value },
-          }));
-        } else {
-          if (name === "challenge_rating") {
-            setMonsterData((prevData) => ({
-              ...prevData,
-              [name]: parseFloat(value),
-            }));
-          } else {
-            setMonsterData((prevData) => ({ ...prevData, [name]: value }));
-          }
-        }
-      };      
+      const handleDamageResistancesChange = (newDamage) => {
+        setDamageResistances([...damageResistances, newDamage]);
+      };
+    
+      const handleDamageResistancesDelete = (newDamage) => {
+        setDamageResistances(newDamage);
+      };
+
+      const handleDamageImmunitiesChange = (newDamage) => {
+        setDamageImmunities([...damageImmunities, newDamage]);
+      };
+    
+      const handleDamageImmunitiesDelete = (newDamage) => {
+        setDamageImmunities(newDamage);
+      };
+
+      const handleConditionImmunitiesChange = (newDamage) => {
+        setConditionImmunities([...conditionImmunities, newDamage]);
+      };
+    
+      const handleConditionImmunitiesDelete = (newDamage) => {
+        setConditionImmunities(newDamage);
+      };
 
     const getXP = () => {
-        switch (monsterData.challenge_rating){
+        switch (challengeRating) {
             case 0:
-                monsterData.xp = 10;
+                return 10;
                 break;
             case 0.125:
-                monsterData.xp = 25;
+                return 25;
                 break;
             case 0.25:
-                monsterData.xp = 50;
+                return 50;
                 break;
             case 0.5:
-                monsterData.xp = 100;
+                return 100;
                 break;
             case 1:
-                monsterData.xp = 200;
-            break;
+                return 200;
+                break;
             case 2:
-                monsterData.xp = 450;
-            break;
+                return 450;
+                break;
             case 3:
-                monsterData.xp = 700;
-            break;
+                return 700;
+                break;
             case 4:
-                monsterData.xp = 1100;
-            break;
+                return 1100;
+                break;
             case 5:
-                monsterData.xp = 1800;
-            break;
+                return 1800;
+                break;
             case 6:
-                monsterData.xp = 2300;
-            break;
+                return 2300;
+                break;
             case 7:
-                monsterData.xp = 2900;
-            break;
+                return 2900;
+                break;
             case 8:
-                monsterData.xp = 3900;
-            break;
+                return 3900;
+                break;
             case 9:
-                monsterData.xp = 5000;
-            break;
+                return 5000;
+                break;
             case 10:
-                monsterData.xp = 5900;
-            break;
+                return 5900;
+                break;
             case 11:
-                monsterData.xp = 7200;
-            break;
+                return 7200;
+                break;
             case 12:
-                monsterData.xp = 8400;
-            break;
+                return 8400;
+                break;
             case 13:
-                monsterData.xp = 10000;
-            break;
+                return 10000;
+                break;
             case 14:
-                monsterData.xp = 11500;
-            break;
+                return 11500;
+                break;
             case 15:
-                monsterData.xp = 13000;
-            break;
+                return 13000;
+                break;
             case 16:
-                monsterData.xp = 15000;
-            break;
+                return 15000;
+                break;
             case 17:
-                monsterData.xp = 18000;
-            break;
+                return 18000;
+                break;
             case 18:
-                monsterData.xp = 20000;
-            break;
+                return 20000;
+                break;
             case 19:
-                monsterData.xp = 22000;
-            break;
+                return 22000;
+                break;
             case 20:
-                monsterData.xp = 22000;
-            break;
+                return 22000;
+                break;
             case 21:
-                monsterData.xp = 33000;
-            break;
+                return 33000;
+                break;
             case 22:
-                monsterData.xp = 41000;
-            break;
+                return 41000;
+                break;
             case 23:
-                monsterData.xp = 50000;
-            break;
+                return 50000;
+                break;
             case 24:
-                monsterData.xp = 62000;
-            break;
+                return 62000;
+                break;
             case 25:
-                monsterData.xp = 75000;
-            break;
+                return 75000;
+                break;
             case 26:
-                monsterData.xp = 90000;
-            break;
+                return 90000;
+                break;
             case 27:
-                monsterData.xp = 105000;
-            break;
+                return 105000;
+                break;
             case 28:
-                monsterData.xp = 120000;
-            break;
+                return 120000;
+                break;
             case 29:
-                monsterData.xp = 135000;
-            break;
+                return 135000;
+                break;
             case 30:
-                monsterData.xp = 155000;
-            break;
+                return 155000;
+                break;
             default:
-                monsterData.xp = 10;
-            break;
+                return 10;
+                break;
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        getXP();
+
+        const monsterData = {
+            index: name.toLowerCase(),
+            name: name,
+            alignment: alignment,
+            challenge_rating: challengeRating,
+            armor_class: [{ type: armorClassType, value: armorClass }],
+            strength: strength,
+            dexterity: dexterity,
+            constitution: constitution,
+            intelligence: intelligence,
+            wisdom: wisdom,
+            charisma: charisma,
+            hit_dice: hitPointsDiceCount.toString() + hitPoinstDiceValue,
+            hit_points: avarageHitPoints,
+            hit_points_roll: hitPointsDiceCount.toString() + hitPoinstDiceValue + "+" + hitPointsModifier.toString(),
+            actions: actions,
+            legendary_actions: legendaryActions,
+            damage_vulnerabilities: damageVulnerabilities,
+            damage_resistances: damageResistances,
+            damage_immunities: damageImmunities,
+            condition_immunities: conditionImmunities,
+            special_abilities: specialAbilities,
+            languages: languages.join(", "),
+            senses: {
+                passive_perception: passivePerception
+            },
+            xp: getXP(),
+        }
         console.log(monsterData);
-        alert('Monster created successfully!');
+        //await createMonster(monsterData, token);
+        try {
+            alert('Monster created successfully!');
+        } catch (error) {
+            alert('Unable to create monster!');
+        }
     };
 
     return (
         <MainContainer>
-            <MainFormContainer onSubmit={handleSubmit}>
-                <BlockLabel>Basic Information:</BlockLabel>
-                <BlockContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Monster Name <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="text"
-                                name="name"
-                                value={monsterData.name}
-                                onChange={handleInputChange}
-                            />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel> 
-                            Monster Type <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <select
-                                name="type"
-                                value={monsterData.type}
-                                onChange={handleInputChange}
-                            >
-                                <option value="aberration">Aberration</option>
-                                <option value="beast">Beast</option>
-                                <option value="celestial">Celestial</option>
-                                <option value="construct">Construct</option>
-                                <option value="dragon">Dragon</option>
-                                <option value="elemental">Elemental</option>
-                                <option value="fey">Fey</option>
-                                <option value="fiend">Fiend</option>
-                                <option value="giant">Giant</option>
-                                <option value="humanoid">Humanoid</option>
-                                <option value="monstrosity">Monstrosity</option>
-                                <option value="ooze">Ooze</option>
-                                <option value="plant">Plant</option>
-                                <option value="undead">Undead</option>
-                            </select>
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Alignment <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <select name="alignment"
-                                value={monsterData.alignment}
-                                onChange={handleInputChange}
-                            >
-                                <option value="Any Alignment">Any Alignment</option>
-                                <option value="Any Chaotic Alignment">Any Chaotic Alignment</option>
-                                <option value="Any Evil Alignment">Any Evil Alignment</option>
-                                <option value="Any Good Alignment">Any Good Alignment</option>
-                                <option value="Any Lawful Alignment">Any Lawful Alignment</option>
-                                <option value="Any Non-Good Alignment">Any Non-Good Alignment</option>
-                                <option value="Any Non-Lawful Alignment">Any Non-Lawful Alignment</option>
-                                <option value="Chaotic Evil">Chaotic Evil</option>
-                                <option value="Chaotic Good">Chaotic Good</option>
-                                <option value="Chaotic Neutral">Chaotic Neutral</option>
-                                <option value="Lawful Evil">Lawful Evil</option>
-                                <option value="Lawful Good">Lawful Good</option>
-                                <option value="Lawful Neutral">Lawful Neutral</option>
-                                <option value="Neutral">Neutral</option>
-                                <option value="Neutral Evil">Neutral Evil</option>
-                                <option value="Neutral Good">Neutral Good</option>
-                                <option value="Typically Chaotic Evil">Typically Chaotic Evil</option>
-                                <option value="Typically Chaotic Good">Typically Chaotic Good</option>
-                                <option value="Typically Chaotic Neutral">Typically Chaotic Neutral</option>
-                                <option value="Typically Lawful Evil">Typically Lawful Evil</option>
-                                <option value="Typically Lawful Good">Typically Lawful Good</option>
-                                <option value="Typically Lawful Neutral">Typically Lawful Neutral</option>
-                                <option value="Typically Neutral">Typically Neutral</option>
-                                <option value="Typically Neutral Evil">Typically Neutral Evil</option>
-                                <option value="Typically Neutral Good">Typically Neutral Good</option>
-                                <option value="Unaligned">Unaligned</option>
-                            </select>
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Size <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <select name="size"
-                                value={monsterData.size}
-                                onChange={handleInputChange}
-                            >
-                                <option value="Tiny">Tiny</option>
-                                <option value="Small">Small</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Large">Large</option>
-                                <option value="Huge">Huge</option>
-                                <option value="Gargantuan">Gargantuan</option>
-                            </select>
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Challenge Rating <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <select name="challenge_rating"
-                                value={monsterData.challenge_rating}
-                                onChange={handleInputChange}
-                            >
-                                <option value="0">0</option>
-                                <option value="0.125">1/8</option>
-                                <option value="0.25">1/4</option>
-                                <option value="0.5">1/2</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                                <option value="24">24</option>
-                                <option value="25">25</option>
-                                <option value="26">26</option>
-                                <option value="27">27</option>
-                                <option value="28">28</option>
-                                <option value="29">29</option>
-                                <option value="30">30</option>
-                            </select>
-                        </ItemInput>
-                    </ItemContainer>
-                </BlockContainer>
-                <BlockLabel>Hit Points and Armor Class:</BlockLabel>
-                <BlockContainer>
+            <SpellHeading>{image ? (<MonsterImage src={image}></MonsterImage>) : (<></>)}{name}</SpellHeading>
+            <Label>Basic Information</Label>
+            <Container>
                 <ItemContainer>
-                        <ItemLabel>
-                            Armor Class <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="number"
-                                name="armor_class.value"
-                                value={monsterData.armor_class.value}
-                                max="100000"
-                                min="1"
-                                onChange={handleInputChange}
-                            />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Armor Class Type <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="text"
-                                name="armor_class.type"
-                                value={monsterData.armor_class.type}
-                                onChange={handleInputChange}
-                            />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Average Hit Points <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="number"
-                                name="hit_points"
-                                value={monsterData.hit_points}
-                                max="100000"
-                                min="1"
-                                onChange={handleInputChange}
-                            />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Hit Points Die Count <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="number"
-                                name="hit_points"
-                                value={monsterData.hit_points}
-                                max="100000"
-                                min="1"
-                                onChange={handleInputChange}
-                            />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Hit Points Die Value <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <select name="challenge_rating"
-                                value={monsterData.challenge_rating}
-                                onChange={handleInputChange}
-                            >
-                                <option value="d4">d4</option>
-                                <option value="d6">d6</option>
-                                <option value="d8">d8</option>
-                                <option value="d10">d10</option>
-                                <option value="d12">d12</option>
-                                <option value="d20">d20</option>
-                            </select>
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Hit Points Modifier <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="number"
-                                name="strength"
-                                value={monsterData.strength}
-                                max="30"
-                                min="1"
-                                onChange={handleInputChange}
-                            />
-                        </ItemInput>
-                    </ItemContainer>
-                </BlockContainer>
-                <BlockLabel>Speed and Senses:</BlockLabel>
-                <BlockContainer>
+                    <ItemLabel>Monster Name <Required>*</Required></ItemLabel>
+                    <ItemInputText type="text" id="field-monster-name" value={name} onChange={(e) => setName(e.target.value)} />
+                    <ItemLabel>Monster Image</ItemLabel>
+                    <ItemInputText type="text" id="field-monster-name" value={image} onChange={(e) => setImage(e.target.value)} />
+                </ItemContainer>
                 <ItemContainer>
-                        <ItemLabel>
-                            Speed <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="text"
-                                name="speed"
-                                value={monsterData.speed}
-                                onChange={handleInputChange}
-                            />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Passive Perception <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="number"
-                                name="senses.passive_perception"
-                                value={monsterData.senses.passive_perception}
-                                max="100000"
-                                min="1"
-                                onChange={handleInputChange}
-                            />
-                        </ItemInput>
-                    </ItemContainer>
-                </BlockContainer>
-                <BlockLabel>Abilities:</BlockLabel>
-                <BlockContainer>
+                    <ItemLabel>Monster Type <Required>*</Required></ItemLabel>
+                    <ItemSelect id="field-monster-type" name="monster-type" value={type} onChange={(e) => setType(e.target.value)}>
+                        <option value="aberration" id="field-monster-type-0">Aberration</option>
+                        <option value="beast" id="field-monster-type-1">Beast</option>
+                        <option value="celestial" id="field-monster-type-2">Celestial</option>
+                        <option value="construct" id="field-monster-type-3">Construct</option>
+                        <option value="dragon" id="field-monster-type-4">Dragon</option>
+                        <option value="elemental" id="field-monster-type-5">Elemental</option>
+                        <option value="fey" id="field-monster-type-6">Fey</option>
+                        <option value="fiend" id="field-monster-type-7">Fiend</option>
+                        <option value="giant" id="field-monster-type-8">Giant</option>
+                        <option value="humanoid" id="field-monster-type-9">Humanoid</option>
+                        <option value="monstrosity" id="field-monster-type-10">Monstrosity</option>
+                        <option value="ooze" id="field-monster-type-11">Ooze</option>
+                        <option value="plant" id="field-monster-type-12">Plant</option>
+                        <option value="undead" id="field-monster-type-13">Undead</option>
+                    </ItemSelect>
+                </ItemContainer>
                 <ItemContainer>
-                        <ItemLabel>
-                            Strength Score <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="number"
-                            name="strength"
-                            value={monsterData.strength}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Dexterity Score <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="number"
-                            name="dexterity"
-                            value={monsterData.dexterity}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Constitution Score <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="number"
-                            name="constitution"
-                            value={monsterData.constitution}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Intelligence Score <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="number"
-                            name="intelligence"
-                            value={monsterData.intelligence}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Wisdom Score <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="number"
-                            name="wisdom"
-                            value={monsterData.wisdom}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                            Charisma Score <Optional>*</Optional>
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="number"
-                            name="charisma"
-                            value={monsterData.charisma}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                </BlockContainer>
-                <BlockLabel>Damage and Condition Behavior:</BlockLabel>
-                <BlockContainer>
+                    <ItemLabel>Size <Required>*</Required></ItemLabel>
+                    <ItemSelect id="field-monster-size" name="monster-size" value={size} onChange={(e) => setSize(e.target.value)}>
+                        <option value="Gargantuan" id="field-monster-size-0">Gargantuan</option>
+                        <option value="Huge" id="field-monster-size-1">Huge</option>
+                        <option value="Large" id="field-monster-size-2">Large</option>
+                        <option value="Medium" id="field-monster-size-3">Medium</option>
+                        <option value="Small" id="field-monster-size-4">Small</option>
+                        <option value="Tiny" id="field-monster-size-5">Tiny</option>
+                    </ItemSelect>
+                </ItemContainer>
                 <ItemContainer>
-                        <ItemLabel>
-                        Damage Vulnerabilities
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="text"
-                            name="damage_vulnerabilities"
-                            value={monsterData.damage_vulnerabilities}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                        Damage Resistances
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="text"
-                            name="damage_resistances"
-                            value={monsterData.damage_resistances}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                        Damage Immunities
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="text"
-                            name="damage_immunities"
-                            value={monsterData.damage_immunities}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                    <ItemContainer>
-                        <ItemLabel>
-                        Condition Immunities
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="text"
-                            name="condition_immunities"
-                            value={monsterData.condition_immunities}
-                            max="30"
-                            min="1"
-                            onChange={handleInputChange}
-                        />
-                        </ItemInput>
-                    </ItemContainer>
-                </BlockContainer>
-                <BlockLabel>Actions:</BlockLabel>
-                <BlockContainer>
-                {monsterData.actions.map((action, index) => (
-                    <ItemContainer key={index}>
-                        <ItemLabel>
-                            Action Name:
-                        </ItemLabel>
-                            <ItemInput>
-                                <input
-                                    type="text"
-                                    value={action.name}
-                                    onChange={(event) => handleActionChange(event, index, "name")}
-                                />
-                            </ItemInput>
-                        <ItemLabel>
-                            Action Description:
-                        </ItemLabel>
-                            <ItemInput>
-                                <input
-                                    type="text"
-                                    value={action.desc}
-                                    onChange={(event) => handleActionChange(event, index, "desc")}
-                                />
-                            </ItemInput>
-                        <RemoveButton onClick={() => handleRemoveAction(index)}>Remove</RemoveButton>
-                    </ItemContainer>
-                ))}
-                </BlockContainer>
-                <AddButton onClick={handleAddAction}>Add Action</AddButton>
-                <BlockLabel>Legendary Action:</BlockLabel>
-                <BlockContainer>
-                {monsterData.legendary_actions.map((action, index) => (
-                    <ItemContainer key={index}>
-                        <ItemLabel>
-                            Legendary Action Name:
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="text"
-                                value={action.name}
-                                onChange={(event) => handleLegendaryActionChange(event, index, "name")}
-                            />
-                        </ItemInput>
-                        <ItemLabel>
-                            Legendary Action Description:
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                                type="text"
-                                value={action.desc}
-                                onChange={(event) => handleLegendaryActionChange(event, index, "desc")}
-                            />
-                        </ItemInput>
-                        <RemoveButton onClick={() => handleRemoveLegendaryAction(index)}>Remove</RemoveButton>
-                    </ItemContainer>
-                ))}
-                </BlockContainer>
-                <AddButton onClick={handleAddLegendaryAction}>Add Legendary Action</AddButton>
-                <BlockLabel>Special Abilities:</BlockLabel>
-                <BlockContainer>
-                    {monsterData.special_abilities.map((ability, index) => (
-                    <div key={index}>
-                        <ItemContainer>
-                        <ItemLabel>
-                            Ability Name:
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="text"
-                            value={ability.name}
-                            onChange={(event) => handleSpecialAbilityChange(event, index, "name")}
-                            />
-                        </ItemInput>
-                        </ItemContainer>
-                        <ItemContainer>
-                        <ItemLabel>
-                            Ability Description:
-                        </ItemLabel>
-                        <ItemInput>
-                            <input
-                            type="text"
-                            value={ability.desc}
-                            onChange={(event) => handleSpecialAbilityChange(event, index, "desc")}
-                            />
-                        </ItemInput>
-                        </ItemContainer>
-                        <button onClick={() => handleRemoveSpecialAbility(index)}>
-                        Remove Ability
-                        </button>
-                    </div>
-                    ))}
-                    <button onClick={handleAddSpecialAbility}>
-                    Add Special Ability 
-                    </button>
-                </BlockContainer>
-                <button type="submit">Create Monster</button>
-            </MainFormContainer>
+                    <ItemLabel>Challenge Rating <Required>*</Required></ItemLabel>
+                    <ItemSelect id="field-monster-challenge-rating" name="monster-challenge-rating" value={challengeRating} onChange={(e) => setChallengeRating(Number(e.target.value))}>
+                        <option value="0" id="field-monster-challenge-rating-type-0">0</option>
+                        <option value="0.125" id="field-monster-challenge-rating-type-1">1/8</option>
+                        <option value="0.25" id="field-monster-challenge-rating-type-2">1/4</option>
+                        <option value="0.5" id="field-monster-challenge-rating-type-3">1/2</option>
+                        <option value="1" id="field-monster-challenge-rating-type-4">1</option>
+                        <option value="2" id="field-monster-challenge-rating-type-5">2</option>
+                        <option value="3" id="field-monster-challenge-rating-type-6">3</option>
+                        <option value="4" id="field-monster-challenge-rating-type-7">4</option>
+                        <option value="5" id="field-monster-challenge-rating-type-8">5</option>
+                        <option value="6" id="field-monster-challenge-rating-type-9">6</option>
+                        <option value="7" id="field-monster-challenge-rating-type-10">7</option>
+                        <option value="8" id="field-monster-challenge-rating-type-11">8</option>
+                        <option value="9" id="field-monster-challenge-rating-type-12">9</option>
+                        <option value="10" id="field-monster-challenge-rating-type-13">10</option>
+                        <option value="11" id="field-monster-challenge-rating-type-14">11</option>
+                        <option value="12" id="field-monster-challenge-rating-type-15">12</option>
+                        <option value="13" id="field-monster-challenge-rating-type-16">13</option>
+                        <option value="14" id="field-monster-challenge-rating-type-17">14</option>
+                        <option value="15" id="field-monster-challenge-rating-type-18">15</option>
+                        <option value="16" id="field-monster-challenge-rating-type-19">16</option>
+                        <option value="17" id="field-monster-challenge-rating-type-20">17</option>
+                        <option value="18" id="field-monster-challenge-rating-type-21">18</option>
+                        <option value="19" id="field-monster-challenge-rating-type-22">19</option>
+                        <option value="20" id="field-monster-challenge-rating-type-23">20</option>
+                        <option value="21" id="field-monster-challenge-rating-type-24">21</option>
+                        <option value="22" id="field-monster-challenge-rating-type-25">22</option>
+                        <option value="23" id="field-monster-challenge-rating-type-26">23</option>
+                        <option value="24" id="field-monster-challenge-rating-type-27">24</option>
+                        <option value="25" id="field-monster-challenge-rating-type-28">25</option>
+                        <option value="26" id="field-monster-challenge-rating-type-29">26</option>
+                        <option value="27" id="field-monster-challenge-rating-type-30">27</option>
+                        <option value="28" id="field-monster-challenge-rating-type-31">28</option>
+                        <option value="29" id="field-monster-challenge-rating-type-32">29</option>
+                        <option value="30" id="field-monster-challenge-rating-type-33">30</option>
+                    </ItemSelect>
+                </ItemContainer>
+                <ItemContainer>
+                    <ItemLabel>Alignment <Required>*</Required></ItemLabel>
+                    <ItemSelect id="field-monster-alignment" name="monster-alignment" value={alignment} onChange={(e) => setAlignment(e.target.value)}>
+                        <option value="chaotic evil" id="field-monster-alignment-type-0">Chaotic Evil</option>
+                        <option value="chaotic good" id="field-monster-alignment-type-1">Chaotic Good</option>
+                        <option value="chaotic neutral" id="field-monster-alignment-type-2">Chaotic Neutral</option>
+                        <option value="lawful evil" id="field-monster-alignment-type-3">Lawful Evil</option>
+                        <option value="lawful good" id="field-monster-alignment-type-4">Lawful Good</option>
+                        <option value="lawful neutral" id="field-monster-alignment-type-5">Lawful Neutral</option>
+                        <option value="neutral" id="field-monster-alignment-type-6">Neutral</option>
+                        <option value="neutral evil" id="field-monster-alignment-type-7">Neutral Evil</option>
+                        <option value="neutral good" id="field-monster-alignment-type-8">Neutral Good</option>
+                    </ItemSelect>
+                </ItemContainer>
+            </Container>
+            <Label>Ability Information</Label>
+            <Container>
+                <ItemContainer>
+                    <ItemLabel>Strength <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="30" min="1" id="field-monster-ability-strength" value={strength} onChange={(e) => setStrength(Number(e.target.value))} />
+                    <ItemLabel>Dexterity <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="30" min="1" id="field-monster-ability-dexterity" value={dexterity} onChange={(e) => setDexterity(Number(e.target.value))} />
+                    <ItemLabel>Constitution <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="30" min="1" id="field-monster-ability-constitution" value={constitution} onChange={(e) => setConstitution(Number(e.target.value))} />
+                    <ItemLabel>Intelligence <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="30" min="1" id="field-monster-ability-dexterity" value={intelligence} onChange={(e) => setIntelligence(Number(e.target.value))} />
+                    <ItemLabel>Wisdom <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="30" min="1" id="field-monster-ability-wisdom" value={wisdom} onChange={(e) => setWisdom(Number(e.target.value))} />
+                    <ItemLabel>Charisma <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="30" min="1" id="field-monster-ability-charisma" value={charisma} onChange={(e) => setCharisma(Number(e.target.value))} />
+                    <ItemLabel>SpecialAbilities</ItemLabel>
+                    <SpecialAbilities specialAbilities={specialAbilities} onSpecialAbilitiesChange={handleSpecialAbilitiesChange} onSpecialAbilitiesDelete={handleSpecialAbilitiesDelete} />
+                </ItemContainer>
+            </Container>
+            <Label>Combat Information</Label>
+            <Container>
+                <ItemContainer>
+                    <ItemLabel>Armor Class <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="30" min="1" id="field-monster-armor-class" value={armorClass} onChange={(e) => setArmorClass(Number(e.target.value))} />
+                    <ItemLabel>Armor Class Type <Required>*</Required></ItemLabel>
+                    <ItemInputText type="text" id="field-monster-armor-class-type" value={armorClassType} onChange={(e) => setArmorClassType(e.target.value)} />
+                </ItemContainer>
+                <ItemContainer>
+                    <ItemLabel>Passive Perception <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="30" min="1" id="field-monster-passive-perception" value={passivePerception} onChange={(e) => setPassivePerception(Number(e.target.value))} />
+                </ItemContainer>
+                <ItemContainer>
+                    <ItemLabel>Hit Points Die Count <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="1000" min="1" id="field-monster-hit-points-die-count" value={hitPointsDiceCount} onChange={(e) => setHitPointsDiceCount(Number(e.target.value))} />
+                    <ItemLabel>Hit Points Die Value <Required>*</Required></ItemLabel>
+                    <ItemSelect id="field-monster-hit-points-die-value" name="monster-hit-points-die-value" value={hitPoinstDiceValue} onChange={(e) => setHitPoinstDiceValue(e.target.value)}>
+                        <option value="d4" id="field-hit-points-die-value-type-0">d4</option>
+                        <option value="d6" id="field-hit-points-die-value-type-1">d6</option>
+                        <option value="d8" id="field-hit-points-die-value-type-2">d8</option>
+                        <option value="d10" id="field-hit-points-die-value-type-3">d10</option>
+                        <option value="d12" id="field-hit-points-die-value-type-4">d12</option>
+                        <option value="d20" id="field-hit-points-die-value-type-5">d20</option>
+                    </ItemSelect>
+                    <ItemLabel>Hit Points Modifier</ItemLabel>
+                    <ItemInputNumber type="number" max="1000" min="1" id="field-monster-hit-points-modifier" value={hitPointsModifier} onChange={(e) => setHitPointsModifier(Number(e.target.value))} />
+                    <ItemLabel>Average Hit Points <Required>*</Required></ItemLabel>
+                    <ItemInputNumber type="number" max="1000" min="1" id="field-monster-hit-points" value={avarageHitPoints} onChange={(e) => setAvarageHitPoints(Number(e.target.value))} />
+                </ItemContainer>
+            </Container>
+            <Label>Actions Information</Label>
+            <Container>
+                <ItemLabel>Actions</ItemLabel>
+                <Actions actions={actions} onActionsChange={handleActionsChange} onActionsDelete={handleActionsDelete} />
+                <ItemLabel>Legendary Actions</ItemLabel>
+                <Actions actions={legendaryActions} onActionsChange={handleLegendaryActionsChange} onActionsDelete={handleLegendaryActionsDelete} />
+            </Container>
+            <Label>Damages Reponse Information</Label>
+            <Container>
+                <ItemLabel>Damage Vulnerabilities</ItemLabel>
+                <DamageReponse damages={damageVulnerabilities} onDamagesChange={handleDamageVulnerabilitiesChange} onDamagesDelete={handleDamageVulnerabilitiesDelete} />
+                <ItemLabel>Damage Resistances</ItemLabel>
+                <DamageReponse damages={damageResistances} onDamagesChange={handleDamageResistancesChange} onDamagesDelete={handleDamageResistancesDelete} />
+                <ItemLabel>Damage Immunities</ItemLabel>
+                <DamageReponse damages={damageImmunities} onDamagesChange={handleDamageImmunitiesChange} onDamagesDelete={handleDamageImmunitiesDelete} />
+                <ItemLabel>Condition Immunities</ItemLabel>
+                <DamageReponse damages={conditionImmunities} onDamagesChange={handleConditionImmunitiesChange} onDamagesDelete={handleConditionImmunitiesDelete} />
+            </Container>
+            <Label>Languages Information</Label>
+            <Container>
+                <ItemLabel>Languages</ItemLabel>
+                <DamageReponse damages={languages} onDamagesChange={handleLanguagesChange} onDamagesDelete={handleLanguagesDelete} />
+            </Container>
+            <CreateButton onClick={handleSubmit}>Save Monster</CreateButton>
         </MainContainer>
     );
 };
 
 const MainContainer = styled.div`
+    padding: 3% 3%;
     font-family: Roboto, Helvetica,sans-serif;
 `;
 
-const MainFormContainer = styled.form`
-    font-size: 15px;
+const MonsterImage = styled.img`
+    width: 100px;
+`;
+
+const SpellHeading = styled.div`
+    font-size: 36px;
+    border-color: #704cd9;
+    border-bottom: 3px solid #704cd9;
+    border-bottom-color: #704cd9;
+    padding-bottom: 8px;
+    padding-top: 16px;
+`;
+
+const Label = styled.div`
     margin-top: 20px;
-    margin-left: 20px;
+    font-size: 30px;
+    font-weight: normal;
+    color: #242527;
+    line-height: 1.3;
+    font-weight: bold;
 `;
 
-const BlockContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;
+const Container = styled.div`
 
-const BlockLabel = styled.div`
-    font-size: 25px;
-    margin-top: 10px;
-    border-bottom: 1px solid #822000;
-    border-bottom-color: rgb(216, 53, 0);
 `;
 
 const ItemContainer = styled.div`
-    flex-basis: 25%;
+    margin-top: 20px;
+    flex-basis: 630px;
 `;
 
 const ItemLabel = styled.div`
+    margin-top: 10px;
     color: #242527;
     font-size: 14px;
     text-transform: uppercase;
     font-weight: bold;
     display: inline-block;
-    position: relative;
 `;
 
-const ItemInput = styled.div`
+const ItemInputText = styled.input`
+    display: block;
     height: 50px;
-    width: 100%;
+    width: 60%;
     padding: 10px;
     border: 1px solid #d8dde3;
     background-color: #fff;
@@ -851,14 +477,47 @@ const ItemInput = styled.div`
     font-size: 15px;
 `;
 
-const AddButton = styled.button`
-
+const ItemInputNumber = styled.input`
+    display: block;
+    height: 50px;
+    width: 10%;
+    padding: 10px;
+    border: 1px solid #d8dde3;
+    background-color: #fff;
+    box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
+    border-radius: 0;
+    font-size: 15px;
 `;
 
-const RemoveButton = styled.button`
-
+const ItemCheckBox = styled.input.attrs({ type: "checkbox" })`
+    display: block;
 `;
 
-const Optional = styled.span`
+const ItemSelect = styled.select`
+    display: block;
+    height: 50px;
+    width: 20%;
+    padding: 10px;
+    border: 1px solid #d8dde3;
+    background-color: #fff;
+    box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
+    border-radius: 0;
+    font-size: 15px;
+`;
+
+const ItemTextArea = styled.textarea`
+    display: block;
+    padding: 10px;
+    border: 1px solid #d8dde3;
+    background-color: #fff;
+    box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
+    border-radius: 0;
+    font-size: 15px;
+`;
+
+const CreateButton = styled.button`
+`;
+
+const Required = styled.span`
     color: red;
 `;

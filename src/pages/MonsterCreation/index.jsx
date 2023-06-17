@@ -16,7 +16,7 @@ export default function MonsterCreation() {
     return (
         <>
             <Header />
-            <MonsterForm />
+            <MonsterForm token={token}/>
         </>
     );
 };

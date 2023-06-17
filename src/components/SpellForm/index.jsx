@@ -177,7 +177,7 @@ export default function SpellForm({ token }) {
                 </ItemContainer>
                 <ItemContainer>
                     <ItemLabel>Does Damage?</ItemLabel>
-                    <ItemCheckBox type="checkbox" id="field-spell-ritual" checked={haveDamage} onChange={() => setHaveDamage((prevState) => !prevState)}/>
+                    <ItemCheckBox type="checkbox" id="field-spell-damage" checked={haveDamage} onChange={() => setHaveDamage((prevState) => !prevState)}/>
                     {haveDamage ? (
                     <>
                         <ItemLabel>Type Damage <Required>*</Required></ItemLabel>
@@ -217,7 +217,7 @@ export default function SpellForm({ token }) {
                     <ItemTextArea rows="4" cols="50" value={highLevel} onChange={(e) => setHighLevel(e.target.value)}/>
                 </ItemContainer>
             </Container>
-            <CreateButton onClick={handleSubmit}>Save Changes</CreateButton>
+            <CreateButton onClick={handleSubmit}>Save Spell</CreateButton>
         </MainContainer>
     );
 };
