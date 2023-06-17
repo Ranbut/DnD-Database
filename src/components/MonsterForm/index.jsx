@@ -10,7 +10,6 @@ import DamageReponse from "./DamageReponse";
 import SpecialAbilities from "./SpecialAbilities";
 import { Senses } from "./Senses";
 import { Speed } from "./Speed";
-import { Proficiencies } from "./Proficiencies";
 
 export default function MonsterForm({ token }) {
     const [name, setName] = useState('');
