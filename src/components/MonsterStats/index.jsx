@@ -7,8 +7,6 @@ import HeaderBar from "../../assets/images/stat-block-header-bar.svg"
 
 export default function MonsterStats({ monster }) {
 
-    console.log(monster);
-
     function renderMonsterMeta({ size, type, alignment }) {
         const textType = type.charAt(0).toUpperCase() + type.slice(1);
         const textAlignment = alignment.replace(/\b\w/g, function (match) {

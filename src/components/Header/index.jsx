@@ -28,6 +28,10 @@ export default function Header() {
     navigate("/user-config");
   };
 
+  function handleHistory() {
+    navigate("/history");
+  };
+
   function handleHomebrew() {
 
   };
@@ -64,6 +68,7 @@ export default function Header() {
                 {showOptions && (
                   <ProfileOptions>
                     <button onClick={handleHomebrew}>My Homebrew</button>
+                    <button onClick={handleHistory}>History</button>
                     <button onClick={handleConfigure}>Configurations</button>
                     <button onClick={handleLogout}>Logout</button>
                   </ProfileOptions>
