@@ -17,7 +17,7 @@ export default function SpecialAbilities({ specialAbilities, onSpecialAbilitiesC
 
   const handleAddSpecialAbility = () => {
     if (newSpecialAbility.name !== "" && newSpecialAbility.desc !== "") {
-      onSpecialAbilitiesChange(...specialAbilities, newSpecialAbility);
+      onSpecialAbilitiesChange(newSpecialAbility);
       setNewSpecialAbility({ name: "", desc: "" });
     }
   };

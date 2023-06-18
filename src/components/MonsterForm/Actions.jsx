@@ -17,7 +17,7 @@ export default function Actions({ actions, onActionsChange, onActionsDelete }) {
 
   const handleAddAction = () => {
     if (newAction.name !== "" && newAction.desc !== "") {
-      onActionsChange(...actions, newAction);
+      onActionsChange(newAction);
       setNewAction({ name: "", desc: "" });
     }
   };
