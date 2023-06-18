@@ -18,6 +18,7 @@ export default function Monster() {
             const paramIndex = queryParams.get('index');
             
             const monsterSelected = await getMonsterByIndex(paramIndex);
+            document.title = `${monsterSelected.name} - D&D Database`;
             setMonster(monsterSelected);
             if (token) {
                 const body = { 

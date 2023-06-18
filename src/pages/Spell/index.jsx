@@ -18,6 +18,7 @@ export default function Spell() {
             const paramIndex = queryParams.get('index');
             
             const spellSelected = await getSpellByIndex(paramIndex);
+            document.title = `${spellSelected.name} - D&D Database`;
             setSpell(spellSelected);
             if (token) {
                 const body = { 

@@ -1,3 +1,4 @@
+import { ItemContainer, ItemInputText, ItemTextArea, AddButton } from "./style"
 import React, { useState } from "react";
 
 export default function SpecialAbilities({ specialAbilities, onSpecialAbilitiesChange, onSpecialAbilitiesDelete }) {
@@ -28,7 +29,7 @@ export default function SpecialAbilities({ specialAbilities, onSpecialAbilitiesC
   };
 
   return (
-    <div>
+    <ItemContainer>
       <ul>
         {specialAbilities.map((specialAbility, index) => (
           <li key={index}>
@@ -40,19 +41,19 @@ export default function SpecialAbilities({ specialAbilities, onSpecialAbilitiesC
       </ul>
 
       <div>
-        <input
+        <ItemInputText
           type="text"
           placeholder="Name"
           value={newSpecialAbility.name}
           onChange={handleNameChange}
         />
-        <textarea
+        <ItemTextArea
           placeholder="Description"
           value={newSpecialAbility.desc}
           onChange={handleDescChange}
-        ></textarea>
-        <button onClick={handleAddSpecialAbility}>Add</button>
+        ></ItemTextArea>
+        <AddButton onClick={handleAddSpecialAbility}>Add</AddButton>
       </div>
-    </div>
+    </ItemContainer>
   );
 }

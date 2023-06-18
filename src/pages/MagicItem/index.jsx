@@ -18,6 +18,7 @@ export default function MagicItem() {
             const paramIndex = queryParams.get('index');
 
             const magicItemSelected = await getMagicItemByIndex(paramIndex);
+            document.title = `${magicItemSelected.name} - D&D Database`;
             setMagicItem(magicItemSelected);
             if (token) {
                 const body = { 

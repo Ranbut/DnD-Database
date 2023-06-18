@@ -11,6 +11,7 @@ export default function Homebrew() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = 'My Homebrew - D&D Database';
         if(!token) navigate("/sign-in?return=homebrew");
         async function fetchData() {
         }

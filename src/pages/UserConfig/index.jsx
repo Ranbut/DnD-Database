@@ -17,6 +17,7 @@ export default function SignUp() {
     const { userData, setUserData } = useContext(UserContext); // Access userData and setUserData from UserContext
 
     useEffect(() => {
+        document.title = 'Configurations - D&D Database';
         if (!token) navigate("/sign-in?return=user-config");
         else setAvatar(user.avatar);
     }, [token, navigate]);

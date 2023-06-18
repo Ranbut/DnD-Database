@@ -10,6 +10,7 @@ export default function MonsterCreation() {
 
 
     useEffect(() => {
+        document.title = 'Monster Creator - D&D Database';
         if(!token) navigate("/sign-in?return=homebrew/create-monster");
     }, [token, navigate]);
     

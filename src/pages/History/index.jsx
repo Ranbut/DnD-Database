@@ -13,6 +13,7 @@ export default function History() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = 'My History - D&D Database';
         if(!token) navigate("/sign-in?return=history");
         async function fetchData() {
             const history = await getAllHistory(token);

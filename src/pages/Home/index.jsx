@@ -6,8 +6,14 @@ import Compendium1 from "../../assets/images/compendium/compendium-1.jpeg"
 import Compendium2 from "../../assets/images/compendium/compendium-2.jpeg"
 import Compendium3 from "../../assets/images/compendium/compendium-3.jpeg"
 import Compendium4 from "../../assets/images/compendium/compendium-4.jpg"
+import { useEffect } from 'react';
 
 export default function Home() {
+
+    useEffect(() => {
+        document.title = 'D&D Database';
+    }, []);
+
     return (
         <>
             <Header />

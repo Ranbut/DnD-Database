@@ -13,6 +13,7 @@ export default function Bookmarks() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = 'My Bookmarks - D&D Database';
         if(!token) navigate("/sign-in?return=bookmarks");
         async function fetchData() {
             const bookmark = await getAllBookmarks(token);

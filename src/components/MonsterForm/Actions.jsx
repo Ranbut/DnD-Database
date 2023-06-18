@@ -1,3 +1,4 @@
+import { ItemContainer, ItemInputText, ItemTextArea, AddButton } from "./style"
 import React, { useState } from "react";
 
 export default function Actions({ actions, onActionsChange, onActionsDelete }) {
@@ -28,7 +29,7 @@ export default function Actions({ actions, onActionsChange, onActionsDelete }) {
   };
 
   return (
-    <div>
+    <ItemContainer>
       <ul>
         {actions.map((action, index) => (
           <li key={index}>
@@ -40,19 +41,19 @@ export default function Actions({ actions, onActionsChange, onActionsDelete }) {
       </ul>
 
       <div>
-        <input
+        <ItemInputText
           type="text"
           placeholder="Name"
           value={newAction.name}
           onChange={handleNameChange}
         />
-        <textarea
+        <ItemTextArea
           placeholder="Description"
           value={newAction.desc}
           onChange={handleDescChange}
-        ></textarea>
-        <button onClick={handleAddAction}>Add</button>
+        ></ItemTextArea>
+        <AddButton onClick={handleAddAction}>Add</AddButton>
       </div>
-    </div>
+    </ItemContainer>
   );
 }

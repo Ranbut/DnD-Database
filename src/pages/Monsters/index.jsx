@@ -11,6 +11,7 @@ export default function Monsters() {
   const [selectedLetter, setSelectedLetter] = useState("");
 
   useEffect(() => {
+    document.title = 'Monsters - D&D Database';
     async function fetchData() {
       const monsters = await getMonsters();
       setMonstersList(monsters);

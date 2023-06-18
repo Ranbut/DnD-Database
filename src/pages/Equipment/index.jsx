@@ -18,6 +18,7 @@ export default function Equipment() {
             const paramIndex = queryParams.get('index');
             
             const equipmentSelected = await getEquipmentByIndex(paramIndex);
+            document.title = `${equipmentSelected.name} - D&D Database`;
             setEquipment(equipmentSelected);
 
             if (token) {

@@ -1,3 +1,5 @@
+import { ItemContainer, ItemInputText, AddButton } from "./style"
+
 import React, { useState } from "react";
 
 export default function DamageReponse({ damages, onDamagesChange, onDamagesDelete }) {
@@ -17,7 +19,7 @@ export default function DamageReponse({ damages, onDamagesChange, onDamagesDelet
   };
 
   return (
-    <div>
+    <ItemContainer>
       <ul>
         {damages.map((damage, index) => (
           <li key={index}>
@@ -28,14 +30,14 @@ export default function DamageReponse({ damages, onDamagesChange, onDamagesDelet
       </ul>
 
       <div>
-        <input
+        <ItemInputText
           type="text"
           placeholder="Name"
           value={newDamage}
           onChange={(e) => setNewDamage(e.target.value)}
         />
-        <button onClick={handleAddDamage}>Add</button>
+        <AddButton onClick={handleAddDamage}>Add</AddButton>
       </div>
-    </div>
+    </ItemContainer>
   );
 }

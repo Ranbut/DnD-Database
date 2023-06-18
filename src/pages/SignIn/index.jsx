@@ -20,10 +20,6 @@ export default function SignIn() {
 
   useEffect(() => {
     document.title = 'Sign in - D&D Database';
-
-    return () => {
-      document.title = 'D&D Database';
-    };
   }, []);
 
   async function handleSubmit(e) {

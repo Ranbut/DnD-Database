@@ -11,6 +11,7 @@ export default function Spells() {
   const [selectedLetter, setSelectedLetter] = useState("");
 
   useEffect(() => {
+    document.title = 'Spells - D&D Database';
     async function fetchData() {
       const spells = await getSpells();
       setSpellsList(spells);

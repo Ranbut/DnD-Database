@@ -93,9 +93,26 @@ export const ItemTextArea = styled.textarea`
     box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
     border-radius: 0;
     font-size: 15px;
+    width: 60%;
+    resize: none;
 `;
 
 export const CreateButton = styled.button`
+`;
+
+export const AddButton = styled.button`
+    margin-top: 10px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    background: #45cef7;
+    height: 50px;
+    width: 100%;
+    max-width: 300px;
+    min-width: 250px;
+    border: 1px solid #d8dde3;
+    box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
+    border-radius: 0;
 `;
 
 export const Required = styled.span`

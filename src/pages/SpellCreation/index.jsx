@@ -9,6 +9,7 @@ export default function SpellCreation() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = 'Spell Creator - D&D Database';
         if(!token) navigate("/sign-in?return=homebrew/create-spell");
     }, [token, navigate]);
     

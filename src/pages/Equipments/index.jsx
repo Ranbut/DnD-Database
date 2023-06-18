@@ -13,6 +13,7 @@ export default function Equipments() {
     const location = useLocation();
 
     useEffect(() => {
+        document.title = 'Equipments - D&D Database';
         async function fetchData() {
             const queryParams = new URLSearchParams(location.search);
             const paramIndex = queryParams.get('index');

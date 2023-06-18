@@ -10,6 +10,7 @@ export default function CharacterCreation() {
 
 
     useEffect(() => {
+        document.title = 'Character Creation - D&D Database';
         if(!token) navigate("/sign-in?return=homebrew/create-character");
     }, [token, navigate]);
     
