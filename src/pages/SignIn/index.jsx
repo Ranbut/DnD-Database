@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { signIn } from "../../services/authApi";
 import UserContext from "../../contexts/UserContext";
-import styled from "styled-components";
+import styled, { keyframes }  from "styled-components";
 import Background from "../../assets/images/background/background-1.jpg"
 import Logo from "../../assets/images/dnd.svg"
 import { ThreeDots } from 'react-loader-spinner';
@@ -42,10 +42,10 @@ export default function SignIn() {
   return (
     <Wrapper background={Background}>
       <Container>
-        <Link to={'/'}>
+        <LogoLink to={'/'}>
           <LogoImage alt="logo" src={Logo} />
           <LogoText>D&D Database</LogoText>
-        </Link>
+        </LogoLink>
         <Heading>Sign in</Heading>
         <Form onSubmit={handleSubmit}>
           <FormField>
@@ -125,10 +125,30 @@ const Container = styled.div`
   }
 `;
 
+const glowAnimation = keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+  }
+  
+  50% {
+    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+  }
+  
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+`;
+
 const LogoImage = styled.img`
   width: 40px;
   height: 40px;
   margin-left: 48%;
+  border-radius: 50%;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+  animation: ${glowAnimation} 1s infinite;
+}
 `;
 
 const LogoText = styled.h1`
@@ -136,6 +156,9 @@ const LogoText = styled.h1`
   font-weight: 600;
   text-align: center;
   color: #f56565;
+`;
+
+const LogoLink = styled(Link)`
   text-decoration: none;
 `;
 
