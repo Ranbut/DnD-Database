@@ -10,6 +10,16 @@ export async function getMonsterById(id, token) {
   return response.data;
 }
 
+export async function getAllMonster(token) {
+  const response = await api.get('/monsters', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 export async function createMonster(body, token) {
     const response = await api.post('/monsters', body, {
       headers: {

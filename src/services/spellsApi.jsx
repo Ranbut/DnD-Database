@@ -10,6 +10,16 @@ export async function getSpellById(id, token) {
   return response.data;
 }
 
+export async function getAllSpells(token) {
+  const response = await api.get('/spells', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 export async function createSpell(body, token) {
     const response = await api.post('/spells', body, {
       headers: {
