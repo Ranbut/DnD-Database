@@ -3,18 +3,21 @@ import React, { useState } from 'react';
 import Properties from "./Properties";
 
 export default function EquipmentForm({ token }) {
-    const [name, setName] = useState('');
+    const [name, setName] = useState('My New Equipment');
     const [weight, setWeight] = useState(0);
     const [costValue, setCostValue] = useState(0);
     const [costValueUnit, setcostValueUnit] = useState('cp');
     const [description, setDescription] = useState('');
-    const [equipmentCategory, setEquipmentCategory] = useState('');
+    const [equipmentCategory, setEquipmentCategory] = useState('Item');
+    const [properties, setProperties] = useState([]);
     const [weaponCategory, setWeaponCategory] = useState('Simple');
     const [weaponRange, setWeaponRange] = useState('Melee');
+    const [weaponThrowable, setWeaponThrowable] = useState(false);
+    const [weaponRangeNormalValue, setWeaponRangeNormalValue] = useState(10);
+    const [weaponRangeLongValue, setWeaponRangeLongValue] = useState(25);
     const [damageCountDice, setDamageCountDice] = useState(1);
     const [damageDice, setDamageDice] = useState('d4');
     const [damageType, setDamageType] = useState('Bludgeoning');
-    const [properties, setProperties] = useState([]);
 
     const handlePropertiesChange = (newProperty) => {
         setProperties([...properties, newProperty]);
@@ -26,6 +29,8 @@ export default function EquipmentForm({ token }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if(weaponThrowable) properties.push("Thrown");
 
         const equipmentData = {
             index: name.toLowerCase(),
@@ -79,6 +84,14 @@ export default function EquipmentForm({ token }) {
                     <ItemInputNumber type="number" max="1000000" min="0" id="field-equipment-cost-value" value={weight} onChange={(e) => setWeight(Number(e.target.value))} />
                 </ItemContainer>
                 <ItemContainer>
+                    <ItemLabel>Equipment Category <Required>*</Required></ItemLabel>
+                    <ItemSelect id="field-equipment-category" name="equipment-category" value={equipmentCategory} onChange={(e) => setEquipmentCategory(e.target.value)}>
+                        <option value="Item" id="field-equipment-category-type-0">Item</option>
+                        <option value="Armor" id="field-equipment-category-type-1">Armor</option>
+                        <option value="Weapon" id="field-equipment-category-type-0">Weapon</option>
+                    </ItemSelect>
+                </ItemContainer>
+                <ItemContainer>
                     <ItemLabel>Equipment Description</ItemLabel>
                     <ItemTextArea
                         placeholder="Description"
@@ -97,6 +110,19 @@ export default function EquipmentForm({ token }) {
                         <option value="Melee" id="field-weapon-range-type-0">Melee</option>
                         <option value="Ranged" id="field-weapon-range-type-1">Ranged</option>
                     </ItemSelect>
+                    <ItemLabel>Throwable Weapon? <Required>*</Required></ItemLabel>
+                    <ItemCheckBox type="checkbox" id="field-monster-speed-climb" checked={weaponThrowable}
+                onChange={() => {
+                    setWeaponThrowable((prevState) => !prevState);
+                }} />
+                    {weaponRange === "Ranged" || weaponThrowable ? (
+                        <>
+                            <ItemLabel>Normal Range <Required>*</Required></ItemLabel>
+                            <ItemInputNumber type="number" max="1000000" min="0" id="field-weapon-range-normal-value" value={weaponRangeNormalValue} onChange={(e) => setWeaponRangeNormalValue(Number(e.target.value))} />
+                            <ItemLabel>Long Range <Required>*</Required></ItemLabel>
+                            <ItemInputNumber type="number" max="1000000" min="0" id="field-weapon-range-long-value" value={weaponRangeLongValue} onChange={(e) => setWeaponRangeLongValue(Number(e.target.value))} />
+                        </>
+                    ) : (<></>)}
                 </ItemContainer>
                 <ItemContainer>
                     <ItemLabel>Weapon Damage <Required>*</Required></ItemLabel>
@@ -109,6 +135,7 @@ export default function EquipmentForm({ token }) {
                         <option value="d12" id="field-weapon-damage-dice-type-4">d12</option>
                         <option value="d20" id="field-weapon-damage-dice-type-4">d20</option>
                     </ItemSelect>
+                    <ItemLabel>Weapon Damage Type <Required>*</Required></ItemLabel>
                     <ItemSelect id="field-weapon-damage-type" name="weapon-damage-type" value={damageType} onChange={(e) => setDamageType(e.target.value)}>
                         <option disabled={weaponRange === "Ranged"} value="Bludgeoning" id="field-weapon-damage-type-1">Bludgeoning</option>
                         <option value="Piercing" id="field-weapon-damage-type-2">Piercing</option>

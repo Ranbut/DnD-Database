@@ -1,6 +1,6 @@
 import {
     MainContainer, MonsterImage, MonsterHeading, Label, Container, ItemContainer,
-    ItemLabel, ItemInputText, ItemInputNumber, ItemCheckBox, ItemSelect, ItemTextArea,
+    ItemLabel, ItemInputText, ItemInputNumber, ItemSelect,
     CreateButton, Required
 } from "./style"
 import { createMonster } from "../../services/monstersApi";
