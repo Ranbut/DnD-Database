@@ -8,7 +8,7 @@ import { Home, SignIn, SignUp, UserConfig,
    Monsters, Monster, 
    Spells, Spell, 
    Equipments, Equipment, MagicItem, 
-   CharacterCreation, SpellCreation, MonsterCreation, EquipmentCreation,
+   CharacterCreation, SpellCreation, MonsterCreation, EquipmentCreation, MagicItemCreation,
    Homebrew, History, Bookmarks,
    NotFound
    } from './pages/index.jsx';
@@ -40,6 +40,7 @@ export default function App() {
           <Route path="/homebrew/create-monster" element={<MonsterCreation />} />
           <Route path="/homebrew/create-spell" element={<SpellCreation />} />
           <Route path="/homebrew/create-equipment" element={<EquipmentCreation />} />
+          <Route path="/homebrew/create-magic-item" element={<MagicItemCreation />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

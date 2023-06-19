@@ -5,8 +5,6 @@ export default function EquipmentDetails({ equipment }) {
     const propertyNames = equipment.properties.map((property) => property.name);
     const joinedPropertyNames = propertyNames.join(", ") || '--';
 
-    console.log(equipment);
-
     return (
         <MainContainer>
             <MainDetailContainer>

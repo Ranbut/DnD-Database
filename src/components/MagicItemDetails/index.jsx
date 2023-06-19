@@ -53,7 +53,7 @@ export default function MagicItemDetails({ magicItem }) {
   return (
     <MainContainer>
       <MainDetailContainer>
-        <EquipmentName>{magicItem.name}</EquipmentName>
+        <MagicItemName>{magicItem.name}</MagicItemName>
         <Details>
           <div>Type: <strong>{magicItem.equipment_category.name}</strong></div>
           <div>Type Rarity: <strong>{magicItem.rarity ? magicItem.rarity.name : '--'}</strong></div>
@@ -102,7 +102,7 @@ const Description = styled.div`
   font-size: 14px;
 `;
 
-const EquipmentName = styled.div`
+const MagicItemName = styled.div`
   font-size: 36px;
   margin-top: 10px;
   color: #242527;
