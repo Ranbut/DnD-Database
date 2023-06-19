@@ -1,6 +1,6 @@
 import {
     MainContainer, MonsterImage, MonsterHeading, Label, Container, ItemContainer,
-    ItemLabel, ItemInputText, ItemInputNumber, ItemCheckBox, ItemSelect, ItemTextArea,
+    ItemLabel, ItemInputText, ItemInputNumber, ItemSelect,
     CreateButton, Required
 } from "./style"
 import { createMonster } from "../../services/monstersApi";
@@ -260,7 +260,6 @@ export default function MonsterForm({ token }) {
             speed: speed,
             xp: getXP(),
         }
-        console.log(monsterData);
         await createMonster(monsterData, token);
         try {
             alert('Monster created successfully!');
