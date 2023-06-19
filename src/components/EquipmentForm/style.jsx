@@ -5,11 +5,7 @@ export const MainContainer = styled.div`
     font-family: Roboto, Helvetica,sans-serif;
 `;
 
-export const MonsterImage = styled.img`
-    width: 100px;
-`;
-
-export const MonsterHeading = styled.div`
+export const EquipmentHeading = styled.div`
     font-size: 36px;
     border-color: #704cd9;
     border-bottom: 3px solid #704cd9;

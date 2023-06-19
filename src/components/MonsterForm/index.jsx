@@ -260,7 +260,6 @@ export default function MonsterForm({ token }) {
             speed: speed,
             xp: getXP(),
         }
-        console.log(monsterData);
         await createMonster(monsterData, token);
         try {
             alert('Monster created successfully!');
