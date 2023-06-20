@@ -15,7 +15,7 @@ export default function Homebrew() {
     const [spellList, setSpellList] = useState([]);
     const [equipmentList, setEquipmentList] = useState([]);
     const [magicItemList, setMagicItemsList] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("Monsters");
 
     const token = useToken();
     const navigate = useNavigate();
@@ -54,7 +54,10 @@ export default function Homebrew() {
                     <ItemContainer>
                         {selectedCategory === "Monsters" ? (
                             <>
-                                <MainHeading>My Monsters</MainHeading>
+                                <Heading>
+                                    <MainHeading>My Monsters</MainHeading>
+                                    <AddButton onClick={() => navigate("/homebrew/create-monster")}>Create Monster</AddButton>
+                                </Heading>
                                 <ItemGrid>
                                     {monsterList.map((monster, index) => (
                                         <ItemLink
@@ -69,7 +72,10 @@ export default function Homebrew() {
                         ) : selectedCategory === "Spells" ?
                             (
                                 <>
-                                    <MainHeading>My Spells</MainHeading>
+                                    <Heading>
+                                        <MainHeading>My Spells</MainHeading>
+                                        <AddButton onClick={() => navigate("/homebrew/create-spell")}>Create Spell</AddButton>
+                                    </Heading>
                                     <ItemGrid>
                                         {spellList.map((spell, index) => (
                                             <ItemLink
@@ -84,7 +90,10 @@ export default function Homebrew() {
                             ) : selectedCategory === "Equipments" ?
                                 (
                                     <>
-                                        <MainHeading>My Equipments</MainHeading>
+                                        <Heading>
+                                            <MainHeading>My Equipments</MainHeading>
+                                            <AddButton onClick={() => navigate("/homebrew/create-equipment")}>Create Equipment</AddButton>
+                                        </Heading>
                                         <ItemGrid>
                                             {equipmentList.map((equipment, index) => (
                                                 <ItemLink
@@ -99,7 +108,10 @@ export default function Homebrew() {
                                 ) : selectedCategory === "Magic Items" ?
                                     (
                                         <>
-                                            <MainHeading>My Magic Items</MainHeading>
+                                            <Heading>
+                                                <MainHeading>My Magic Items</MainHeading>
+                                                <AddButton onClick={() => navigate("/homebrew/create-magic-item")}>Create Magic Item</AddButton>
+                                            </Heading>
                                             <ItemGrid>
                                                 {magicItemList.map((magicItem, index) => (
                                                     <ItemLink
@@ -176,6 +188,7 @@ font-weight: bold;
 `;
 
 const ItemGrid = styled.div`
+margin-top: 5px;
 display: grid;
 grid-template-columns: repeat(2, minmax(0, 1fr));
 gap: 16px;
@@ -195,4 +208,26 @@ transition: background-color 0.2s ease-in-out;
 
 const ItemName = styled.p`
 color: #333;
+`;
+
+const Heading = styled.div`
+    display: flex;
+`;
+
+const AddButton = styled.button`
+    margin-left: 20%;
+    margin-top: 5px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    background: #45cef7;
+    height: 50px;
+    width: 20%;
+    border: 1px solid #d8dde3;
+    box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    &:hover {
+    background-color: #39a4c5;
+    }
 `;
