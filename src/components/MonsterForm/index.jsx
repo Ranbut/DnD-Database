@@ -29,7 +29,7 @@ export default function MonsterForm({ token }) {
     const [hitPoinstDiceValue, setHitPoinstDiceValue] = useState('d4');
     const [hitPointsModifier, setHitPointsModifier] = useState(10);
     const [armorClass, setArmorClass] = useState(10);
-    const [armorClassType, setArmorClassType] = useState('(natural armor)');
+    const [armorClassType, setArmorClassType] = useState('natural armor');
     const [passivePerception, setPassivePerception] = useState(10);
     const [actions, setActions] = useState([]);
     const [legendaryActions, setLegendaryActions] = useState([]);

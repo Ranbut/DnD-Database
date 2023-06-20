@@ -5,10 +5,11 @@ import useToken from "../../hooks/useToken";
 import styled from "styled-components";
 import Logo from "../../assets/images/dnd.svg"
 import { GiSpikedDragonHead, GiMagicAxe, GiAxeSword, GiMagicPalm } from 'react-icons/gi';
-import { getAllMonster } from "../../services/monstersApi";
-import { getAllSpells } from "../../services/spellsApi";
-import { getAllEquipments } from "../../services/equipmentApi";
-import { getAllMagicItems } from "../../services/magicItemApi";
+import { BiEditAlt, BiTrashAlt } from 'react-icons/bi'
+import { getAllMonster, deleteMonster } from "../../services/monstersApi";
+import { getAllSpells, deleteSpell } from "../../services/spellsApi";
+import { getAllEquipments, deleteEquipment } from "../../services/equipmentApi";
+import { getAllMagicItems, deleteMagicItem } from "../../services/magicItemApi";
 
 export default function Homebrew() {
     const [monsterList, setMonsterList] = useState([]);
@@ -36,6 +37,59 @@ export default function Homebrew() {
         fetchData();
     }, []);
 
+    async function handleDelete(id) {
+        if (selectedCategory === "Monsters") {
+            if (confirm("Do you want to delete this Monster?")) {
+                await deleteMonster(id, token);
+                try {
+                    const monsters = await getAllMonster(token);
+                    setMonsterList(monsters);
+                    alert('Monster deleted successfully!');
+                } catch (error) {
+                    alert('Unable to deleted Monster!');
+                }
+            }
+        }
+        else if (selectedCategory === "Spells") {
+            if (confirm("Do you want to delete this Spell?")) {
+                await deleteSpell(id, token);
+                try {
+                    const spells = await getAllSpells(token);
+                    setSpellList(spells);
+                    alert('Spell deleted successfully!');
+                } catch (error) {
+                    alert('Unable to deleted Spell!');
+                }
+            }
+        }
+
+        else if (selectedCategory === "Equipments") {
+            if (confirm("Do you want to delete this Equipment?")) {
+                await deleteEquipment(id, token);
+                try {
+                    const equipment = await getAllEquipments(token);
+                    setEquipmentList(equipment);
+                    alert('Equipment deleted successfully!');
+                } catch (error) {
+                    alert('Unable to deleted Equipment!');
+                }
+            }
+        }
+
+        else if (selectedCategory === "Magic Items") {
+            if (confirm("Do you want to delete this Magic Item?")) {
+                await deleteMagicItem(id, token);
+                try {
+                    const magicItems = await getAllMagicItems(token);
+                    setMagicItemsList(magicItems);
+                    alert('Magic Item deleted successfully!');
+                } catch (error) {
+                    alert('Unable to deleted Magic Item!');
+                }
+            }
+        }
+    }
+
     return (
         <>
             <Header />
@@ -43,10 +97,10 @@ export default function Homebrew() {
                 <SidebarContainer background={Logo}>
                     <div>
                         <SidebarList>
-                            <SidebarListItem onClick={() => setSelectedCategory("Monsters")}>My Monsters <GiSpikedDragonHead /></SidebarListItem>
-                            <SidebarListItem onClick={() => setSelectedCategory("Spells")}>My Spells <GiMagicPalm /></SidebarListItem>
-                            <SidebarListItem onClick={() => setSelectedCategory("Equipments")}>My Equipments <GiAxeSword /></SidebarListItem>
-                            <SidebarListItem onClick={() => setSelectedCategory("Magic Items")}>My Magic Items <GiMagicAxe /></SidebarListItem>
+                            <SidebarListItem selected={selectedCategory === "Monsters"} onClick={() => setSelectedCategory("Monsters")}>My Monsters <GiSpikedDragonHead /></SidebarListItem>
+                            <SidebarListItem selected={selectedCategory === "Spells"} onClick={() => setSelectedCategory("Spells")}>My Spells <GiMagicPalm /></SidebarListItem>
+                            <SidebarListItem selected={selectedCategory === "Equipments"} onClick={() => setSelectedCategory("Equipments")}>My Equipments <GiAxeSword /></SidebarListItem>
+                            <SidebarListItem selected={selectedCategory === "Magic Items    "} onClick={() => setSelectedCategory("Magic Items")}>My Magic Items <GiMagicAxe /></SidebarListItem>
                         </SidebarList>
                     </div>
                 </SidebarContainer>
@@ -60,12 +114,18 @@ export default function Homebrew() {
                                 </Heading>
                                 <ItemGrid>
                                     {monsterList.map((monster, index) => (
-                                        <ItemLink
-                                            key={index}
-                                            to={`/homebrew/monster?id=${monster.id}`}
-                                        >
-                                            <ItemName>{monster.monster.name}</ItemName>
-                                        </ItemLink>
+                                        <ItemInfo>
+                                            <ItemLink
+                                                key={index}
+                                                to={`/homebrew/monster?id=${monster.id}`}
+                                            >
+                                                <ItemName>{monster.monster.name}</ItemName>
+                                            </ItemLink>
+                                            <ItemOptions>
+                                                <ItemEdit />
+                                                <ItemDelete title="Delete Monster" onClick={() => handleDelete(monster.id)} />
+                                            </ItemOptions>
+                                        </ItemInfo>
                                     ))}
                                 </ItemGrid>
                             </>
@@ -78,12 +138,18 @@ export default function Homebrew() {
                                     </Heading>
                                     <ItemGrid>
                                         {spellList.map((spell, index) => (
-                                            <ItemLink
-                                                key={index}
-                                                to={`/homebrew/spell?id=${spell.id}`}
-                                            >
-                                                <ItemName>{spell.spell.name}</ItemName>
-                                            </ItemLink>
+                                            <ItemInfo>
+                                                <ItemLink
+                                                    key={index}
+                                                    to={`/homebrew/spell?id=${spell.id}`}
+                                                >
+                                                    <ItemName>{spell.spell.name}</ItemName>
+                                                </ItemLink>
+                                                <ItemOptions>
+                                                    <ItemEdit />
+                                                    <ItemDelete title="Delete Spell" onClick={() => handleDelete(spell.id)} />
+                                                </ItemOptions>
+                                            </ItemInfo>
                                         ))}
                                     </ItemGrid>
                                 </>
@@ -96,12 +162,18 @@ export default function Homebrew() {
                                         </Heading>
                                         <ItemGrid>
                                             {equipmentList.map((equipment, index) => (
-                                                <ItemLink
-                                                    key={index}
-                                                    to={`/homebrew/equipment?id=${equipment.id}`}
-                                                >
-                                                    <ItemName>{equipment.equipment.name}</ItemName>
-                                                </ItemLink>
+                                                <ItemInfo>
+                                                    <ItemLink
+                                                        key={index}
+                                                        to={`/homebrew/equipment?id=${equipment.id}`}
+                                                    >
+                                                        <ItemName>{equipment.equipment.name}</ItemName>
+                                                    </ItemLink>
+                                                    <ItemOptions>
+                                                        <ItemEdit />
+                                                        <ItemDelete title="Delete Equipment" onClick={() => handleDelete(equipment.id)} />
+                                                    </ItemOptions>
+                                                </ItemInfo>
                                             ))}
                                         </ItemGrid>
                                     </>
@@ -114,12 +186,18 @@ export default function Homebrew() {
                                             </Heading>
                                             <ItemGrid>
                                                 {magicItemList.map((magicItem, index) => (
-                                                    <ItemLink
-                                                        key={index}
-                                                        to={`/homebrew/magic-item?id=${magicItem.id}`}
-                                                    >
-                                                        <ItemName>{magicItem.magicItem.name}</ItemName>
-                                                    </ItemLink>
+                                                    <ItemInfo>
+                                                        <ItemLink
+                                                            key={index}
+                                                            to={`/homebrew/magic-item?id=${magicItem.id}`}
+                                                        >
+                                                            <ItemName>{magicItem.magicItem.name}</ItemName>
+                                                        </ItemLink>
+                                                        <ItemOptions>
+                                                            <ItemEdit />
+                                                            <ItemDelete title="Delete Magic Item" onClick={() => handleDelete(magicItem.id)} />
+                                                        </ItemOptions>
+                                                    </ItemInfo>
                                                 ))}
                                             </ItemGrid>
                                         </>
@@ -174,6 +252,46 @@ padding: 1px 3%;
 margin-left: 10px;
 `;
 
+const ItemOptions = styled.div`
+    border-left: 2px solid black;
+    padding-left: 10px;
+`;
+
+
+const ItemInfo = styled.div`
+    padding: 16px;
+    background-color: #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+
+    &:hover {
+    background-color: #8f8f8f;
+    }
+`;
+
+const ItemEdit = styled(BiEditAlt)`
+    cursor: pointer;
+    color: #000000;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+    color: #bb0000;
+    }
+`;
+
+const ItemDelete = styled(BiTrashAlt)`
+    cursor: pointer;
+    color: #000000;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+    color: #bb0000;
+    }
+`;
+
 const Content = styled.div`
 width: 75%;
 `;
@@ -195,15 +313,7 @@ gap: 16px;
 `;
 
 const ItemLink = styled(Link)`
-padding: 16px;
-background-color: #ccc;
-border-radius: 4px;
-text-decoration: none;
-transition: background-color 0.2s ease-in-out;
-
-&:hover {
-  background-color: #8f8f8f;
-}
+    text-decoration: none;
 `;
 
 const ItemName = styled.p`

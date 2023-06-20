@@ -21,11 +21,21 @@ export async function getAllEquipments(token) {
 }
 
 export async function createEquipment(body, token) {
-    const response = await api.post('/equipments', body, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  
-    return response.data;
-  }
+  const response = await api.post('/equipments', body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
+export async function deleteEquipment(id, token) {
+  const response = await api.delete(`/equipments/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
