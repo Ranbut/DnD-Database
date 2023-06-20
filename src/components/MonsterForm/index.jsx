@@ -12,11 +12,11 @@ import { Senses } from "./Senses";
 import { Speed } from "./Speed";
 
 export default function MonsterForm({ token }) {
-    const [name, setName] = useState('');
+    const [name, setName] = useState('My New Monster');
     const [image, setImage] = useState('');
-    const [alignment, setAlignment] = useState('');
-    const [type, setType] = useState('');
-    const [size, setSize] = useState('');
+    const [alignment, setAlignment] = useState('Chaotic Evil');
+    const [type, setType] = useState('Aberration');
+    const [size, setSize] = useState('Gargantuan');
     const [challengeRating, setChallengeRating] = useState(0);
     const [strength, setStrength] = useState(10);
     const [dexterity, setDexterity] = useState(10);
@@ -29,7 +29,7 @@ export default function MonsterForm({ token }) {
     const [hitPoinstDiceValue, setHitPoinstDiceValue] = useState('d4');
     const [hitPointsModifier, setHitPointsModifier] = useState(10);
     const [armorClass, setArmorClass] = useState(10);
-    const [armorClassType, setArmorClassType] = useState('');
+    const [armorClassType, setArmorClassType] = useState('(natural armor)');
     const [passivePerception, setPassivePerception] = useState(10);
     const [actions, setActions] = useState([]);
     const [legendaryActions, setLegendaryActions] = useState([]);
@@ -256,6 +256,8 @@ export default function MonsterForm({ token }) {
             condition_immunities: conditionImmunities,
             special_abilities: specialAbilities,
             languages: languages.join(", "),
+            type: type,
+            size: size,
             senses: senses || { passive_perception: passivePerception },
             speed: speed,
             xp: getXP(),

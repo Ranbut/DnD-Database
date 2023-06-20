@@ -7,10 +7,14 @@ import Logo from "../../assets/images/dnd.svg"
 import { GiSpikedDragonHead, GiMagicAxe, GiAxeSword, GiMagicPalm } from 'react-icons/gi';
 import { getAllMonster } from "../../services/monstersApi";
 import { getAllSpells } from "../../services/spellsApi";
+import { getAllEquipments } from "../../services/equipmentApi";
+import { getAllMagicItems } from "../../services/magicItemApi";
 
 export default function Homebrew() {
     const [monsterList, setMonsterList] = useState([]);
     const [spellList, setSpellList] = useState([]);
+    const [equipmentList, setEquipmentList] = useState([]);
+    const [magicItemList, setMagicItemsList] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("");
 
     const token = useToken();
@@ -24,6 +28,10 @@ export default function Homebrew() {
             setMonsterList(monsters);
             const spells = await getAllSpells(token);
             setSpellList(spells);
+            const equipment = await getAllEquipments(token);
+            setEquipmentList(equipment);
+            const magicItems = await getAllMagicItems(token);
+            setMagicItemsList(magicItems);
         }
         fetchData();
     }, []);
@@ -51,27 +59,59 @@ export default function Homebrew() {
                                     {monsterList.map((monster, index) => (
                                         <ItemLink
                                             key={index}
+                                            to={`/homebrew/monster?id=${monster.id}`}
                                         >
                                             <ItemName>{monster.monster.name}</ItemName>
                                         </ItemLink>
                                     ))}
                                 </ItemGrid>
                             </>
-                        ) : selectedCategory === "Spells" ? 
-                        (
-                            <>
-                                <MainHeading>My Spells</MainHeading>
-                                <ItemGrid>
-                                    {spellList.map((spell, index) => (
-                                        <ItemLink
-                                            key={index}
-                                        >
-                                            <ItemName>{spell.spell.name}</ItemName>
-                                        </ItemLink>
-                                    ))}
-                                </ItemGrid>
-                            </>
-                        ) : (<></>)}
+                        ) : selectedCategory === "Spells" ?
+                            (
+                                <>
+                                    <MainHeading>My Spells</MainHeading>
+                                    <ItemGrid>
+                                        {spellList.map((spell, index) => (
+                                            <ItemLink
+                                                key={index}
+                                                to={`/homebrew/spell?id=${spell.id}`}
+                                            >
+                                                <ItemName>{spell.spell.name}</ItemName>
+                                            </ItemLink>
+                                        ))}
+                                    </ItemGrid>
+                                </>
+                            ) : selectedCategory === "Equipments" ?
+                                (
+                                    <>
+                                        <MainHeading>My Equipments</MainHeading>
+                                        <ItemGrid>
+                                            {equipmentList.map((equipment, index) => (
+                                                <ItemLink
+                                                    key={index}
+                                                    to={`/homebrew/equipment?id=${equipment.id}`}
+                                                >
+                                                    <ItemName>{equipment.equipment.name}</ItemName>
+                                                </ItemLink>
+                                            ))}
+                                        </ItemGrid>
+                                    </>
+                                ) : selectedCategory === "Magic Items" ?
+                                    (
+                                        <>
+                                            <MainHeading>My Magic Items</MainHeading>
+                                            <ItemGrid>
+                                                {magicItemList.map((magicItem, index) => (
+                                                    <ItemLink
+                                                        key={index}
+                                                        to={`/homebrew/magic-item?id=${magicItem.id}`}
+                                                    >
+                                                        <ItemName>{magicItem.magicItem.name}</ItemName>
+                                                    </ItemLink>
+                                                ))}
+                                            </ItemGrid>
+                                        </>
+                                    ) : (<></>)}
                     </ItemContainer>
                 </Content>
             </Container>
