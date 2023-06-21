@@ -3,15 +3,15 @@ import {
     ItemLabel, ItemInputText, ItemInputNumber, ItemSelect,
     CreateButton, Required
 } from "./style"
-import { createMonster } from "../../services/monstersApi";
-import { useState } from "react";
+import { createMonster, editMonster } from "../../services/monstersApi";
+import { useEffect, useState } from "react";
 import Actions from "./Actions";
 import DamageReponse from "./DamageReponse";
 import SpecialAbilities from "./SpecialAbilities";
 import { Senses } from "./Senses";
 import { Speed } from "./Speed";
 
-export default function MonsterForm({ token }) {
+export default function MonsterForm({ monster, id, token }) {
     const [name, setName] = useState('My New Monster');
     const [image, setImage] = useState('');
     const [alignment, setAlignment] = useState('Chaotic Evil');
@@ -42,6 +42,41 @@ export default function MonsterForm({ token }) {
     const [senses, setSenses] = useState(null);
     const [speed, setSpeed] = useState({ walk: "10 ft." });
     const [proficiencies, setProficiencies] = useState([]);
+
+    useEffect(() => {
+        if (monster) {
+            setName(monster.name);
+            setImage(monster.image);
+            setAlignment(monster.alignment);
+            setType(monster.type);
+            setSize(monster.size);
+            setChallengeRating(monster.challenge_rating);
+            setStrength(monster.strength);
+            setDexterity(monster.dexterity);
+            setConstitution(monster.constitution);
+            setIntelligence(monster.intelligence);
+            setWisdom(monster.wisdom);
+            setCharisma(monster.charisma);
+            setAvarageHitPoints(monster.hit_points);
+            setHitPointsDiceCount(monster.hit_points_roll.match(/^\d+/)[0]);
+            setHitPoinstDiceValue(monster.hit_points_roll.match(/d\d+/)[0]);
+            setHitPointsModifier(monster.hit_points_roll.match(/\+\d+/)[0].slice(1));
+            setArmorClass(monster.armor_class[0].value);
+            setArmorClassType(monster.armor_class[0].type);
+            setPassivePerception(monster.senses.passive_perception);
+            setActions(monster.actions);
+            setLegendaryActions(monster.legendary_actions);
+            setDamageVulnerabilities(monster.damage_vulnerabilities);
+            setDamageResistances(monster.damage_resistances);
+            setDamageImmunities(monster.damage_immunities);
+            setConditionImmunities(monster.condition_immunities);
+            setSpecialAbilities(monster.special_abilities);
+            setLanguages(monster.languages);
+            setSenses(monster.senses);
+            setSpeed(monster.speed);
+            setProficiencies(monster.proficiencies);
+        }
+    }, []);
 
     const handleProficienciesChange = (newProficiencies) => {
         setProficiencies(newProficiencies);
@@ -262,11 +297,22 @@ export default function MonsterForm({ token }) {
             speed: speed,
             xp: getXP(),
         }
-        await createMonster(monsterData, token);
-        try {
-            alert('Monster created successfully!');
-        } catch (error) {
-            alert('Unable to create monster!');
+        if (!monster) {
+            await createMonster(monsterData, token);
+            try {
+                alert('Monster created successfully!');
+            } catch (error) {
+                alert('Unable to create monster!');
+            }
+        }
+        else {
+
+            await editMonster(id, monsterData, token);
+            try {
+                alert('Monster edited successfully!');
+            } catch (error) {
+                alert('Unable to edited monster!');
+            }
         }
     };
 

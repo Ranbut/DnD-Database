@@ -90,6 +90,17 @@ export default function Homebrew() {
         }
     }
 
+    async function handleEdit(id) {
+        if (selectedCategory === "Monsters")
+            navigate(`/homebrew/create-monster?id=${id}`);
+        else if (selectedCategory === "Spells") 
+            navigate(`/homebrew/create-spell?id=${id}`);
+        else if (selectedCategory === "Equipments")
+            navigate(`/homebrew/create-equipment?id=${id}`);
+        else if (selectedCategory === "Magic Items")
+            navigate(`/homebrew/create-magic-item?id=${id}`);
+    }
+
     return (
         <>
             <Header />
@@ -100,7 +111,7 @@ export default function Homebrew() {
                             <SidebarListItem selected={selectedCategory === "Monsters"} onClick={() => setSelectedCategory("Monsters")}>My Monsters <GiSpikedDragonHead /></SidebarListItem>
                             <SidebarListItem selected={selectedCategory === "Spells"} onClick={() => setSelectedCategory("Spells")}>My Spells <GiMagicPalm /></SidebarListItem>
                             <SidebarListItem selected={selectedCategory === "Equipments"} onClick={() => setSelectedCategory("Equipments")}>My Equipments <GiAxeSword /></SidebarListItem>
-                            <SidebarListItem selected={selectedCategory === "Magic Items    "} onClick={() => setSelectedCategory("Magic Items")}>My Magic Items <GiMagicAxe /></SidebarListItem>
+                            <SidebarListItem selected={selectedCategory === "Magic Items"} onClick={() => setSelectedCategory("Magic Items")}>My Magic Items <GiMagicAxe /></SidebarListItem>
                         </SidebarList>
                     </div>
                 </SidebarContainer>
@@ -114,15 +125,14 @@ export default function Homebrew() {
                                 </Heading>
                                 <ItemGrid>
                                     {monsterList.map((monster, index) => (
-                                        <ItemInfo>
+                                        <ItemInfo key={index}>
                                             <ItemLink
-                                                key={index}
                                                 to={`/homebrew/monster?id=${monster.id}`}
                                             >
                                                 <ItemName>{monster.monster.name}</ItemName>
                                             </ItemLink>
                                             <ItemOptions>
-                                                <ItemEdit />
+                                                <ItemEdit title="Edit Monster" onClick={() => handleEdit(monster.id)}/>
                                                 <ItemDelete title="Delete Monster" onClick={() => handleDelete(monster.id)} />
                                             </ItemOptions>
                                         </ItemInfo>
@@ -138,15 +148,14 @@ export default function Homebrew() {
                                     </Heading>
                                     <ItemGrid>
                                         {spellList.map((spell, index) => (
-                                            <ItemInfo>
+                                            <ItemInfo key={index}>
                                                 <ItemLink
-                                                    key={index}
                                                     to={`/homebrew/spell?id=${spell.id}`}
                                                 >
                                                     <ItemName>{spell.spell.name}</ItemName>
                                                 </ItemLink>
                                                 <ItemOptions>
-                                                    <ItemEdit />
+                                                    <ItemEdit title="Edit Spell" onClick={() => handleEdit(spell.id)}/>
                                                     <ItemDelete title="Delete Spell" onClick={() => handleDelete(spell.id)} />
                                                 </ItemOptions>
                                             </ItemInfo>
@@ -162,15 +171,14 @@ export default function Homebrew() {
                                         </Heading>
                                         <ItemGrid>
                                             {equipmentList.map((equipment, index) => (
-                                                <ItemInfo>
+                                                <ItemInfo key={index}>
                                                     <ItemLink
-                                                        key={index}
                                                         to={`/homebrew/equipment?id=${equipment.id}`}
                                                     >
                                                         <ItemName>{equipment.equipment.name}</ItemName>
                                                     </ItemLink>
                                                     <ItemOptions>
-                                                        <ItemEdit />
+                                                        <ItemEdit title="Edit Equipment" onClick={() => handleEdit(equipment.id)}/>
                                                         <ItemDelete title="Delete Equipment" onClick={() => handleDelete(equipment.id)} />
                                                     </ItemOptions>
                                                 </ItemInfo>
@@ -186,15 +194,14 @@ export default function Homebrew() {
                                             </Heading>
                                             <ItemGrid>
                                                 {magicItemList.map((magicItem, index) => (
-                                                    <ItemInfo>
+                                                    <ItemInfo key={index}>
                                                         <ItemLink
-                                                            key={index}
                                                             to={`/homebrew/magic-item?id=${magicItem.id}`}
                                                         >
                                                             <ItemName>{magicItem.magicItem.name}</ItemName>
                                                         </ItemLink>
                                                         <ItemOptions>
-                                                            <ItemEdit />
+                                                            <ItemEdit title="Edit Magic Item" onClick={() => handleEdit(magicItem.id)}/>
                                                             <ItemDelete title="Delete Magic Item" onClick={() => handleDelete(magicItem.id)} />
                                                         </ItemOptions>
                                                     </ItemInfo>

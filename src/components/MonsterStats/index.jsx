@@ -13,8 +13,6 @@ export default function MonsterStats({ monster }) {
     const [bookmarked, setBookmarked] = useState(false);
     const token = useToken();
 
-    console.log(monster);
-
     useEffect(() => {
         async function fetchData() {
             const bookmark = await getBookmarkByIndex(monster.index, token);

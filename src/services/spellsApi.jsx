@@ -30,6 +30,16 @@ export async function createSpell(body, token) {
   return response.data;
 }
 
+export async function editSpell(id, body, token) {
+  const response = await api.put(`/spells/${id}`, body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 export async function deleteSpell(id, token) {
   const response = await api.delete(`/spells/${id}`, {
     headers: {
