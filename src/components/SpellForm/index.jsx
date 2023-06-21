@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import React, { useEffect, useState } from 'react';
 import { createSpell, editSpell } from "../../services/spellsApi";
+import { useNavigate } from "react-router-dom";
 
 export default function SpellForm({ spell, id, token }) {
     const [name, setName] = useState('');
@@ -23,6 +24,8 @@ export default function SpellForm({ spell, id, token }) {
     const [haveDamage, setHaveDamage] = useState(false);
     const [damageType, setDamageType] = useState('Acid');
     const [dcTypeName, setDcTypeName] = useState('CHA');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (spell) {
@@ -96,6 +99,7 @@ export default function SpellForm({ spell, id, token }) {
             await createSpell(spellData, token);
             try {
                 alert('Spell created successfully!');
+                navigate('/homebrew');
             } catch (error) {
                 alert('Unable to create spell!');
             }
@@ -104,6 +108,7 @@ export default function SpellForm({ spell, id, token }) {
             await editSpell(id, spellData, token);
             try {
                 alert('Spell edited successfully!');
+                navigate('/homebrew');
             } catch (error) {
                 alert('Unable to edited spell!');
             }
