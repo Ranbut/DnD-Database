@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { signUp } from "../../services/userApi";
 import UserContext from "../../contexts/UserContext";
 import { signIn } from "../../services/authApi";
-import Background from "../../assets/images/background/background-1.jpg"
 import Logo from "../../assets/images/dnd.svg"
 import styled, { keyframes } from "styled-components";
 import { ThreeDots } from 'react-loader-spinner';
@@ -47,7 +46,7 @@ export default function SignUp() {
     }
   };
   return (
-    <Wrapper background={Background}>
+    <Wrapper>
       <Container>
         <LogoLink to={'/'}>
           <LogoImage alt="logo" src={Logo} />
@@ -137,7 +136,7 @@ const Wrapper = styled.div`
   justify-content: center;
   min-height: 100vh;
   overflow: hidden;
-  background-image: url(${props => props.background});
+  background-image: url('https://i.imgur.com/Ff3jMr9.jpg');
   background-size: cover;
   background-position: center;
 `;

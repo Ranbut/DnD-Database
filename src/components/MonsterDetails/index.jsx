@@ -1,15 +1,13 @@
 import styled, { createGlobalStyle } from "styled-components"
 import MrsEavesSmallCapsRegular from "../../assets/fonts/MrsEavesSmallCapsRegular.ttf";
 import ScalaSansRegular from "../../assets/fonts/ScalaSans/ScalaSans-Regular.ttf";
-import TopTexture from "../../assets/images/stat-block-top-texture.png"
-import PaperTexture from "../../assets/images/paper-texture.png"
 import HeaderBar from "../../assets/images/stat-block-header-bar.svg"
 import { addBookmark, getBookmarkByIndex, removeBookmark } from "../../services/bookmarksApi"
 import useToken from "../../hooks/useToken";
 import { useEffect, useState } from "react";
 import { BsFillBookmarkPlusFill, BsFillBookmarkDashFill } from "react-icons/bs"
 
-export default function MonsterStats({ monster }) {
+export default function MonsterDetails({ monster }) {
     const [bookmarked, setBookmarked] = useState(false);
     const token = useToken();
 
@@ -177,7 +175,7 @@ export default function MonsterStats({ monster }) {
             {monster.image ? (<MonsterImage src={`https://www.dnd5eapi.co${monster.image}`} title={monster.name} alt={monster.name} />) : (<></>)}
             <MainDetailContainer>
                 <GlobalStyle />
-                <BlockContainer topTexture={TopTexture} paperTexture={PaperTexture}>
+                <BlockContainer topTexture='https://i.imgur.com/crGfogI.png' paperTexture='https://i.imgur.com/EKLfy9m.png'>
                     <div>
                         <StyledName>
                             {monster.name}

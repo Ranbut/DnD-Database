@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import Header from "../../components/Header";
 import { getMonsterByIndex } from "../../services/DnDAPI/monstersApi";
-import MonsterStats from "../../components/MonsterStats";
 import { addHistory } from "../../services/historyApi";
 import useToken from "../../hooks/useToken";
+import MonsterDetails from "../../components/MonsterDetails";
 
 export default function Monster() {
     const [monster, setMonster] = useState(null);
@@ -35,7 +35,7 @@ export default function Monster() {
     return (
         <>
             <Header />
-            {monster ? (<MonsterStats monster={monster}/>) : (<></>)}
+            {monster ? (<MonsterDetails monster={monster}/>) : (<></>)}
         </>
     );
 };

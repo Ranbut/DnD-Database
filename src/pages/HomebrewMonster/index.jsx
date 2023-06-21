@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import Header from "../../components/Header";
 import { getMonsterById } from "../../services/monstersApi";
-import MonsterStats from "../../components/MonsterStats";
 import useToken from "../../hooks/useToken";
+import MonsterDetails from "../../components/MonsterDetails";
 
 export default function HomebrewMonster() {
     const [monster, setMonster] = useState(null);
@@ -27,7 +27,7 @@ export default function HomebrewMonster() {
     return (
         <>
             <Header />
-            {monster ? (<MonsterStats monster={monster}/>) : (<></>)}
+            {monster ? (<MonsterDetails monster={monster}/>) : (<></>)}
         </>
     );
 };
