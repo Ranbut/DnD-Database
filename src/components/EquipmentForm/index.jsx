@@ -3,13 +3,13 @@ import {
     ItemContainer, ItemTextArea, ItemLabel, ItemSelect, ItemInputNumber,
     ItemInputText, CreateButton
 } from './style'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Properties from "./Properties";
 import { Weapon } from './Weapon';
 import { Armor } from './Armor';
 import { createEquipment } from '../../services/equipmentApi';
 
-export default function EquipmentForm({ token }) {
+export default function EquipmentForm({ equipment, id, token }) {
     const [name, setName] = useState('My New Equipment');
     const [weight, setWeight] = useState(0);
     const [costValue, setCostValue] = useState(0);
@@ -20,6 +20,42 @@ export default function EquipmentForm({ token }) {
     const [weaponObject, setWeaponObject] = useState({});
     const [armorObject, setArmorObject] = useState({});
     
+    useEffect(() => {
+        if (equipment) {
+            setName(equipment.name);
+            setWeight(equipment.weight);
+            setCostValue(equipment.quantity);
+            setcostValueUnit(equipment.unit);
+            setDescription(equipment.desc);
+            setEquipmentCategory(equipment.equipment_category.name);
+
+            if(equipment.equipment_category.name === "Weapon"){
+                setWeaponObject({
+                    damage: {
+                        damage_dice: equipment.damage.damage_dice,
+                        damage_type: {
+                            name: equipment.damage.damage_type.name
+                        }
+                    },
+                    weapon_category: equipment.weapon_category,
+                    weapon_range: equipment.weapon_range
+                })
+            }
+
+            if(equipment.equipment_category.name === "Armor"){
+                setArmorObject({
+                    str_minimum: equipment.str_minimum,
+                    stealth_disadvantage: equipment.stealth_disadvantage,
+                    armor_class: {
+                        base: equipment.armor_class.base,
+                        dex_bonus: equipment.dex_bonus
+                    }
+                })
+            }
+
+        }
+    }, [equipment]);
+
     const handleArmorObjectChange = (armor) => {
         setArmorObject(armor);
     };
@@ -54,11 +90,23 @@ export default function EquipmentForm({ token }) {
         if (equipmentCategory === "Weapon") equipmentData = { ...equipmentData, ...weaponObject };
         if (equipmentCategory === "Armor") equipmentData = { ...equipmentData, ...armorObject };
 
-        await createEquipment(equipmentData, token);
-        try {
-            alert('Equipment created successfully!');
-        } catch (error) {
-            alert('Unable to create equipment!');
+        if (!equipment) {
+            await createEquipment(equipmentData, token);
+            try {
+                alert('Equipment created successfully!');
+                navigate('/homebrew');
+            } catch (error) {
+                alert('Unable to create equipment!');
+            }
+        }
+        else {
+            await createEquipment(id, equipmentData, token);
+            try {
+                alert('Equipment edited successfully!');
+                navigate('/homebrew');
+            } catch (error) {
+                alert('Unable to edited equipment!');
+            }
         }
     };
 

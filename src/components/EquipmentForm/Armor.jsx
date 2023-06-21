@@ -38,7 +38,7 @@ export function Armor({ onArmorChange }) {
                         setStrengthMinimum(e.target.value);
                         changeWeaponObject();
                     }} />
-                <ItemLabel>Dexterity Bônus? <Required>*</Required></ItemLabel>
+                <ItemLabel>Dexterity Bonus? <Required>*</Required></ItemLabel>
                 <ItemCheckBox type="checkbox" id="field-armor-dexterity-bonus" checked={dexBonus}
                     onChange={() => {
                         setDexBonus((prevState) => !prevState);
