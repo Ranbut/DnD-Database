@@ -2,10 +2,6 @@ import { Link } from 'react-router-dom';
 import Header from "../../components/Header";
 import styled from "styled-components";
 import { GiSpikedDragonHead, GiBlackKnightHelm, GiAxeSword, GiMagicPalm } from 'react-icons/gi';
-import Compendium1 from "../../assets/images/compendium/compendium-1.jpeg"
-import Compendium2 from "../../assets/images/compendium/compendium-2.jpeg"
-import Compendium3 from "../../assets/images/compendium/compendium-3.jpeg"
-import Compendium4 from "../../assets/images/compendium/compendium-4.jpg"
 import { useEffect } from 'react';
 
 export default function Home() {
@@ -22,28 +18,28 @@ export default function Home() {
                 <CompendiumLabel>Official Material</CompendiumLabel>
                 <CompendiumList>
                     <CompendiumLink to="/monsters">
-                        <CompendiumContainer image={Compendium4}>
+                        <CompendiumContainer image='https://i.imgur.com/k7tiOS7.jpg'>
                             <CompendiumContent>
                                 <CompendiumText>Monsters <GiSpikedDragonHead size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
                     <CompendiumLink to="/">
-                        <CompendiumContainer image={Compendium3}>
+                        <CompendiumContainer image='https://i.imgur.com/tqB1mDB.jpg'>
                             <CompendiumContent>
                                 <CompendiumText>Class <GiBlackKnightHelm size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
                     <CompendiumLink to="/equipments">
-                        <CompendiumContainer image={Compendium2}>
+                        <CompendiumContainer image='https://i.imgur.com/RfratMD.jpg'>
                             <CompendiumContent>
                                 <CompendiumText>Equipments <GiAxeSword size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
                     <CompendiumLink to="/spells">
-                        <CompendiumContainer image={Compendium1}>
+                        <CompendiumContainer image='https://i.imgur.com/Lul2jjJ.jpg'>
                             <CompendiumContent>
                                 <CompendiumText>Spells <GiMagicPalm size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
@@ -54,28 +50,28 @@ export default function Home() {
                 <CompendiumLabel>My Homebrew</CompendiumLabel>
                 <CompendiumList>
                     <CompendiumLink to="/homebrew">
-                        <CompendiumContainer image={Compendium4}>
+                        <CompendiumContainer image='https://i.imgur.com/k7tiOS7.jpg'>
                             <CompendiumContent>
                                 <CompendiumText>My Monsters <GiSpikedDragonHead size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
                     <CompendiumLink to="/homebrew">
-                        <CompendiumContainer image={Compendium3}>
+                        <CompendiumContainer image='https://i.imgur.com/tqB1mDB.jpg'>
                             <CompendiumContent>
                                 <CompendiumText>My Characters <GiBlackKnightHelm size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
                     <CompendiumLink to="/homebrew">
-                        <CompendiumContainer image={Compendium2}>
+                        <CompendiumContainer image='https://i.imgur.com/RfratMD.jpg'>
                             <CompendiumContent>
                                 <CompendiumText>My Equipments <GiAxeSword size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
                     <CompendiumLink to="/homebrew">
-                        <CompendiumContainer image={Compendium1}>
+                        <CompendiumContainer image='https://i.imgur.com/Lul2jjJ.jpg'>
                             <CompendiumContent>
                                 <CompendiumText>My Spells <GiMagicPalm size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
