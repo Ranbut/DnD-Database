@@ -43,6 +43,8 @@ export default function MonsterForm({ monster, id, token }) {
     const [speed, setSpeed] = useState({ walk: "10 ft." });
     const [proficiencies, setProficiencies] = useState([]);
 
+    console.log(monster);
+
     useEffect(() => {
         if (monster) {
             setName(monster.name);
@@ -71,12 +73,12 @@ export default function MonsterForm({ monster, id, token }) {
             setDamageImmunities(monster.damage_immunities);
             setConditionImmunities(monster.condition_immunities);
             setSpecialAbilities(monster.special_abilities);
-            setLanguages(monster.languages);
+            setLanguages(monster.languages.split(" "));
             setSenses(monster.senses);
             setSpeed(monster.speed);
             setProficiencies(monster.proficiencies);
         }
-    }, []);
+    }, [monster]);
 
     const handleProficienciesChange = (newProficiencies) => {
         setProficiencies(newProficiencies);

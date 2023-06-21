@@ -24,6 +24,8 @@ export default function SpellForm({ spell, id, token }) {
     const [damageType, setDamageType] = useState('');
     const [dcTypeName, setDcTypeName] = useState('');
 
+    console.log(spell)
+
     useEffect(() => {
         if (spell) {
             setName(spell.name)
