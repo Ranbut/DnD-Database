@@ -10,7 +10,8 @@ import { Home, SignIn, SignUp, UserConfig,
    Equipments, Equipment, MagicItem, 
    CharacterCreation, SpellCreation, MonsterCreation, EquipmentCreation, MagicItemCreation,
    Homebrew, History, Bookmarks,
-   NotFound
+   NotFound,
+   HomebrewMonster, HomebrewSpell, HomebrewEquipment, HomebrewMagicItem
    } from './pages/index.jsx';
 
 import { UserProvider } from './contexts/UserContext';
@@ -41,6 +42,10 @@ export default function App() {
           <Route path="/homebrew/create-spell" element={<SpellCreation />} />
           <Route path="/homebrew/create-equipment" element={<EquipmentCreation />} />
           <Route path="/homebrew/create-magic-item" element={<MagicItemCreation />} />
+          <Route path="/homebrew/monster" element={<HomebrewMonster />} />
+          <Route path="/homebrew/spell" element={<HomebrewSpell />} />
+          <Route path="/homebrew/equipment" element={<HomebrewEquipment />} />
+          <Route path="/homebrew/magic-item" element={<HomebrewMagicItem />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

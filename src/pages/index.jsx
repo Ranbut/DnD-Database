@@ -14,10 +14,14 @@ import History from './History/index.jsx';
 import Bookmarks from './Bookmarks/index.jsx';
 import NotFound from './NotFound/index.jsx';
 import CharacterCreation from './CharacterCreation/index.jsx';
-import SpellCreation from './SpellCreation/index.jsx';
 import MonsterCreation from './MonsterCreation/index.jsx';
+import SpellCreation from './SpellCreation/index.jsx';
 import EquipmentCreation from './EquipmentCreation/index.jsx';
 import MagicItemCreation from './MagicItemCreation/index.jsx';
+import HomebrewMonster from './HomebrewMonster/index.jsx';
+import HomebrewSpell from './HomebrewSpell/index.jsx';
+import HomebrewEquipment from './HomebrewEquipment/index.jsx';
+import HomebrewMagicItem from './HomebrewMagicItem/index.jsx';
 
 export { Home, SignIn, SignUp, UserConfig,
      Monsters, Monster, 
@@ -25,4 +29,6 @@ export { Home, SignIn, SignUp, UserConfig,
      Equipments, Equipment, MagicItem,
      Homebrew, History, Bookmarks,
      NotFound, 
-     CharacterCreation, SpellCreation, MonsterCreation, EquipmentCreation, MagicItemCreation }
+     CharacterCreation, SpellCreation, MonsterCreation, EquipmentCreation, MagicItemCreation,
+     HomebrewMonster, HomebrewSpell, HomebrewEquipment, HomebrewMagicItem
+ }
