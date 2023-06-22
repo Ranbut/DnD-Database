@@ -23,8 +23,6 @@ export default function EquipmentForm({ equipment, id, token }) {
 
     const navigate = useNavigate();
 
-    console.log(equipment);
-
     useEffect(() => {
         if (equipment) {
             setName(equipment.name);

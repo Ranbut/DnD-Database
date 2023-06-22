@@ -27,8 +27,6 @@ export default function History() {
         return dateObj.toLocaleString();
     }
 
-    console.log(historyList);
-
     return (
         <>
             <Header />

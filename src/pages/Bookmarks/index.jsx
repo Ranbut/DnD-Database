@@ -27,8 +27,6 @@ export default function Bookmarks() {
         return dateObj.toLocaleString();
     }
 
-    console.log(bookmarkList);
-
     return (
         <>
             <Header />

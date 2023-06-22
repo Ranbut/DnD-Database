@@ -11,8 +11,6 @@ export function Weapon({ weapon, id, onWeaponChange }) {
     const [damageDice, setDamageDice] = useState('d4');
     const [damageType, setDamageType] = useState('Bludgeoning');
 
-    console.log(weapon);
-
     function changeWeaponObject() {
         const weaponObject = {
             damage: {

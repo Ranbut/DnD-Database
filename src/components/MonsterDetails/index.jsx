@@ -51,7 +51,6 @@ export default function MonsterDetails({ monster }) {
     };
 
     function getProficiencyBonus({ challenge_rating }) {
-        console.log()
         if (challenge_rating >= 0 && challenge_rating <= 4) {
             return 2;
         } else if (challenge_rating >= 5 && challenge_rating <= 8) {

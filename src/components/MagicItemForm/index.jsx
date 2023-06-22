@@ -15,8 +15,6 @@ export default function MagicItemForm({ magicItem, id, token }) {
     
     const navigate = useNavigate();
 
-    console.log(magicItem);
-
     useEffect(() => {
         if (magicItem) {
             setName(magicItem.name);
