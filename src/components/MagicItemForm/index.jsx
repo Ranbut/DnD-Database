@@ -3,15 +3,29 @@ import {
     ItemContainer, ItemTextArea, ItemLabel, ItemSelect,
     ItemInputText, CreateButton
 } from './style'
-import React, { useState } from 'react';
-import { createMagicItem } from '../../services/magicItemApi';
+import React, { useEffect, useState } from 'react';
+import { createMagicItem, editMagicItem } from '../../services/magicItemApi';
+import { useNavigate } from 'react-router-dom';
 
-export default function MagicItemForm({ token }) {
+export default function MagicItemForm({ magicItem, id, token }) {
     const [name, setName] = useState('My New Magic Item');
     const [description, setDescription] = useState('');
     const [equipmentCategory, setEquipmentCategory] = useState('Item');
     const [rarity, setRarity] = useState('Item');
     
+    const navigate = useNavigate();
+
+    console.log(magicItem);
+
+    useEffect(() => {
+        if (magicItem) {
+            setName(magicItem.name);
+            setDescription(magicItem.desc);
+            setEquipmentCategory(magicItem.equipment_category.name);
+            setRarity(magicItem.rarity.name);
+        }
+    }, [magicItem]);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -25,11 +39,23 @@ export default function MagicItemForm({ token }) {
             variant: false
         }
 
-        await createMagicItem(magicItemData, token);
-        try {
-            alert('Magic Item created successfully!');
-        } catch (error) {
-            alert('Unable to create Magic Item!');
+        if (!magicItem) {
+            await createMagicItem(magicItemData, token);
+            try {
+                alert('Magic item created successfully!');
+                navigate('/homebrew');
+            } catch (error) {
+                alert('Unable to create magic item!');
+            }
+        }
+        else {
+            await editMagicItem(id, magicItemData, token);
+            try {
+                alert('Magic item edited successfully!');
+                navigate('/homebrew');
+            } catch (error) {
+                alert('Unable to edited magic item!');
+            }
         }
     };
 
