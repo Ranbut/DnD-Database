@@ -7,7 +7,8 @@ import React, { useEffect, useState } from 'react';
 import Properties from "./Properties";
 import { Weapon } from './Weapon';
 import { Armor } from './Armor';
-import { createEquipment } from '../../services/equipmentApi';
+import { createEquipment, editEquipment } from '../../services/equipmentApi';
+import { useNavigate } from 'react-router-dom';
 
 export default function EquipmentForm({ equipment, id, token }) {
     const [name, setName] = useState('My New Equipment');
@@ -19,15 +20,20 @@ export default function EquipmentForm({ equipment, id, token }) {
     const [properties, setProperties] = useState([]);
     const [weaponObject, setWeaponObject] = useState({});
     const [armorObject, setArmorObject] = useState({});
-    
+
+    const navigate = useNavigate();
+
+    console.log(equipment);
+
     useEffect(() => {
         if (equipment) {
             setName(equipment.name);
             setWeight(equipment.weight);
-            setCostValue(equipment.quantity);
-            setcostValueUnit(equipment.unit);
+            setCostValue(equipment.cost.quantity);
+            setcostValueUnit(equipment.cost.unit);
             setDescription(equipment.desc);
             setEquipmentCategory(equipment.equipment_category.name);
+            setProperties(equipment.properties);
 
             if(equipment.equipment_category.name === "Weapon"){
                 setWeaponObject({
@@ -38,8 +44,13 @@ export default function EquipmentForm({ equipment, id, token }) {
                         }
                     },
                     weapon_category: equipment.weapon_category,
-                    weapon_range: equipment.weapon_range
-                })
+                    weapon_range: equipment.weapon_range,
+                    range: {
+                        normal: equipment.range.normal,
+                        long: equipment.range.long
+                    }
+                }
+                )
             }
 
             if(equipment.equipment_category.name === "Armor"){
@@ -100,7 +111,7 @@ export default function EquipmentForm({ equipment, id, token }) {
             }
         }
         else {
-            await createEquipment(id, equipmentData, token);
+            await editEquipment(id, equipmentData, token);
             try {
                 alert('Equipment edited successfully!');
                 navigate('/homebrew');
@@ -156,9 +167,9 @@ export default function EquipmentForm({ equipment, id, token }) {
                 </ItemContainer>
             </Container>
             {equipmentCategory === "Weapon" ? 
-            (<Weapon onWeaponChange={handleWeaponObjectChange}></Weapon>)
+            (<Weapon weapon={weaponObject} id={id} onWeaponChange={handleWeaponObjectChange}></Weapon>)
             : equipmentCategory === "Armor" ?  
-            (<Armor onArmorChange={handleArmorObjectChange}></Armor>) : (<></>)}
+            (<Armor armor={armorObject} id={id} onArmorChange={handleArmorObjectChange}></Armor>) : (<></>)}
             <Container>
             </Container>
             <CreateButton onClick={handleSubmit}>Save Equipment</CreateButton>

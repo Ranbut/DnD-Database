@@ -9,7 +9,6 @@ export default function Properties({ properties, onPropertiesChange, onPropertie
     if (newProperty !== "") {
       onPropertiesChange(newProperty);
       setNewProperty("");
-      console.log("asd");
     }
   };
 
