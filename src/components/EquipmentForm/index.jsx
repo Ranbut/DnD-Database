@@ -35,25 +35,40 @@ export default function EquipmentForm({ equipment, id, token }) {
             setEquipmentCategory(equipment.equipment_category.name);
             setProperties(equipment.properties);
 
-            if(equipment.equipment_category.name === "Weapon"){
-                setWeaponObject({
-                    damage: {
-                        damage_dice: equipment.damage.damage_dice,
-                        damage_type: {
-                            name: equipment.damage.damage_type.name
+            if (equipment.equipment_category.name === "Weapon") {
+                if (equipment.weapon_range === "Ranged") {
+                    setWeaponObject({
+                        damage: {
+                            damage_dice: equipment.damage.damage_dice,
+                            damage_type: {
+                                name: equipment.damage.damage_type.name
+                            }
+                        },
+                        weapon_category: equipment.weapon_category,
+                        weapon_range: equipment.weapon_range,
+                        range: {
+                            normal: equipment.range.normal,
+                            long: equipment.range.long
                         }
-                    },
-                    weapon_category: equipment.weapon_category,
-                    weapon_range: equipment.weapon_range,
-                    range: {
-                        normal: equipment.range.normal,
-                        long: equipment.range.long
                     }
+                    )
                 }
-                )
+                else {
+                    setWeaponObject({
+                        damage: {
+                            damage_dice: equipment.damage.damage_dice,
+                            damage_type: {
+                                name: equipment.damage.damage_type.name
+                            }
+                        },
+                        weapon_category: equipment.weapon_category,
+                        weapon_range: equipment.weapon_range,
+                    }
+                    )
+                }
             }
 
-            if(equipment.equipment_category.name === "Armor"){
+            if (equipment.equipment_category.name === "Armor") {
                 setArmorObject({
                     str_minimum: equipment.str_minimum,
                     stealth_disadvantage: equipment.stealth_disadvantage,
@@ -166,10 +181,10 @@ export default function EquipmentForm({ equipment, id, token }) {
                     <Properties properties={properties} onPropertiesChange={handlePropertiesChange} onPropertiesDelete={handlePropertiesDelete} />
                 </ItemContainer>
             </Container>
-            {equipmentCategory === "Weapon" ? 
-            (<Weapon weapon={weaponObject} id={id} onWeaponChange={handleWeaponObjectChange}></Weapon>)
-            : equipmentCategory === "Armor" ?  
-            (<Armor armor={armorObject} id={id} onArmorChange={handleArmorObjectChange}></Armor>) : (<></>)}
+            {equipmentCategory === "Weapon" ?
+                (<Weapon weapon={weaponObject} id={id} onWeaponChange={handleWeaponObjectChange}></Weapon>)
+                : equipmentCategory === "Armor" ?
+                    (<Armor armor={armorObject} id={id} onArmorChange={handleArmorObjectChange}></Armor>) : (<></>)}
             <Container>
             </Container>
             <CreateButton onClick={handleSubmit}>Save Equipment</CreateButton>
