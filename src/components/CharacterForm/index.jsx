@@ -43,7 +43,6 @@ export default function CharacterForm({ token }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(characterData);
         try {
             await createCharacter(characterData, token);
             alert('Character created successfully!');

@@ -1,19 +1,20 @@
 import styled from "styled-components"
 import React, { useEffect, useState } from 'react';
 import { createSpell, editSpell } from "../../services/spellsApi";
+import { useNavigate } from "react-router-dom";
 
 export default function SpellForm({ spell, id, token }) {
     const [name, setName] = useState('');
     const [level, setLevel] = useState(0);
-    const [school, setSchool] = useState('');
+    const [school, setSchool] = useState('Abjuration');
     const [castingTime, setCastingTime] = useState(0);
-    const [castingTimeType, setCastingTimeType] = useState('');
+    const [castingTimeType, setCastingTimeType] = useState('Action');
     const [castingTimeDescription, setCastingTimeDescription] = useState('');
     const [componentVerbal, setComponentVerbal] = useState(false);
     const [componentSomatic, setComponentSomatic] = useState(false);
     const [componentMaterial, setComponentMaterial] = useState(false);
     const [componentMaterialDesc, setComponentMaterialDesc] = useState('');
-    const [rangeType, setRangeType] = useState('');
+    const [rangeType, setRangeType] = useState('Self');
     const [rangeDistance, setRangeDistance] = useState(0);
     const [durationType, setDurationType] = useState('');
     const [duration, setDuration] = useState(0);
@@ -21,8 +22,10 @@ export default function SpellForm({ spell, id, token }) {
     const [description, setDescription] = useState('');
     const [highLevel, setHighLevel] = useState('');
     const [haveDamage, setHaveDamage] = useState(false);
-    const [damageType, setDamageType] = useState('');
-    const [dcTypeName, setDcTypeName] = useState('');
+    const [damageType, setDamageType] = useState('Acid');
+    const [dcTypeName, setDcTypeName] = useState('CHA');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (spell) {
@@ -45,11 +48,11 @@ export default function SpellForm({ spell, id, token }) {
             setRitual(spell.ritual);
             setDescription(spell.desc);
             setHighLevel(spell.higher_level);
-            setHaveDamage(Boolean(spell.damage_type));
+            setHaveDamage(Boolean(spell.damage_type.name));
             setDamageType(spell.damage_type.name);
-            dcTypeName(spell.dc.dc_type.name);
+            setDcTypeName(spell.dc.dc_type.name);
         }
-    }, []);
+    }, [spell]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -96,6 +99,7 @@ export default function SpellForm({ spell, id, token }) {
             await createSpell(spellData, token);
             try {
                 alert('Spell created successfully!');
+                navigate('/homebrew');
             } catch (error) {
                 alert('Unable to create spell!');
             }
@@ -104,6 +108,7 @@ export default function SpellForm({ spell, id, token }) {
             await editSpell(id, spellData, token);
             try {
                 alert('Spell edited successfully!');
+                navigate('/homebrew');
             } catch (error) {
                 alert('Unable to edited spell!');
             }

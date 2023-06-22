@@ -10,6 +10,7 @@ import DamageReponse from "./DamageReponse";
 import SpecialAbilities from "./SpecialAbilities";
 import { Senses } from "./Senses";
 import { Speed } from "./Speed";
+import { useNavigate } from "react-router-dom";
 
 export default function MonsterForm({ monster, id, token }) {
     const [name, setName] = useState('My New Monster');
@@ -43,6 +44,8 @@ export default function MonsterForm({ monster, id, token }) {
     const [speed, setSpeed] = useState({ walk: "10 ft." });
     const [proficiencies, setProficiencies] = useState([]);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (monster) {
             setName(monster.name);
@@ -71,12 +74,12 @@ export default function MonsterForm({ monster, id, token }) {
             setDamageImmunities(monster.damage_immunities);
             setConditionImmunities(monster.condition_immunities);
             setSpecialAbilities(monster.special_abilities);
-            setLanguages(monster.languages);
+            setLanguages(monster.languages.split(" "));
             setSenses(monster.senses);
             setSpeed(monster.speed);
             setProficiencies(monster.proficiencies);
         }
-    }, []);
+    }, [monster]);
 
     const handleProficienciesChange = (newProficiencies) => {
         setProficiencies(newProficiencies);
@@ -301,6 +304,7 @@ export default function MonsterForm({ monster, id, token }) {
             await createMonster(monsterData, token);
             try {
                 alert('Monster created successfully!');
+                navigate('/homebrew');
             } catch (error) {
                 alert('Unable to create monster!');
             }
@@ -310,6 +314,7 @@ export default function MonsterForm({ monster, id, token }) {
             await editMonster(id, monsterData, token);
             try {
                 alert('Monster edited successfully!');
+                navigate('/homebrew');
             } catch (error) {
                 alert('Unable to edited monster!');
             }
