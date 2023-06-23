@@ -1,14 +1,51 @@
 import styled from "styled-components";
+import { addBookmark, getBookmarkByIndex, removeBookmark } from "../../services/bookmarksApi"
+import { BsFillBookmarkPlusFill, BsFillBookmarkDashFill } from "react-icons/bs"
+import { useEffect, useState } from "react";
+import useToken from "../../hooks/useToken";
 
 export default function EquipmentDetails({ equipment }) {
-    
+    const [bookmarked, setBookmarked] = useState(false);
+    const token = useToken();
+  
+    useEffect(() => {
+      async function fetchData() {
+          const bookmark = await getBookmarkByIndex(equipment.index, token);
+          setBookmarked(bookmark);
+      }
+      fetchData();
+  }, []);
+  
+  async function handleBookmark() {
+    try {
+        if (!bookmarked) {
+            const body = {
+                index: equipment.index,
+                name: equipment.name,
+                type: "EQUIPMENT"
+            };
+            await addBookmark(body, token);
+            setBookmarked(true);
+        }
+        else {
+            await removeBookmark(equipment.index, token);
+            setBookmarked(false);
+        }
+    } catch (error) {
+        alert('Error on bookmark!');
+    }
+  }
+  
+
     const propertyNames = equipment.properties.map((property) => property.name);
     const joinedPropertyNames = propertyNames.join(", ") || '--';
 
     return (
         <MainContainer>
             <MainDetailContainer>
-                <EquipmentName>{equipment.name}</EquipmentName>
+                <EquipmentName>{equipment.name}
+                {!bookmarked ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) : (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>)}
+                </EquipmentName>
                 <Details>
                     <div>Type: <strong>{equipment.equipment_category.name}</strong></div>
                     <div>Cost: <strong>{equipment.cost ? equipment.cost.quantity + equipment.cost.unit : '--'}</strong></div>
@@ -145,4 +182,13 @@ const TableRow = styled.tr`
 
 const TableCell = styled.td`
     padding: 8px;
+`;
+
+const ButtontBookmark = styled.button`
+    background-color: transparent;
+    margin-top: 20px;
+    margin-left: 20px;
+    @media (max-width: 580px) {
+    margin-left: 18%;
+  }
 `;
