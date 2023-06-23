@@ -1,11 +1,47 @@
 import styled from "styled-components";
+import { addBookmark, getBookmarkByIndex, removeBookmark } from "../../services/bookmarksApi"
+import { BsFillBookmarkPlusFill, BsFillBookmarkDashFill } from "react-icons/bs"
+import { useEffect, useState } from "react";
+import useToken from "../../hooks/useToken";
 
 export default function SpellDetails({ spell }) {
+  const [bookmarked, setBookmarked] = useState(false);
+  const token = useToken();
+
+  useEffect(() => {
+    async function fetchData() {
+        const bookmark = await getBookmarkByIndex(spell.index, token);
+        setBookmarked(bookmark);
+    }
+    fetchData();
+}, []);
+
+async function handleBookmark() {
+  try {
+      if (!bookmarked) {
+          const body = {
+              index: spell.index,
+              name: spell.name,
+              type: "SPELL"
+          };
+          await addBookmark(body, token);
+          setBookmarked(true);
+      }
+      else {
+          await removeBookmark(spell.index, token);
+          setBookmarked(false);
+      }
+  } catch (error) {
+      alert('Error on bookmark!');
+  }
+}
 
   return (
     <MainContainer>
       <MainDetailContainer>
-        <SpellName>{spell.name}</SpellName>
+        <SpellName>{spell.name}
+        {!bookmarked ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) : (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>)}
+        </SpellName>
         <LabelHeader>Characteristic</LabelHeader>
         <BlockContainer>
           <InformationContainer>
@@ -139,4 +175,13 @@ const LabelHeader = styled.div`
 
 const Description = styled.div`
   margin-top: 10px;
+`;
+
+const ButtontBookmark = styled.button`
+    background-color: transparent;
+    margin-top: 20px;
+    margin-left: 20px;
+    @media (max-width: 580px) {
+    margin-left: 18%;
+  }
 `;

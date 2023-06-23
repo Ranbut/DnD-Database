@@ -1,6 +1,41 @@
 import styled from "styled-components";
+import { addBookmark, getBookmarkByIndex, removeBookmark } from "../../services/bookmarksApi"
+import { BsFillBookmarkPlusFill, BsFillBookmarkDashFill } from "react-icons/bs"
+import { useEffect, useState } from "react";
+import useToken from "../../hooks/useToken";
 
 export default function MagicItemDetails({ magicItem }) {
+  const [bookmarked, setBookmarked] = useState(false);
+  const token = useToken();
+
+  useEffect(() => {
+    async function fetchData() {
+        const bookmark = await getBookmarkByIndex(magicItem.index, token);
+        setBookmarked(bookmark);
+    }
+    fetchData();
+}, []);
+
+async function handleBookmark() {
+  try {
+      if (!bookmarked) {
+          const body = {
+              index: magicItem.index,
+              name: magicItem.name,
+              type: "MAGIC_ITEM"
+          };
+          await addBookmark(body, token);
+          setBookmarked(true);
+      }
+      else {
+          await removeBookmark(magicItem.index, token);
+          setBookmarked(false);
+      }
+  } catch (error) {
+      alert('Error on bookmark!');
+  }
+}
+
   const isTableRow = (text) => text.startsWith("|") && text.endsWith("|");
 
   function renderTable() {
@@ -53,7 +88,9 @@ export default function MagicItemDetails({ magicItem }) {
   return (
     <MainContainer>
       <MainDetailContainer>
-        <MagicItemName>{magicItem.name}</MagicItemName>
+        <MagicItemName>{magicItem.name}
+        {!bookmarked ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) : (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>)}
+        </MagicItemName>
         <Details>
           <div>Type: <strong>{magicItem.equipment_category.name}</strong></div>
           <div>Type Rarity: <strong>{magicItem.rarity ? magicItem.rarity.name : '--'}</strong></div>
@@ -140,4 +177,13 @@ const TableRow = styled.tr`
 
 const TableCell = styled.td`
   padding: 8px;
+`;
+
+const ButtontBookmark = styled.button`
+    background-color: transparent;
+    margin-top: 20px;
+    margin-left: 20px;
+    @media (max-width: 580px) {
+    margin-left: 18%;
+  }
 `;
