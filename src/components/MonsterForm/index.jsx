@@ -310,7 +310,6 @@ export default function MonsterForm({ monster, id, token }) {
             }
         }
         else {
-
             await editMonster(id, monsterData, token);
             try {
                 alert('Monster edited successfully!');

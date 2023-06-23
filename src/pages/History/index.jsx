@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import Header from "../../components/Header";
 import useToken from "../../hooks/useToken";
-import { getAllHistory } from "../../services/historyApi";
+import { getAllHistory, deleteAllHistory } from "../../services/historyApi";
 import styled from "styled-components";
 import Logo from "../../assets/images/dnd.svg"
 import { GiSpikedDragonHead, GiMagicAxe, GiAxeSword, GiMagicPalm } from 'react-icons/gi';
 
 export default function History() {
     const [historyList, setHistoryList] = useState([]);
+    const [selectedType, setSelectedType] = useState(null);
     const token = useToken();
     const navigate = useNavigate();
 
     useEffect(() => {
         document.title = 'My History - D&D Database';
-        if(!token) navigate("/sign-in?return=history");
+        if (!token) navigate("/sign-in?return=history");
         async function fetchData() {
             const history = await getAllHistory(token);
             setHistoryList(history);
@@ -22,10 +23,27 @@ export default function History() {
         fetchData();
     }, []);
 
-    function renderDate(date){
+    function renderDate(date) {
         const dateObj = new Date(date);
         return dateObj.toLocaleString();
     }
+
+    async function handleDeleteAllHistory() {
+        if (confirm("Are you sure you want to delete all history?")) {
+            try {
+                await deleteAllHistory(token);
+                setHistoryList([]);
+                alert('Deleted all history!');
+            } catch (error) {
+                console.log(error);
+                alert('Unable to delete all history!');
+            }
+        }
+    }
+
+    const filteredHistoryList = selectedType
+        ? historyList.filter((history) => history.type === selectedType)
+        : historyList;
 
     return (
         <>
@@ -34,28 +52,65 @@ export default function History() {
                 <SidebarContainer background={Logo}>
                     <div>
                         <SidebarList>
-                            <SidebarListItem>-</SidebarListItem>
-                            <SidebarListItem>Monsters <GiSpikedDragonHead /></SidebarListItem>
-                            <SidebarListItem>Spells <GiMagicPalm /></SidebarListItem>
-                            <SidebarListItem>Equipments <GiAxeSword /></SidebarListItem>
-                            <SidebarListItem>Magic Items <GiMagicAxe /></SidebarListItem>
+                            <SidebarListItem
+                                selected={selectedType === null}
+                                onClick={() => setSelectedType(null)}
+                            >
+                                -
+                            </SidebarListItem>
+                            <SidebarListItem
+                                selected={selectedType === "MONSTER"}
+                                onClick={() => setSelectedType("MONSTER")}
+                            >
+                                Monsters <GiSpikedDragonHead />
+                            </SidebarListItem>
+                            <SidebarListItem
+                                selected={selectedType === "SPELL"}
+                                onClick={() => setSelectedType("SPELL")}
+                            >
+                                Spells <GiMagicPalm />
+                            </SidebarListItem>
+                            <SidebarListItem
+                                selected={selectedType === "EQUIPMENT"}
+                                onClick={() => setSelectedType("EQUIPMENT")}
+                            >
+                                Equipments <GiAxeSword />
+                            </SidebarListItem>
+                            <SidebarListItem
+                                selected={selectedType === "MAGIC_ITEM"}
+                                onClick={() => setSelectedType("MAGIC_ITEM")}
+                            >
+                                Magic Items <GiMagicAxe />
+                            </SidebarListItem>
                         </SidebarList>
                     </div>
+                    <DeleteHistoryButton onClick={handleDeleteAllHistory}>
+                        Delete All History
+                    </DeleteHistoryButton>
                 </SidebarContainer>
                 <Content>
                     <HistoryContainer>
                         <MainHeading>History - Showing All</MainHeading>
                         <HistoryGrid>
-                            {historyList.map((history, index) => (
+                            {filteredHistoryList.map((history, index) => (
                                 <HistoryLink
                                     key={index}
-                                    to={history.type === "MONSTER" ? `/monster?index=${history.index}` :
-                                     history.type === "SPELL" ? `/spell?index=${history.index}` :
-                                     history.type === "EQUIPMENT" ? `/equipment?index=${history.index}` :
-                                     history.type === "MAGIC_ITEM" ? `/magic-item?index=${history.index}` : ''
+                                    to={
+                                        history.type === "MONSTER"
+                                            ? `/monster?index=${history.index}`
+                                            : history.type === "SPELL"
+                                                ? `/spell?index=${history.index}`
+                                                : history.type === "EQUIPMENT"
+                                                    ? `/equipment?index=${history.index}`
+                                                    : history.type === "MAGIC_ITEM"
+                                                        ? `/magic-item?index=${history.index}`
+                                                        : ""
                                     }
                                 >
-                                    <HistoryName>{history.name} <HistoryDate>{renderDate(history.createdAt)}</HistoryDate></HistoryName>
+                                    <HistoryName>
+                                        {history.name}{" "}
+                                        <HistoryDate>{renderDate(history.createdAt)}</HistoryDate>
+                                    </HistoryName>
                                 </HistoryLink>
                             ))}
                         </HistoryGrid>
@@ -148,3 +203,21 @@ const HistoryName = styled.p`
 const HistoryDate = styled.span`
     margin-left: 30%;
     `;
+
+const DeleteHistoryButton = styled.button`
+margin-top: 5px;
+color: #fff;
+font-weight: bold;
+font-size: 16px;
+background: #f74545;
+height: 50px;
+width: 100%;
+border: 1px solid #d8dde3;
+box-shadow: inset 0 0 4px 0 rgba(139,178,199,0.48);
+transition: background-color 0.2s ease-in-out;
+cursor: pointer;
+
+&:hover {
+background-color: #c53939;
+}
+`;
