@@ -84,13 +84,23 @@ export default function History() {
                             </SidebarListItem>
                         </SidebarList>
                     </div>
-                    <DeleteHistoryButton onClick={handleDeleteAllHistory}>
+                    <DeleteHistoryButton onClick={() => handleDeleteAllHistory()}>
                         Delete All History
                     </DeleteHistoryButton>
                 </SidebarContainer>
                 <Content>
                     <HistoryContainer>
-                        <MainHeading>History - Showing All</MainHeading>
+                        <MainHeading>
+                            {selectedType === "MONSTER"
+                                ? "History - Showing Monsters"
+                                : selectedType === "SPELL"
+                                ? "History - Showing Spells"
+                                : selectedType === "EQUIPMENT"
+                                ? "History - Showing Equipments"
+                                : selectedType === "MAGIC_ITEM"
+                                ? "History - Showing Magic Items"
+                                : "History - Showing All"}
+                        </MainHeading>
                         <HistoryGrid>
                             {filteredHistoryList.map((history, index) => (
                                 <HistoryLink
