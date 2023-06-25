@@ -270,6 +270,16 @@ export default function MonsterForm({ monster, id, token }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!name) {
+            alert('Please fill the "name".');
+            return;
+        }
+
+        if (!armorClassType ) {
+            alert('Please fill the "armor class type".');
+            return;
+        }
+
         const monsterData = {
             index: name.toLowerCase(),
             name: name,

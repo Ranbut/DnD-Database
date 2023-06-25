@@ -57,6 +57,16 @@ export default function SpellForm({ spell, id, token }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!name) {
+            alert('Please fill the "name".');
+            return;
+        }
+
+        if (componentMaterial && !componentMaterialDesc) {
+            alert('Please fill the "description of the material".');
+            return;
+        }
+
         function getComponents(componentVerbal, componentSomatic, componentMaterial) {
             const components = [];
 
