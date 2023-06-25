@@ -4,7 +4,7 @@ import { createSpell, editSpell } from "../../services/spellsApi";
 import { useNavigate } from "react-router-dom";
 
 export default function SpellForm({ spell, id, token }) {
-    const [name, setName] = useState('');
+    const [name, setName] = useState('My New Spell');
     const [level, setLevel] = useState(0);
     const [school, setSchool] = useState('Abjuration');
     const [castingTime, setCastingTime] = useState(0);
