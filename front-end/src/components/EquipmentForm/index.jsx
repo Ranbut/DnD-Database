@@ -99,6 +99,11 @@ export default function EquipmentForm({ equipment, id, token }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!name) {
+            alert('Please fill the "name".');
+            return;
+        }
+
         let equipmentData = {
             index: name.toLowerCase(),
             name: name,
@@ -111,8 +116,8 @@ export default function EquipmentForm({ equipment, id, token }) {
             desc: [description],
         }
 
-        if (equipmentCategory === "Weapon") equipmentData = { ...equipmentData, ...weaponObject };
-        if (equipmentCategory === "Armor") equipmentData = { ...equipmentData, ...armorObject };
+        if (equipmentCategory === "Weapon") equipmentData = { ...equipmentData.equipment, ...weaponObject };
+        if (equipmentCategory === "Armor") equipmentData = { ...equipmentData.equipment, ...armorObject };
 
         if (!equipment) {
             await createEquipment(equipmentData, token);

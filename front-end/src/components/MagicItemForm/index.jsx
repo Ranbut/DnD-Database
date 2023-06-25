@@ -27,6 +27,16 @@ export default function MagicItemForm({ magicItem, id, token }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!name) {
+            alert('Please fill the "name".');
+            return;
+        }
+
+        if(!description){
+            alert('Please fill the "description".');
+            return;
+        }
+
         const magicItemData = {
             index: name.toLowerCase(),
             name: name,
