@@ -22,6 +22,13 @@ export default function Homebrew() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const paramCategory = queryParams.get('category');
+
+        if(paramCategory){
+            setSelectedCategory(paramCategory);
+        }
+
         document.title = 'My Homebrew - D&D Database';
         if (!token) navigate("/sign-in?return=homebrew");
         async function fetchData() {
@@ -91,13 +98,13 @@ export default function Homebrew() {
     }
 
     async function handleEdit(id) {
-        if (selectedCategory === "Monsters")
+        if (selectedCategory === "monsters")
             navigate(`/homebrew/create-monster?id=${id}`);
-        else if (selectedCategory === "Spells") 
+        else if (selectedCategory === "spells") 
             navigate(`/homebrew/create-spell?id=${id}`);
-        else if (selectedCategory === "Equipments")
+        else if (selectedCategory === "equipments")
             navigate(`/homebrew/create-equipment?id=${id}`);
-        else if (selectedCategory === "Magic Items")
+        else if (selectedCategory === "magic-items")
             navigate(`/homebrew/create-magic-item?id=${id}`);
     }
 
@@ -108,16 +115,16 @@ export default function Homebrew() {
                 <SidebarContainer background={Logo}>
                     <div>
                         <SidebarList>
-                            <SidebarListItem selected={selectedCategory === "Monsters"} onClick={() => setSelectedCategory("Monsters")}>My Monsters <GiSpikedDragonHead /></SidebarListItem>
-                            <SidebarListItem selected={selectedCategory === "Spells"} onClick={() => setSelectedCategory("Spells")}>My Spells <GiMagicPalm /></SidebarListItem>
-                            <SidebarListItem selected={selectedCategory === "Equipments"} onClick={() => setSelectedCategory("Equipments")}>My Equipments <GiAxeSword /></SidebarListItem>
-                            <SidebarListItem selected={selectedCategory === "Magic Items"} onClick={() => setSelectedCategory("Magic Items")}>My Magic Items <GiMagicAxe /></SidebarListItem>
+                            <SidebarListItem selected={selectedCategory === "monsters"} onClick={() => setSelectedCategory("monsters")}>My Monsters <GiSpikedDragonHead /></SidebarListItem>
+                            <SidebarListItem selected={selectedCategory === "spells"} onClick={() => setSelectedCategory("spells")}>My Spells <GiMagicPalm /></SidebarListItem>
+                            <SidebarListItem selected={selectedCategory === "equipments"} onClick={() => setSelectedCategory("equipments")}>My Equipments <GiAxeSword /></SidebarListItem>
+                            <SidebarListItem selected={selectedCategory === "magic-items"} onClick={() => setSelectedCategory("magic-items")}>My Magic Items <GiMagicAxe /></SidebarListItem>
                         </SidebarList>
                     </div>
                 </SidebarContainer>
                 <Content>
                     <ItemContainer>
-                        {selectedCategory === "Monsters" ? (
+                        {selectedCategory === "monsters" ? (
                             <>
                                 <Heading>
                                     <MainHeading>My Monsters</MainHeading>
@@ -139,7 +146,7 @@ export default function Homebrew() {
                                     ))}
                                 </ItemGrid>
                             </>
-                        ) : selectedCategory === "Spells" ?
+                        ) : selectedCategory === "spells" ?
                             (
                                 <>
                                     <Heading>
@@ -162,7 +169,7 @@ export default function Homebrew() {
                                         ))}
                                     </ItemGrid>
                                 </>
-                            ) : selectedCategory === "Equipments" ?
+                            ) : selectedCategory === "equipments" ?
                                 (
                                     <>
                                         <Heading>
@@ -185,7 +192,7 @@ export default function Homebrew() {
                                             ))}
                                         </ItemGrid>
                                     </>
-                                ) : selectedCategory === "Magic Items" ?
+                                ) : selectedCategory === "magic-items" ?
                                     (
                                         <>
                                             <Heading>

@@ -24,10 +24,10 @@ export default function Home() {
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
-                    <CompendiumLink to="/">
-                        <CompendiumContainer image='https://i.imgur.com/tqB1mDB.jpg'>
+                    <CompendiumLink to="/spells">
+                        <CompendiumContainer image='https://i.imgur.com/Lul2jjJ.jpg'>
                             <CompendiumContent>
-                                <CompendiumText>Class <GiBlackKnightHelm size='40' color='#fff' opacity='.8' /></CompendiumText>
+                                <CompendiumText>Spells <GiMagicPalm size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
@@ -38,10 +38,10 @@ export default function Home() {
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
-                    <CompendiumLink to="/spells">
-                        <CompendiumContainer image='https://i.imgur.com/Lul2jjJ.jpg'>
+                    <CompendiumLink to="/">
+                        <CompendiumContainer image='https://i.imgur.com/tqB1mDB.jpg'>
                             <CompendiumContent>
-                                <CompendiumText>Spells <GiMagicPalm size='40' color='#fff' opacity='.8' /></CompendiumText>
+                                <CompendiumText>Classes <GiBlackKnightHelm size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
@@ -49,31 +49,31 @@ export default function Home() {
                 <CompendiumBorder />
                 <CompendiumLabel>My Homebrew</CompendiumLabel>
                 <CompendiumList>
-                    <CompendiumLink to="/homebrew">
-                        <CompendiumContainer image='https://i.imgur.com/k7tiOS7.jpg'>
+                    <CompendiumLink to="/homebrew?category=monsters">
+                        <CompendiumContainer image='https://i.imgur.com/aMY29eo.jpgC'>
                             <CompendiumContent>
                                 <CompendiumText>My Monsters <GiSpikedDragonHead size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
-                    <CompendiumLink to="/homebrew">
-                        <CompendiumContainer image='https://i.imgur.com/tqB1mDB.jpg'>
+                    <CompendiumLink to="/homebrew?category=spells">
+                        <CompendiumContainer image='https://i.imgur.com/CMgcO3K.jpg'>
                             <CompendiumContent>
-                                <CompendiumText>My Characters <GiBlackKnightHelm size='40' color='#fff' opacity='.8' /></CompendiumText>
+                                <CompendiumText>My Spells <GiMagicPalm size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
-                    <CompendiumLink to="/homebrew">
-                        <CompendiumContainer image='https://i.imgur.com/RfratMD.jpg'>
+                    <CompendiumLink to="/homebrew?category=equipments">
+                        <CompendiumContainer image='https://i.imgur.com/fRSklcj.jpg'>
                             <CompendiumContent>
                                 <CompendiumText>My Equipments <GiAxeSword size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>
-                    <CompendiumLink to="/homebrew">
-                        <CompendiumContainer image='https://i.imgur.com/Lul2jjJ.jpg'>
+                    <CompendiumLink to="/homebrew?category=magic-items">
+                        <CompendiumContainer image='https://i.imgur.com/EZfP73A.jpg'>
                             <CompendiumContent>
-                                <CompendiumText>My Spells <GiMagicPalm size='40' color='#fff' opacity='.8' /></CompendiumText>
+                                <CompendiumText>My Magic Items <GiBlackKnightHelm size='40' color='#fff' opacity='.8' /></CompendiumText>
                             </CompendiumContent>
                         </CompendiumContainer>
                     </CompendiumLink>

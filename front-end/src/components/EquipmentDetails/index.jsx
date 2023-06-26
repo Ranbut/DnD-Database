@@ -44,7 +44,9 @@ export default function EquipmentDetails({ equipment }) {
         <MainContainer>
             <MainDetailContainer>
                 <EquipmentName>{equipment.name}
-                {!bookmarked ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) : (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>)}
+                {!bookmarked && token ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) 
+                : bookmarked && token ? (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>) 
+                : (<></>)}
                 </EquipmentName>
                 <Details>
                     <div>Type: <strong>{equipment.equipment_category.name}</strong></div>
