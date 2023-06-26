@@ -89,7 +89,9 @@ async function handleBookmark() {
     <MainContainer>
       <MainDetailContainer>
         <MagicItemName>{magicItem.name}
-        {!bookmarked ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) : (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>)}
+        {!bookmarked && token ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) 
+        : bookmarked && token ? (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>) 
+        : (<></>)}
         </MagicItemName>
         <Details>
           <div>Type: <strong>{magicItem.equipment_category.name}</strong></div>

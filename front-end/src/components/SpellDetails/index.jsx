@@ -40,7 +40,9 @@ async function handleBookmark() {
     <MainContainer>
       <MainDetailContainer>
         <SpellName>{spell.name}
-        {!bookmarked ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) : (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>)}
+        {!bookmarked && token ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) 
+        : bookmarked && token ? (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>) 
+        : (<></>)}
         </SpellName>
         <LabelHeader>Characteristic</LabelHeader>
         <BlockContainer>

@@ -178,7 +178,9 @@ export default function MonsterDetails({ monster }) {
                     <div>
                         <StyledName>
                             {monster.name}
-                            {!bookmarked ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) : (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>)}
+                            {!bookmarked && token ? (<ButtontBookmark title="Add Bookmark" onClick={handleBookmark}><BsFillBookmarkPlusFill /></ButtontBookmark>) 
+                            : bookmarked && token ? (<ButtontBookmark title="Remove Bookmark" onClick={handleBookmark}><BsFillBookmarkDashFill /></ButtontBookmark>) 
+                            : (<></>)}
                         </StyledName>
                         <StyledMeta>{renderMonsterMeta(monster)}</StyledMeta>
                     </div>
