@@ -5,11 +5,7 @@ export const MainContainer = styled.div`
   font-family: Roboto, Helvetica, sans-serif;
 `;
 
-export const MonsterImage = styled.img`
-  width: 100px;
-`;
-
-export const MonsterHeading = styled.div`
+export const SpellHeading = styled.div`
   font-size: 36px;
   border-color: #704cd9;
   border-bottom: 3px solid #704cd9;
@@ -103,8 +99,6 @@ export const ItemTextArea = styled.textarea`
   box-shadow: inset 0 0 4px 0 rgba(139, 178, 199, 0.48);
   border-radius: 0;
   font-size: 15px;
-  width: 60%;
-  resize: none;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -124,29 +118,6 @@ export const CreateButton = styled.button`
   border: 1px solid #d8dde3;
   box-shadow: inset 0 0 4px 0 rgba(139, 178, 199, 0.48);
   border-radius: 0;
-  cursor: pointer;
-
-  @media (max-width: 768px) {
-    max-width: none;
-    min-width: none;
-    width: 100%;
-  }
-`;
-
-export const AddButton = styled.button`
-  margin-top: 10px;
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  background: #45cef7;
-  height: 50px;
-  width: 100%;
-  max-width: 300px;
-  min-width: 250px;
-  border: 1px solid #d8dde3;
-  box-shadow: inset 0 0 4px 0 rgba(139, 178, 199, 0.48);
-  border-radius: 0;
-  cursor: pointer;
 
   @media (max-width: 768px) {
     max-width: none;
