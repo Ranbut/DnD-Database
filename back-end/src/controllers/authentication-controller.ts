@@ -10,7 +10,6 @@ export async function singInPost(req: Request, res: Response, next: NextFunction
 
     return res.status(httpStatus.OK).send(result);
   } catch (error) {
-    console.log(error)
     next(error);
   }
 }

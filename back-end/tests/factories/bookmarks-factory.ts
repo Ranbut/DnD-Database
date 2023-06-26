@@ -1,6 +1,6 @@
 import faker from '@faker-js/faker';
 import { Bookmark, TypeInfo } from '@prisma/client';
-import { prisma } from '@/config';
+import { prisma } from '../../src/config';
 
 
 export async function createBookmark(userId: number, name?: string, type?: TypeInfo): Promise<Bookmark> {

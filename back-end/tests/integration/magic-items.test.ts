@@ -3,7 +3,7 @@ import httpStatus from 'http-status';
 import * as jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import { cleanDb, generateValidToken } from '../helpers';
-import app, { init } from '@/app';
+import app, { init } from '../../src/app';
 import { createMagicItems, createUser } from '../factories';
 
 beforeAll(async () => {
@@ -160,7 +160,9 @@ describe('POST /magic-items', () => {
                 name: "Mithral Armor",
                 equipment_category: { name: "Armor" },
                 rarity: { name: "Uncommon" },
-                variant: false
+                variant: false,
+                desc: "Description",
+                variants: "optional"
             };
 
             const response = await server.post('/magic-items').set('Authorization', `Bearer ${token}`).send(magicItemBody);
@@ -211,7 +213,9 @@ describe('PUT /magic-items/:id', () => {
                 name: "Mithral Armor",
                 equipment_category: { name: "Armor" },
                 rarity: { name: "Uncommon" },
-                variant: false
+                variant: false,
+                desc: "Description",
+                variants: "optional"
             };
 
             const response = await server.put("/magic-items/1").set('Authorization', `Bearer ${token}`).send(magicItemBody);
@@ -229,7 +233,9 @@ describe('PUT /magic-items/:id', () => {
                 name: "Mithral Armor",
                 equipment_category: { name: "Armor" },
                 rarity: { name: "Uncommon" },
-                variant: false
+                variant: false,
+                desc: "Description",
+                variants: "optional"
             };
 
             const response = await server.put(`/magic-items/${magicItem.id}`).set('Authorization', `Bearer ${token}`).send(magicItemBody);

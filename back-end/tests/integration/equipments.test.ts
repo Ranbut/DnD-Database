@@ -3,7 +3,7 @@ import httpStatus from 'http-status';
 import * as jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import { cleanDb, generateValidToken } from '../helpers';
-import app, { init } from '@/app';
+import app, { init } from '../../src/app';
 import { createEquipment, createUser } from '../factories';
 
 beforeAll(async () => {
@@ -160,7 +160,11 @@ describe('POST /equipments', () => {
                 name: "Club",
                 cost: { quantity: 1, unit: "sp" },
                 weight: 2,
-                equipment_category: { name: "Weapon" }
+                equipment_category: { name: "Weapon" },
+                special: "optional",
+                contents: "optional",
+                properties: "optional",
+                desc: "optional",
             };
 
             const response = await server.post('/equipments').set('Authorization', `Bearer ${token}`).send(equipmentBody);
@@ -211,7 +215,11 @@ describe('PUT /equipments/:id', () => {
                 name: "Club",
                 cost: { quantity: 1, unit: "sp" },
                 weight: 2,
-                equipment_category: { name: "Weapon" }
+                equipment_category: { name: "Weapon" },
+                special: "optional",
+                contents: "optional",
+                properties: "optional",
+                desc: "optional",
             };
 
             const response = await server.put("/equipments/1").set('Authorization', `Bearer ${token}`).send(equipmentBody);
@@ -229,7 +237,11 @@ describe('PUT /equipments/:id', () => {
                 name: "Club",
                 cost: { quantity: 1, unit: "sp" },
                 weight: 2,
-                equipment_category: { name: "Weapon" }
+                equipment_category: { name: "Weapon" },
+                special: "optional",
+                contents: "optional",
+                properties: "optional",
+                desc: "optional",
             };
 
             const response = await server.put(`/equipments/${equipment.id}`).set('Authorization', `Bearer ${token}`).send(equipmentBody);

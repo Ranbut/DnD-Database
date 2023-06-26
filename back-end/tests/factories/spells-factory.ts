@@ -1,6 +1,6 @@
 import faker from '@faker-js/faker';
 import { Spell } from '@prisma/client';
-import { prisma } from '@/config';
+import { prisma } from '../../src/config';
 
 
 export async function createSpell(userId: number): Promise<Spell> {

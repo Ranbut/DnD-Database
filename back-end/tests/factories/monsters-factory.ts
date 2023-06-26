@@ -1,6 +1,6 @@
 import faker from '@faker-js/faker';
 import { Monster } from '@prisma/client';
-import { prisma } from '@/config';
+import { prisma } from '../../src/config';
 
 
 export async function createMonster(userId: number): Promise<Monster> {

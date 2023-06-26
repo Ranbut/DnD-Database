@@ -1,6 +1,6 @@
 import faker from '@faker-js/faker';
 import { History, TypeInfo } from '@prisma/client';
-import { prisma } from '@/config';
+import { prisma } from '../../src/config';
 
 
 export async function createHistory(userId: number, name?: string, type?: TypeInfo): Promise<History> {

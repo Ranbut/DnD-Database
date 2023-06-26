@@ -3,7 +3,7 @@ import httpStatus from 'http-status';
 import * as jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import { cleanDb, generateValidToken } from '../helpers';
-import app, { init } from '@/app';
+import app, { init } from '../../src/app';
 import { createSpell, createUser } from '../factories';
 
 beforeAll(async () => {
@@ -165,7 +165,14 @@ describe('POST /spells', () => {
                 level: 3,
                 school: {
                     name: "Evocation",
-                }
+                },
+                classes: "optional",
+                desc: "optional",
+                components: "optional",
+                material: "optional",
+                higher_level: "optional",
+                dc: "optional",
+                damage_type: "optional",
             };
 
             const response = await server.post('/spells').set('Authorization', `Bearer ${token}`).send(spellBody);
@@ -221,7 +228,14 @@ describe('PUT /spells/:id', () => {
                 level: 3,
                 school: {
                     name: "Evocation",
-                }
+                },
+                classes: "optional",
+                desc: "optional",
+                components: "optional",
+                material: "optional",
+                higher_level: "optional",
+                dc: "optional",
+                damage_type: "optional",
             };
 
             const response = await server.put("/spells/1").set('Authorization', `Bearer ${token}`).send(spellBody);
@@ -244,7 +258,14 @@ describe('PUT /spells/:id', () => {
                 level: 3,
                 school: {
                     name: "Evocation",
-                }
+                },
+                classes: "optional",
+                desc: "optional",
+                components: "optional",
+                material: "optional",
+                higher_level: "optional",
+                dc: "optional",
+                damage_type: "optional",
             };
 
             const response = await server.put(`/spells/${spell.id}`).set('Authorization', `Bearer ${token}`).send(spellBody);

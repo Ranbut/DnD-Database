@@ -3,7 +3,7 @@ import httpStatus from 'http-status';
 import * as jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import { cleanDb, generateValidToken } from '../helpers';
-import app, { init } from '@/app';
+import app, { init } from '../../src/app';
 import { createMonster, createUser } from '../factories';
 
 beforeAll(async () => {
@@ -172,6 +172,18 @@ describe('POST /monsters', () => {
                 type: "Humanoid",
                 size: "Medium",
                 xp: 120,
+                armor_class: "natural armor",
+                actions: "optional",
+                legendary_actions: "optional",
+                damage_vulnerabilities: "optional",
+                proficiencies: "optional",
+                damage_resistances: "optional",
+                damage_immunities: "optional",
+                condition_immunities: "optional",
+                special_abilities: "optional",
+                languages: "optional",
+                senses: "optional",
+                speed: "optional",
             };
 
             const response = await server.post('/monsters').set('Authorization', `Bearer ${token}`).send(monsterBody);
@@ -234,6 +246,18 @@ describe('PUT /monsters/:id', () => {
                 type: "Humanoid",
                 size: "Medium",
                 xp: 120,
+                armor_class: "natural armor",
+                actions: "optional",
+                legendary_actions: "optional",
+                damage_vulnerabilities: "optional",
+                proficiencies: "optional",
+                damage_resistances: "optional",
+                damage_immunities: "optional",
+                condition_immunities: "optional",
+                special_abilities: "optional",
+                languages: "optional",
+                senses: "optional",
+                speed: "optional",
             };
 
             const response = await server.put("/monsters/1").set('Authorization', `Bearer ${token}`).send(monsterBody);
@@ -263,6 +287,18 @@ describe('PUT /monsters/:id', () => {
                 type: "Humanoid",
                 size: "Medium",
                 xp: 120,
+                armor_class: "natural armor",
+                actions: "optional",
+                legendary_actions: "optional",
+                damage_vulnerabilities: "optional",
+                proficiencies: "optional",
+                damage_resistances: "optional",
+                damage_immunities: "optional",
+                condition_immunities: "optional",
+                special_abilities: "optional",
+                languages: "optional",
+                senses: "optional",
+                speed: "optional",
             };
 
             const response = await server.put(`/monsters/${monster.id}`).set('Authorization', `Bearer ${token}`).send(monsterBody);

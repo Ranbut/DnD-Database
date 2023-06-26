@@ -1,6 +1,6 @@
 import faker from '@faker-js/faker';
 import { MagicItem } from '@prisma/client';
-import { prisma } from '@/config';
+import { prisma } from '../../src/config';
 
 
 export async function createMagicItems(userId: number): Promise<MagicItem> {
