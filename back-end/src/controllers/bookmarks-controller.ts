@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import bookmarksService from '@/services/bookmarks-service';
-import { AuthenticatedRequest } from '@/middlewares';
+import bookmarksService from '../services/bookmarks-service';
+import { AuthenticatedRequest } from '../middlewares';
 
 export async function getBookmark(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;

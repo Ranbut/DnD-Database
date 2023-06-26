@@ -1,6 +1,6 @@
-import { notFoundError } from '@/errors';
-import { CreateEquipmentParams } from '@/protocols';
-import equipmentsRepository from '@/repositories/equipments-repository';
+import { notFoundError } from '../../errors';
+import { CreateEquipmentParams } from '../../protocols';
+import equipmentsRepository from '../../repositories/equipments-repository';
 
 export async function getEquipment(userId: number, equipmentId: number) {
   const equipment = await equipmentsRepository.getEquipment(userId, equipmentId);

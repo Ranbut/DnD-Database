@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { prisma } from '@/config';
+import { prisma } from '../../config';
 
 export async function getEquipment(userId: number, id: number) {
     return await prisma.equipment.findFirst({

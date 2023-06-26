@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { prisma } from '@/config';
+import { prisma } from '../../config';
 
 export async function getHistory(index: string) {
     return await prisma.history.findFirst({

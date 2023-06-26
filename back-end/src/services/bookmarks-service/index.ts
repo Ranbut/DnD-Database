@@ -1,6 +1,6 @@
-import { notFoundError, cannotBookmarkError } from '@/errors';
-import { BookmarkType, CreateBookmarkParams } from '@/protocols';
-import bookmarksRepository from '@/repositories/bookmarks-repository';
+import { notFoundError, cannotBookmarkError } from '../../errors';
+import { BookmarkType, CreateBookmarkParams } from '../../protocols';
+import bookmarksRepository from '../../repositories/bookmarks-repository';
 
 export async function getBookmark(userId: number, index: string) {
     const bookmark = await bookmarksRepository.getBookmark(userId, index);

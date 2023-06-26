@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { getMonster, getAllMonsters, addMonster, editMonster, removeMonster } from '@/controllers';
-import { authenticateToken, validateBody } from '@/middlewares';
-import { createMonsterSchema } from '@/schemas';
+import { getMonster, getAllMonsters, addMonster, editMonster, removeMonster } from '../controllers';
+import { authenticateToken, validateBody } from '../middlewares';
+import { createMonsterSchema } from '../schemas';
 
 const monstersRouter = Router();
 

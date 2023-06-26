@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import magicItemsService from '@/services/magic-items-service';
-import { AuthenticatedRequest } from '@/middlewares';
+import magicItemsService from '../services/magic-items-service';
+import { AuthenticatedRequest } from '../middlewares';
 
 export async function getMagicItem(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;

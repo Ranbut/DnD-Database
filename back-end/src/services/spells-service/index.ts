@@ -1,6 +1,6 @@
-import { notFoundError } from '@/errors';
-import { CreateSpellParams } from '@/protocols';
-import spellsRepository from '@/repositories/spells-repository';
+import { notFoundError } from '../../errors';
+import { CreateSpellParams } from '../../protocols';
+import spellsRepository from '../../repositories/spells-repository';
 
 export async function getSpell(userId: number, spellId: number) {
   const spell = await spellsRepository.getSpell(userId, spellId);

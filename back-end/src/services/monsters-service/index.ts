@@ -1,6 +1,6 @@
-import { notFoundError } from '@/errors';
-import { CreateMonsterParams } from '@/protocols';
-import monstersRepository from '@/repositories/monsters-repository';
+import { notFoundError } from '../../errors';
+import { CreateMonsterParams } from '../../protocols';
+import monstersRepository from '../../repositories/monsters-repository';
 
 export async function getMonster(userId: number, monsterId: number) {
   const monster = await monstersRepository.getMonster(userId, monsterId);

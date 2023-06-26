@@ -3,9 +3,9 @@ import 'express-async-errors';
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 
-import { loadEnv, connectDb, disconnectDB } from '@/config';
+import { loadEnv, connectDb, disconnectDB } from './config';
 import { usersRouter, authenticationRouter, charactersRouter, monstersRouter,
-   spellsRouter, bookmarksRouter, historyRouter, equipmentsRouter, magicItemsRouter } from '@/routers';
+   spellsRouter, bookmarksRouter, historyRouter, equipmentsRouter, magicItemsRouter } from './routers';
 import { handleApplicationErrors } from './middlewares';
 
 loadEnv();

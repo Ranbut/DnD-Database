@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { getAllEquipments, getEquipment, addEquipment, editEquipment, removeEquipment } from '@/controllers';
-import { authenticateToken, validateBody } from '@/middlewares';
-import { createEquipmentSchema } from '@/schemas';
+import { getAllEquipments, getEquipment, addEquipment, editEquipment, removeEquipment } from '../controllers';
+import { authenticateToken, validateBody } from '../middlewares';
+import { createEquipmentSchema } from '../schemas';
 
 const equipmentsRouter = Router();
 

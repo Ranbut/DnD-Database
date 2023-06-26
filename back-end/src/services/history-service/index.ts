@@ -1,5 +1,5 @@
-import { CreateHistoryParams } from '@/protocols';
-import historyRepository from '@/repositories/history-repository';
+import { CreateHistoryParams } from '../../protocols';
+import historyRepository from '../../repositories/history-repository';
 import { TypeInfo } from '@prisma/client';
 
 export async function getAllHistory(userId: number) {

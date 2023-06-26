@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import historyService from '@/services/history-service';
-import { AuthenticatedRequest } from '@/middlewares';
+import historyService from '../services/history-service';
+import { AuthenticatedRequest } from '../middlewares';
 
 export async function getAllHistory(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;

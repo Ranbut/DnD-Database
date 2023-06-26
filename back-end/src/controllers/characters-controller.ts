@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import charactersService from '@/services/characters-service';
-import { AuthenticatedRequest } from '@/middlewares';
+import charactersService from '../services/characters-service';
+import { AuthenticatedRequest } from '../middlewares';
 
 export async function createCharacter(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;

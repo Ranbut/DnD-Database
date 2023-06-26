@@ -1,5 +1,5 @@
-import { Prisma, TypeInfo } from '@prisma/client';
-import { prisma } from '@/config';
+import { Prisma } from '@prisma/client';
+import { prisma } from '../../config';
 
 export async function getBookmark(userId: number, index: string) {
     return await prisma.bookmark.findFirst({

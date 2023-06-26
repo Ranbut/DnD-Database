@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { duplicatedEmailError, duplicatedUsernameError } from './errors';
-import userRepository from '@/repositories/user-repository';
+import userRepository from '../../repositories/user-repository';
 
 export async function createUser({ username, email, password }: CreateUserParams): Promise<User> {
   await validateUniqueEmailOrFail(email);

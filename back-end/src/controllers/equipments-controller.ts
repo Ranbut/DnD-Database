@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import equipmentsService from '@/services/equipments-service';
-import { AuthenticatedRequest } from '@/middlewares';
+import equipmentsService from '../services/equipments-service';
+import { AuthenticatedRequest } from '../middlewares';
 
 export async function getEquipment(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;

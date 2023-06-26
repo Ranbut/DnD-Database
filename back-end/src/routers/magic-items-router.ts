@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { getMagicItem, getAllMagicItems, addMagicItem, editMagicItem, removeMagicItem } from '@/controllers';
-import { authenticateToken, validateBody } from '@/middlewares';
-import { createMagicItemSchema } from '@/schemas';
+import { getMagicItem, getAllMagicItems, addMagicItem, editMagicItem, removeMagicItem } from '../controllers';
+import { authenticateToken, validateBody } from '../middlewares';
+import { createMagicItemSchema } from '../schemas';
 
 const magicItemsRouter = Router();
 

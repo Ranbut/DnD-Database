@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { getAllHistory, deleteAllHistory, addHistory } from '@/controllers';
-import { authenticateToken, validateBody } from '@/middlewares';
-import { historySchema } from '@/schemas/';
+import { getAllHistory, deleteAllHistory, addHistory } from '../controllers';
+import { authenticateToken, validateBody } from '../middlewares';
+import { historySchema } from '../schemas/';
 
 const historyRouter = Router();
 

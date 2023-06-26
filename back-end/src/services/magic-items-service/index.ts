@@ -1,6 +1,6 @@
-import { notFoundError } from '@/errors';
-import { CreateMagicItemParams } from '@/protocols';
-import magicItemsRepository from '@/repositories/magic-items-repository';
+import { notFoundError } from '../../errors';
+import { CreateMagicItemParams } from '../../protocols';
+import magicItemsRepository from '../../repositories/magic-items-repository';
 
 export async function getMagicItem(userId: number, magicItemId: number) {
   const magicItem = await magicItemsRepository.getMagicItem(userId, magicItemId);

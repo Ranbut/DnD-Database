@@ -1,5 +1,5 @@
-import { CreateCharacterParams } from '@/protocols';
-import charactersRepository from '@/repositories/characters-repository';
+import { CreateCharacterParams } from '../../protocols';
+import charactersRepository from '../../repositories/characters-repository';
 
 async function createCharacter(userId: number, characterBody: any) {
 

@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import spellsService from '@/services/spells-service';
-import { AuthenticatedRequest } from '@/middlewares';
+import spellsService from '../services/spells-service';
+import { AuthenticatedRequest } from '../middlewares';
 
 export async function getSpell(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
