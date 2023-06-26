@@ -14,6 +14,7 @@ jobs:
           envkey_POSTGRES_PASSWORD: "postgres"
           envkey_POSTGRES_DB: "dnd"
           envkey_DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/dnd"
+          envkey_JWT_SECRET: "4d8f41babd23e83e17741a4a1c9bb8eb"
           directory: back-end
           file_name: .env.test
       - name: Run tests
