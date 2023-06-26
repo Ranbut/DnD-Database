@@ -46,9 +46,9 @@ export default function CharacterForm({ token }) {
         try {
             await createCharacter(characterData, token);
             alert('Character created successfully!');
-          } catch (error) {
+        } catch (error) {
             alert('Unable to create character!');
-          }
+        }
     };
 
     return (
