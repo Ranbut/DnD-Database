@@ -17,7 +17,7 @@ export default function Homebrew() {
     const [spellList, setSpellList] = useState([]);
     const [equipmentList, setEquipmentList] = useState([]);
     const [magicItemList, setMagicItemsList] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState("Monsters");
+    const [selectedCategory, setSelectedCategory] = useState("monsters");
 
     const token = useToken();
     const navigate = useNavigate();
@@ -46,7 +46,7 @@ export default function Homebrew() {
     }, []);
 
     async function handleDelete(id) {
-        if (selectedCategory === "Monsters") {
+        if (selectedCategory === "monsters") {
             if (confirm("Do you want to delete this Monster?")) {
                 await deleteMonster(id, token);
                 try {
@@ -58,7 +58,7 @@ export default function Homebrew() {
                 }
             }
         }
-        else if (selectedCategory === "Spells") {
+        else if (selectedCategory === "spells") {
             if (confirm("Do you want to delete this Spell?")) {
                 await deleteSpell(id, token);
                 try {
@@ -71,7 +71,7 @@ export default function Homebrew() {
             }
         }
 
-        else if (selectedCategory === "Equipments") {
+        else if (selectedCategory === "equipments") {
             if (confirm("Do you want to delete this Equipment?")) {
                 await deleteEquipment(id, token);
                 try {
@@ -84,7 +84,7 @@ export default function Homebrew() {
             }
         }
 
-        else if (selectedCategory === "Magic Items") {
+        else if (selectedCategory === "magic-items") {
             if (confirm("Do you want to delete this Magic Item?")) {
                 await deleteMagicItem(id, token);
                 try {
