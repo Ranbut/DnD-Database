@@ -2,14 +2,17 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Footer() {
-
-return (
-  <FooterWrapper>
-    <Container>
-      Disclaimer: This website is not affiliated with&nbsp;<StyledLink to={"https://company.wizards.com/en"}>Wizards of the Coast</StyledLink>&nbsp;or its parent company. Dungeons & Dragons and all related properties are trademarks of&nbsp;<StyledLink to={"https://company.wizards.com/en"}>Wizards of the Coast</StyledLink>.
-    </Container>
-  </FooterWrapper>
-);
+  return (
+    <FooterWrapper>
+      <Container>
+        <Disclaimer>
+          Disclaimer: This website is not affiliated with&nbsp;
+          <StyledLink to={"https://company.wizards.com/en"}>Wizards of the Coast</StyledLink>&nbsp;or its parent company. Dungeons & Dragons and all related properties are trademarks of&nbsp;
+          <StyledLink to={"https://company.wizards.com/en"}>Wizards of the Coast</StyledLink>.
+        </Disclaimer>
+      </Container>
+    </FooterWrapper>
+  );
 }
 
 const FooterWrapper = styled.footer`
@@ -22,10 +25,13 @@ const FooterWrapper = styled.footer`
 const Container = styled.div`
   color: #fff;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  max-width: 100%;
-  margin: 0 auto;
+  text-align: center;
+`;
+
+const Disclaimer = styled.p`
+  margin-bottom: 10px;
 `;
 
 const StyledLink = styled(Link)`
