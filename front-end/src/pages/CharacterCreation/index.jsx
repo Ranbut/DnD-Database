@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import useToken from "../../hooks/useToken";
 import CharacterForm from "../../components/CharacterForm";
+import Footer from '../../components/Footer';
 
 export default function CharacterCreation() {
     const token = useToken();
@@ -18,6 +19,7 @@ export default function CharacterCreation() {
         <>
             <Header />
             <CharacterForm token={token}/>
+            <Footer/>
         </>
     );
 };

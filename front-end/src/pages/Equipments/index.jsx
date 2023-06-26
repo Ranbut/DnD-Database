@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Header from "../../components/Header";
 import styled from "styled-components";
 import { getEquipmentsByCategory, getEquipmentsCategories } from "../../services/DnDAPI/equipmentApi";
+import Footer from '../../components/Footer';
 
 export default function Equipments() {
     const [equipmentsCategoriesList, setEquipmentsCategoriesList] = useState([]);
@@ -99,6 +100,7 @@ export default function Equipments() {
               </>
             )}
           </Container>
+          <Footer/>
         </>
       );      
 };

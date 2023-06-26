@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import { getMonsterById } from "../../services/monstersApi";
 import useToken from "../../hooks/useToken";
 import MonsterDetails from "../../components/MonsterDetails";
+import Footer from '../../components/Footer';
 
 export default function HomebrewMonster() {
     const [monster, setMonster] = useState(null);
@@ -28,6 +29,7 @@ export default function HomebrewMonster() {
         <>
             <Header />
             {monster ? (<MonsterDetails monster={monster}/>) : (<></>)}
+            <Footer/>
         </>
     );
 };

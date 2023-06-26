@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import useToken from "../../hooks/useToken";
 import MagicItemForm from "../../components/MagicItemForm";
 import { getMagicItemById } from "../../services/magicItemApi";
+import Footer from '../../components/Footer';
 
 export default function MagicItemCreation() {
     const [magicItem, setMagicItem] = useState(null);
@@ -32,6 +33,7 @@ export default function MagicItemCreation() {
         <>
             <Header />
             <MagicItemForm magicItem={magicItem} id={magicItemId} token={token}/>
+            <Footer/>
         </>
     );
 };

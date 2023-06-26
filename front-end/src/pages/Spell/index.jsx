@@ -5,6 +5,7 @@ import { getSpellByIndex } from "../../services/DnDAPI/spellsApi";
 import SpellDetails from "../../components/SpellDetails";
 import useToken from "../../hooks/useToken";
 import { addHistory } from "../../services/historyApi";
+import Footer from '../../components/Footer';
 
 export default function Spell() {
     const [spell, setSpell] = useState(null);
@@ -36,6 +37,7 @@ export default function Spell() {
         <>
             <Header />
             {spell ? (<SpellDetails spell={spell}/>) : (<></>)}
+            <Footer/>
         </>
     );
 };

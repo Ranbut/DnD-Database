@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import styled from "styled-components";
 import { getMonsters } from "../../services/DnDAPI/monstersApi";
 import Logo from "../../assets/images/dnd.svg"
+import Footer from '../../components/Footer';
 
 export default function Monsters() {
   const [monstersList, setMonstersList] = useState([]);
@@ -105,6 +106,7 @@ export default function Monsters() {
           </MonstersContainer>
         </Content>
       </Container>
+      <Footer/>
     </>
   );
 }

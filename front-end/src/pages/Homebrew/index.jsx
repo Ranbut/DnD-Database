@@ -10,6 +10,7 @@ import { getAllMonster, deleteMonster } from "../../services/monstersApi";
 import { getAllSpells, deleteSpell } from "../../services/spellsApi";
 import { getAllEquipments, deleteEquipment } from "../../services/equipmentApi";
 import { getAllMagicItems, deleteMagicItem } from "../../services/magicItemApi";
+import Footer from '../../components/Footer';
 
 export default function Homebrew() {
     const [monsterList, setMonsterList] = useState([]);
@@ -219,6 +220,7 @@ export default function Homebrew() {
                     </ItemContainer>
                 </Content>
             </Container>
+            <Footer/>
         </>
     );
 };

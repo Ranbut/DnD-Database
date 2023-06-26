@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import { getEquipmentById } from "../../services/equipmentApi";
 import EquipmentDetails from "../../components/EquipmentDetails";
 import useToken from "../../hooks/useToken";
+import Footer from '../../components/Footer';
 
 export default function HomebrewEquipment() {
     const [equipment, setEquipment] = useState(null);
@@ -28,6 +29,7 @@ export default function HomebrewEquipment() {
         <>
             <Header />
             {equipment ? (<EquipmentDetails equipment={equipment}/>) : (<></>)}
+            <Footer/>
         </>
     );
 };

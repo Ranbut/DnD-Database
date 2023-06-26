@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import styled from "styled-components";
 import { getSpells } from "../../services/DnDAPI/spellsApi";
 import Logo from "../../assets/images/dnd.svg"
+import Footer from '../../components/Footer';
 
 export default function Spells() {
   const [spellsList, setSpellsList] = useState([]);
@@ -105,6 +106,7 @@ export default function Spells() {
           </SpellsContainer>
         </Content>
       </Container>
+      <Footer/>
     </>
   );
 }

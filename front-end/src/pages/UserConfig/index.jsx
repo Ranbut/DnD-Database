@@ -5,6 +5,7 @@ import useUser from "../../hooks/useUser.jsx";
 import { updateAvatar } from "../../services/userApi.jsx";
 import Header from "../../components/Header/index.jsx";
 import UserContext from "../../contexts/UserContext.jsx";
+import Footer from '../../components/Footer';
 
 export default function SignUp() {
     const [avatar, setAvatar] = useState('');
@@ -14,7 +15,7 @@ export default function SignUp() {
     const token = useToken();
     const user = useUser();
 
-    const { userData, setUserData } = useContext(UserContext); // Access userData and setUserData from UserContext
+    const { userData, setUserData } = useContext(UserContext);
 
     useEffect(() => {
         document.title = 'Configurations - D&D Database';
@@ -55,6 +56,7 @@ export default function SignUp() {
             </label>
             <div><button onClick={handleAvatarUpdate}>Update Avatar</button></div>
             </>) : (<></>)}
+            <Footer/>
         </>
     );
 };
