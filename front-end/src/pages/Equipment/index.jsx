@@ -5,6 +5,7 @@ import { getEquipmentByIndex } from "../../services/DnDAPI/equipmentApi";
 import EquipmentDetails from "../../components/EquipmentDetails";
 import { addHistory } from "../../services/historyApi";
 import useToken from "../../hooks/useToken";
+import Footer from '../../components/Footer';
 
 export default function Equipment() {
     const [equipment, setEquipment] = useState(null);
@@ -37,6 +38,7 @@ export default function Equipment() {
         <>
             <Header />
             {equipment ? (<EquipmentDetails equipment={equipment}/>) : (<></>)}
+            <Footer/>
         </>
     );
 };

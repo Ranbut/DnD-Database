@@ -5,6 +5,7 @@ import { getMagicItemByIndex } from "../../services/DnDAPI/equipmentApi";
 import MagicItemDetails from "../../components/MagicItemDetails";
 import { addHistory } from "../../services/historyApi";
 import useToken from "../../hooks/useToken";
+import Footer from '../../components/Footer';
 
 export default function MagicItem() {
     const [magicItem, setMagicItem] = useState(null);
@@ -36,6 +37,7 @@ export default function MagicItem() {
         <>
             <Header />
             {magicItem ? (<MagicItemDetails magicItem={magicItem}/>) : (<></>)}
+            <Footer/>
         </>
     );
 };

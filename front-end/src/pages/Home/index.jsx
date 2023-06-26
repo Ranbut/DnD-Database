@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import styled from "styled-components";
 import { GiSpikedDragonHead, GiBlackKnightHelm, GiAxeSword, GiMagicPalm } from 'react-icons/gi';
 import { useEffect } from 'react';
+import Footer from '../../components/Footer';
 
 export default function Home() {
 
@@ -12,7 +13,7 @@ export default function Home() {
 
     return (
         <>
-            <Header />
+            <Header/>
             <MainContainer>
                 <CompendiumBorder />
                 <CompendiumLabel>Official Material</CompendiumLabel>
@@ -79,6 +80,7 @@ export default function Home() {
                     </CompendiumLink>
                 </CompendiumList>
             </MainContainer>
+            <Footer/>
         </>
     );
 };

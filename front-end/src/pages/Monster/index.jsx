@@ -5,6 +5,7 @@ import { getMonsterByIndex } from "../../services/DnDAPI/monstersApi";
 import { addHistory } from "../../services/historyApi";
 import useToken from "../../hooks/useToken";
 import MonsterDetails from "../../components/MonsterDetails";
+import Footer from '../../components/Footer';
 
 export default function Monster() {
     const [monster, setMonster] = useState(null);
@@ -36,6 +37,7 @@ export default function Monster() {
         <>
             <Header />
             {monster ? (<MonsterDetails monster={monster}/>) : (<></>)}
+            <Footer/>
         </>
     );
 };

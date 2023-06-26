@@ -6,6 +6,7 @@ import { getAllBookmarks } from "../../services/bookmarksApi";
 import styled from "styled-components";
 import Logo from "../../assets/images/dnd.svg"
 import { GiSpikedDragonHead, GiMagicAxe, GiAxeSword, GiMagicPalm } from 'react-icons/gi';
+import Footer from '../../components/Footer';
 
 export default function Bookmarks() {
   const [bookmarkList, setBookmarkList] = useState([]);
@@ -113,6 +114,7 @@ export default function Bookmarks() {
           </BookmarkContainer>
         </Content>
       </Container>
+      <Footer/>
     </>
   );
 }

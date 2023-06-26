@@ -6,6 +6,7 @@ import { getAllHistory, deleteAllHistory } from "../../services/historyApi";
 import styled from "styled-components";
 import Logo from "../../assets/images/dnd.svg"
 import { GiSpikedDragonHead, GiMagicAxe, GiAxeSword, GiMagicPalm } from 'react-icons/gi';
+import Footer from '../../components/Footer';
 
 export default function History() {
     const [historyList, setHistoryList] = useState([]);
@@ -127,6 +128,7 @@ export default function History() {
                     </HistoryContainer>
                 </Content>
             </Container>
+            <Footer/>
         </>
     );
 }

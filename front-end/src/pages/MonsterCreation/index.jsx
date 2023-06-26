@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import MonsterForm from "../../components/MonsterForm";
 import { getMonsterById } from "../../services/monstersApi";
 import useToken from "../../hooks/useToken";
+import Footer from '../../components/Footer';
 
 export default function MonsterCreation() {
     const [monster, setMonster] = useState(null);
@@ -34,6 +35,7 @@ export default function MonsterCreation() {
         <>
             <Header />
             <MonsterForm monster={monster} id={monsterId} token={token}/>
+            <Footer/>
         </>
     );
 };

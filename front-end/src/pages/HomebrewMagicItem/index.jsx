@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import { getMagicItemById } from "../../services/magicItemApi";
 import MagicItemDetails from "../../components/MagicItemDetails";
 import useToken from "../../hooks/useToken";
+import Footer from '../../components/Footer';
 
 export default function HomebrewMagicItem() {
     const [magicItem, setMagicItem] = useState(null);
@@ -28,6 +29,7 @@ export default function HomebrewMagicItem() {
         <>
             <Header />
             {magicItem ? (<MagicItemDetails magicItem={magicItem}/>) : (<></>)}
+            <Footer/>
         </>
     );
 };

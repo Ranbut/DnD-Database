@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import useToken from "../../hooks/useToken";
 import EquipmentForm from "../../components/EquipmentForm";
 import { getEquipmentById } from "../../services/equipmentApi";
+import Footer from '../../components/Footer';
 
 export default function EquipmentCreation() {
     const [equipment, setEquipment] = useState(null);
@@ -33,6 +34,7 @@ export default function EquipmentCreation() {
         <>
             <Header />
             <EquipmentForm equipment={equipment} id={equipmentId} token={token}/>
+            <Footer/>
         </>
     );
 };

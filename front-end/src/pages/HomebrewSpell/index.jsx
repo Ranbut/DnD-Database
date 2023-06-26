@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import { getSpellById } from "../../services/spellsApi";
 import SpellDetails from "../../components/SpellDetails";
 import useToken from "../../hooks/useToken";
+import Footer from '../../components/Footer';
 
 export default function HomebrewSpell() {
     const [spell, setSpell] = useState(null);
@@ -28,6 +29,7 @@ export default function HomebrewSpell() {
         <>
             <Header />
             {spell ? (<SpellDetails spell={spell}/>) : (<></>)}
+            <Footer/>
         </>
     );
 };

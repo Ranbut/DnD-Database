@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import useToken from "../../hooks/useToken";
 import SpellForm from "../../components/SpellForm";
 import { getSpellById } from "../../services/spellsApi";
+import Footer from '../../components/Footer';
 
 export default function SpellCreation() {
     const [spell, setSpell] = useState(null);
@@ -33,6 +34,7 @@ export default function SpellCreation() {
         <>
             <Header />
             <SpellForm spell={spell} id={spellId} token={token}/>
+            <Footer/>
         </>
     );
 };
